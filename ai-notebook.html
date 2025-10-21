@@ -19,49 +19,33 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-        .active-link { color: #ffffff; }
+        #chat-window, #chat-header {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        #chat-window.visible, #chat-header.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="antialiased">
-
-    <!-- Header -->
-    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-800">
+    <!-- Header for the chat view (initially hidden) -->
+    <header id="chat-header" class="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-sm border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center space-x-4">
-                    <a href="index.html" class="text-4xl text-white font-logo">S</a>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex md:items-center md:space-x-8">
-                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
-                    <a href="features.html" class="text-gray-300 hover:text-white transition-colors duration-200">Features</a>
-                    <a href="books.html" class="text-gray-300 hover:text-white transition-colors duration-200">My Library</a>
-                    <a href="ai-notebook.html" class="text-white font-semibold transition-colors duration-200 active-link">AI Notebook</a>
-                    <a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-200">Contact</a>
-                </nav>
-
-                <div class="hidden md:flex items-center space-x-4">
-                     <a href="account-center.html" title="Account" class="p-2 rounded-full text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">
-                        <i data-lucide="user-circle-2" class="w-6 h-6"></i>
+                <a href="index.html" class="text-4xl text-white font-logo">S</a>
+                <div class="flex items-center">
+                    <a href="index.html" title="Home" class="p-2 rounded-full text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-200">
+                        <i data-lucide="home" class="w-6 h-6"></i>
                     </a>
-                    <a href="account-creation.html" class="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-medium text-sm">
-                        Get Started
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
-                        <i data-lucide="menu" class="h-6 w-6"></i>
+                     <button id="mobile-menu-button" class="p-2 rounded-full text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-200 ml-2">
+                        <i data-lucide="menu" class="h-6 h-6"></i>
                     </button>
                 </div>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden">
+         <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-black/90">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                  <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Home</a>
                  <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Features</a>
@@ -73,65 +57,97 @@
         </div>
     </header>
 
-    <main class="pt-16">
-        <!-- AI Notebook Section -->
-        <section id="ai-notebook" class="p-4 md:p-8 h-[calc(100vh-4rem)] flex flex-col justify-between">
-            <div id="chat-window" class="w-full max-w-4xl mx-auto flex-grow overflow-y-auto custom-scrollbar mb-8">
+    <main class="h-screen w-screen flex flex-col pt-16 pb-28">
+        <div id="container" class="w-full max-w-4xl mx-auto flex-grow flex flex-col h-full">
+            
+            <div id="welcome-screen" class="flex flex-col items-center justify-center text-center h-full">
+                <h1 class="text-8xl font-logo text-white font-bold mb-8">S</h1>
+                <p class="text-2xl text-gray-300 mb-8">How can I help you today?</p>
+            </div>
+
+            <div id="chat-window" class="w-full h-full flex-grow overflow-y-auto custom-scrollbar">
                 <!-- Messages will be injected here -->
             </div>
-            
-            <div class="w-full max-w-4xl mx-auto">
-                <form id="chat-form" class="flex items-center space-x-2 bg-gray-900 border border-gray-700 rounded-xl p-2">
-                    <button type="button" id="attach-button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
-                        <i data-lucide="paperclip" class="w-6 h-6"></i>
-                    </button>
-                    <input type="file" id="file-upload" class="hidden">
-                    <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="flex-grow bg-transparent border-none text-white focus:outline-none focus:ring-0 placeholder-gray-500 text-lg py-2">
-                    <button type="button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
-                        <i data-lucide="mic" class="w-6 h-6"></i>
-                    </button>
-                    <button type="submit" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2 disabled:text-gray-700">
-                        <i data-lucide="send" class="w-6 h-6"></i>
-                    </button>
-                </form>
-                <p class="text-center text-xs text-gray-600 mt-2">S can make mistakes. Consider checking important information.</p>
-            </div>
-        </section>
+        </div>
     </main>
+
+    <div id="form-container" class="fixed bottom-0 left-0 right-0 z-30 p-4">
+        <div class="max-w-4xl mx-auto">
+             <form id="chat-form" class="flex items-center space-x-2 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-2 shadow-lg">
+                <button type="button" id="attach-button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
+                    <i data-lucide="paperclip" class="w-6 h-6"></i>
+                </button>
+                <input type="file" id="file-upload" class="hidden">
+                <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="flex-grow bg-transparent border-none text-white focus:outline-none focus:ring-0 placeholder-gray-500 text-lg py-2">
+                <button type="button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
+                    <i data-lucide="mic" class="w-6 h-6"></i>
+                </button>
+                <button type="submit" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2 disabled:text-gray-700">
+                    <i data-lucide="send" class="w-6 h-6"></i>
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-600 mt-2">S can make mistakes. Consider checking important information.</p>
+        </div>
+    </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
+            const container = document.getElementById('container');
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const chatHeader = document.getElementById('chat-header');
             const chatWindow = document.getElementById('chat-window');
             const chatForm = document.getElementById('chat-form');
+            const formContainer = document.getElementById('form-container');
             const chatInput = document.getElementById('chat-input');
             const submitButton = chatForm.querySelector('button[type="submit"]');
             const attachButton = document.getElementById('attach-button');
             const fileUpload = document.getElementById('file-upload');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
             let chatHistory = [];
+
+            // Initial state: Form is visible, chat is not.
+            container.classList.add('justify-center');
 
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
 
+            const startChatSession = () => {
+                if (!chatWindow.classList.contains('visible')) {
+                    welcomeScreen.classList.add('hidden');
+                    chatHeader.classList.add('visible');
+                    chatWindow.classList.add('visible');
+                    container.classList.remove('justify-center');
+                }
+            };
+
+            const formatMessage = (text) => {
+                let html = text;
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                html = html.replace(/^#+\s/gm, '<br>');
+                html = html.replace(/^\*\s/gm, '&bull; ');
+                html = html.replace(/\n/g, '<br>');
+                return html;
+            };
+            
             const addMessageToChat = (sender, message) => {
                 const messageWrapper = document.createElement('div');
                 messageWrapper.classList.add('flex', 'flex-col', 'max-w-[85%]', 'mb-4');
                 const labelElement = document.createElement('span');
-                labelElement.classList.add('text-xs', 'font-bold', 'mb-1');
+                labelElement.classList.add('mb-1');
                 const messageText = document.createElement('p');
                 messageText.classList.add('text-gray-300', 'leading-relaxed');
-                messageText.textContent = message;
+                
                 if (sender === 'user') {
                     messageWrapper.classList.add('self-end', 'items-end');
                     labelElement.textContent = 'You';
-                    labelElement.classList.add('text-white');
+                    labelElement.classList.add('text-white', 'text-xs', 'font-bold');
+                    messageText.textContent = message;
                 } else {
                     messageWrapper.classList.add('self-start', 'items-start');
-                    labelElement.textContent = 'AI';
-                    labelElement.classList.add('text-gray-400');
+                    labelElement.innerHTML = `<span class="font-logo text-lg text-white">S</span>`;
+                    messageText.innerHTML = formatMessage(message);
                 }
                 messageWrapper.appendChild(labelElement);
                 messageWrapper.appendChild(messageText);
@@ -139,32 +155,13 @@
                 chatWindow.scrollTop = chatWindow.scrollHeight;
             }
 
-            const addWelcomeMessage = () => {
-                 if (chatWindow.children.length === 0) {
-                    const welcomeWrapper = document.createElement('div');
-                    welcomeWrapper.classList.add('text-center', 'my-12', 'flex', 'flex-col', 'items-center', 'justify-center', 'h-full');
-                    const logo = document.createElement('h1');
-                    logo.textContent = 'S';
-                    logo.classList.add('text-8xl', 'font-logo', 'text-white', 'font-bold', 'mb-4');
-                    const greeting = document.createElement('p');
-                    greeting.textContent = 'How can I help you today?';
-                    greeting.classList.add('text-2xl', 'text-gray-300');
-                    welcomeWrapper.appendChild(logo);
-                    welcomeWrapper.appendChild(greeting);
-                    chatWindow.appendChild(welcomeWrapper);
-                }
-            }
-            
-            addWelcomeMessage();
-            chatHistory = []; 
-
             const showTypingIndicator = () => {
                 const typingElement = document.createElement('div');
                 typingElement.id = 'typing-indicator';
                 typingElement.classList.add('flex', 'flex-col', 'self-start', 'items-start', 'mb-4');
                 const labelElement = document.createElement('span');
-                labelElement.textContent = 'AI';
-                labelElement.classList.add('text-xs', 'font-bold', 'mb-1', 'text-gray-400');
+                labelElement.classList.add('mb-1');
+                labelElement.innerHTML = `<span class="font-logo text-lg text-white">S</span>`;
                 const textElement = document.createElement('p');
                 textElement.classList.add('text-gray-400');
                 textElement.innerHTML = `<span class="animate-pulse">Analyzing...</span>`;
@@ -183,14 +180,19 @@
 
             fileUpload.addEventListener('change', (event) => {
                 const file = event.target.files[0];
-                if (file) { addMessageToChat('user', `Uploaded file: ${file.name}`); }
+                if (file) { 
+                    startChatSession();
+                    addMessageToChat('user', `Uploaded file: ${file.name}`); 
+                }
             });
 
             chatForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const userMessage = chatInput.value.trim();
                 if (!userMessage) return;
-                if (chatWindow.querySelector('.text-center')) { chatWindow.innerHTML = ''; }
+                
+                startChatSession();
+
                 addMessageToChat('user', userMessage);
                 chatHistory.push({ role: 'user', parts: [{ text: userMessage }] });
                 chatInput.value = '';
@@ -199,7 +201,7 @@
                 try {
                     const apiKey = "AIzaSyB8o4fHnTQQF4vTfwJk7ADoadN7Iq9VP5k"; 
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                    const systemPrompt = `You are a helpful and friendly AI study assistant named S. Answer the user's questions clearly and concisely.`;
+                    const systemPrompt = `You are S, a friendly, encouraging, and knowledgeable AI study assistant, with the personality of Gemini by Google. Communicate in a conversational and supportive tone. When explaining concepts, use clear, natural language. Use lists, bold text, and other formatting to structure your answers for readability, but strictly avoid using code blocks (\`\`\`) unless you are specifically asked to write code. Do not provide code for UI elements like navigation or positioning.`;
                     const payload = { contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } };
                     const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                     if (!response.ok) throw new Error(`API error: ${response.statusText}`);
@@ -222,4 +224,6 @@
     </script>
 </body>
 </html>
+
+
 
