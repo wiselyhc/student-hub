@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Notebook - S Study Hub</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
+        .active-link { color: #ffffff; }
+        .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex-shrink-0 flex items-center space-x-4">
+                    <a href="index.html" class="text-4xl text-white font-logo">S</a>
+                    <a href="account-creation.html" class="text-gray-300 hover:text-white transition-colors duration-200 hidden md:block">
+                        <i data-lucide="user-circle-2" class="w-7 h-7"></i>
+                    </a>
+                </div>
+                <nav class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
+                    <a href="features.html" class="text-gray-300 hover:text-white transition-colors duration-200">Features</a>
+                    <a href="books.html" class="text-gray-300 hover:text-white transition-colors duration-200">My Library</a>
+                    <a href="ai-notebook.html" class="text-gray-300 hover:text-white transition-colors duration-200 active-link">AI Notebook</a>
+                    <a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-200">Contact</a>
+                </nav>
+                <div class="hidden md:flex items-center">
+                    <a href="account-creation.html" class="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-medium text-sm">
+                        Get Started
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Home</a>
+                <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Features</a>
+                <a href="books.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">My Library</a>
+                <a href="ai-notebook.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800 active-link">AI Notebook</a>
+                <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Contact</a>
+                <a href="account-creation.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Create Account</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        <!-- AI Notebook Section -->
+        <section id="ai-notebook" class="p-4 md:p-8 min-h-[calc(100vh-4rem)] flex flex-col justify-between">
+            <div id="chat-window" class="w-full max-w-4xl mx-auto flex-grow overflow-y-auto custom-scrollbar mb-8">
+                <!-- Messages will be injected here -->
+            </div>
+            
+            <div class="w-full max-w-4xl mx-auto">
+                <form id="chat-form" class="relative">
+                    <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="w-full pl-14 pr-28 py-4 bg-gray-800 border border-gray-700 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500 text-lg">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center space-x-3">
+                        <button type="button" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="paperclip" class="w-6 h-6"></i>
+                        </button>
+                         <input type="file" id="file-upload" class="hidden">
+                    </div>
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center space-x-3">
+                        <button type="button" class="text-gray-400 hover:text-white transition-colors">
+                            <i data-lucide="mic" class="w-6 h-6"></i>
+                        </button>
+                        <button type="submit" class="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                            <i data-lucide="send" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center text-xs text-gray-600 mt-2">S can make mistakes. Consider checking important information.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2024 S. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const chatWindow = document.getElementById('chat-window');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const submitButton = chatForm.querySelector('button[type="submit"]');
+            const attachButton = chatForm.querySelector('button[type="button"]');
+            const fileUpload = document.getElementById('file-upload');
+            let chatHistory = [];
+
+            const addMessageToChat = (sender, message) => {
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('flex', 'flex-col', 'max-w-[85%]', 'mb-4');
+                const labelElement = document.createElement('span');
+                labelElement.classList.add('text-xs', 'font-bold', 'mb-1');
+                const messageText = document.createElement('p');
+                messageText.classList.add('text-gray-300', 'leading-relaxed');
+                messageText.textContent = message;
+                if (sender === 'user') {
+                    messageWrapper.classList.add('self-end', 'items-end');
+                    labelElement.textContent = 'You';
+                    labelElement.classList.add('text-white');
+                } else {
+                    messageWrapper.classList.add('self-start', 'items-start');
+                    labelElement.textContent = 'AI';
+                    labelElement.classList.add('text-gray-400');
+                }
+                messageWrapper.appendChild(labelElement);
+                messageWrapper.appendChild(messageText);
+                chatWindow.appendChild(messageWrapper);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            const addWelcomeMessage = () => {
+                 if (chatWindow.children.length === 0) {
+                    const welcomeWrapper = document.createElement('div');
+                    welcomeWrapper.classList.add('text-center', 'my-12');
+                    const logo = document.createElement('h1');
+                    logo.textContent = 'S';
+                    logo.classList.add('text-8xl', 'font-logo', 'text-white', 'font-bold', 'mb-4');
+                    const greeting = document.createElement('p');
+                    greeting.textContent = 'How can I help you today?';
+                    greeting.classList.add('text-2xl', 'text-gray-300');
+                    welcomeWrapper.appendChild(logo);
+                    welcomeWrapper.appendChild(greeting);
+                    chatWindow.appendChild(welcomeWrapper);
+                }
+            }
+            
+            addWelcomeMessage();
+            chatHistory = []; 
+
+            const showTypingIndicator = () => {
+                const typingElement = document.createElement('div');
+                typingElement.id = 'typing-indicator';
+                typingElement.classList.add('flex', 'flex-col', 'self-start', 'items-start', 'mb-4');
+                const labelElement = document.createElement('span');
+                labelElement.textContent = 'AI';
+                labelElement.classList.add('text-xs', 'font-bold', 'mb-1', 'text-gray-400');
+                const textElement = document.createElement('p');
+                textElement.classList.add('text-gray-400');
+                textElement.innerHTML = `<span class="animate-pulse">Analyzing...</span>`;
+                typingElement.appendChild(labelElement);
+                typingElement.appendChild(textElement);
+                chatWindow.appendChild(typingElement);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            const removeTypingIndicator = () => {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) indicator.remove();
+            }
+            
+            attachButton.addEventListener('click', () => { fileUpload.click(); });
+
+            fileUpload.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) { addMessageToChat('user', `Uploaded file: ${file.name}`); }
+            });
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+                if (chatWindow.querySelector('.text-center')) { chatWindow.innerHTML = ''; }
+                addMessageToChat('user', userMessage);
+                chatHistory.push({ role: 'user', parts: [{ text: userMessage }] });
+                chatInput.value = '';
+                submitButton.disabled = true;
+                showTypingIndicator();
+                try {
+                    const apiKey = ""; 
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                    const systemPrompt = `You are a helpful and friendly AI study assistant named S. Answer the user's questions clearly and concisely.`;
+                    const payload = { contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } };
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+                    const result = await response.json();
+                    const aiMessage = (result?.candidates?.[0]?.content?.parts?.[0]?.text) ? result.candidates[0].content.parts[0].text : "Sorry, I couldn't process that.";
+                    removeTypingIndicator();
+                    addMessageToChat('ai', aiMessage);
+                    chatHistory.push({ role: 'model', parts: [{ text: aiMessage }] });
+                } catch (error) {
+                    console.error("Chat API Error:", error);
+                    removeTypingIndicator();
+                    addMessageToChat('ai', 'Sorry, I\'m having trouble connecting right now.');
+                } finally {
+                     submitButton.disabled = false;
+                     chatInput.focus();
+                }
+            });
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
