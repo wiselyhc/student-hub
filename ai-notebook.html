@@ -13,80 +13,78 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; overflow-x: hidden; }
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        [x-cloak] { display: none !important; }
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; --header-bg: rgba(255,255,255,0.8); --chatbar-bg: rgba(255,255,255,0.5); --bubble-user-bg: #ffffff; --bubble-ai-bg: #e5e7eb; --bubble-user-text: #1f2937; --bubble-ai-text: #1f2937; }
+        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; --header-bg: rgba(20,20,30,0.8); --chatbar-bg: rgba(31,41,55,0.5); --bubble-user-bg: #374151; --bubble-ai-bg: #1f2937; --bubble-user-text: #ffffff; --bubble-ai-text: #d1d5db; }
+        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; --header-bg: rgba(13,12,34,0.5); --chatbar-bg: rgba(30,41,59,0.5); --bubble-user-bg: #4338ca; --bubble-ai-bg: #1e293b; --bubble-user-text: #e0e7ff; --bubble-ai-text: #a5b4fc; }
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-        #chat-window, #chat-header {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        #chat-window.visible, #chat-header.visible {
-            opacity: 1;
-        }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--border-color); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--text-muted-color); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--text-color); }
     </style>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="antialiased">
-    <!-- Header for the chat view (initially hidden) -->
-    <header id="chat-header" class="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-sm border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="text-4xl text-white font-logo">S</a>
-                <div class="flex items-center">
-                    <a href="index.html" title="Home" class="p-2 rounded-full text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-200">
-                        <i data-lucide="home" class="w-6 h-6"></i>
-                    </a>
-                     <button id="mobile-menu-button" class="p-2 rounded-full text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-200 ml-2">
-                        <i data-lucide="menu" class="h-6 h-6"></i>
-                    </button>
-                </div>
-            </div>
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
+    x-data="{ theme: localStorage.getItem('theme') || 'light' }"
+    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
+    
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+            <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
         </div>
-         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-black/90">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                 <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Home</a>
-                 <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Features</a>
-                 <a href="books.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">My Library</a>
-                 <a href="ai-notebook.html" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">AI Notebook</a>
-                 <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Contact</a>
-                 <a href="account-center.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Account</a>
-            </div>
-        </div>
-    </header>
+    </nav>
 
-    <main class="h-screen w-screen flex flex-col pt-16 pb-28">
+    <main class="h-screen w-screen flex flex-col pt-24 pb-28">
         <div id="container" class="w-full max-w-4xl mx-auto flex-grow flex flex-col h-full">
-            
-            <div id="welcome-screen" class="flex flex-col items-center justify-center text-center h-full">
-                <h1 class="text-8xl font-logo text-white font-bold mb-8">S</h1>
-                <p class="text-2xl text-gray-300 mb-8">How can I help you today?</p>
-            </div>
-
-            <div id="chat-window" class="w-full h-full flex-grow overflow-y-auto custom-scrollbar">
-                <!-- Messages will be injected here -->
-            </div>
+            <div id="welcome-screen" class="flex flex-col items-center justify-center text-center h-full"><h1 class="text-8xl font-logo font-bold mb-8 text-[var(--text-color)]">S</h1><p class="text-2xl text-[var(--text-muted-color)] mb-8">How can I help you today?</p></div>
+            <div id="chat-window" class="w-full h-full flex-grow overflow-y-auto custom-scrollbar p-4 space-y-4"></div>
         </div>
     </main>
 
-    <div id="form-container" class="fixed bottom-0 left-0 right-0 z-30 p-4">
-        <div class="max-w-4xl mx-auto">
-             <form id="chat-form" class="flex items-center space-x-2 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-2 shadow-lg">
-                <button type="button" id="attach-button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
-                    <i data-lucide="paperclip" class="w-6 h-6"></i>
+    <div id="form-container" class="fixed bottom-0 left-0 right-0 z-30 p-4" x-data="{ attachMenuOpen: false }" @keydown.escape.window="attachMenuOpen = false">
+        <div class="max-w-4xl mx-auto relative">
+            <!-- Attachment Menu -->
+            <div x-show="attachMenuOpen"
+                 x-cloak
+                 @click.outside="attachMenuOpen = false"
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-75"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="absolute bottom-full mb-2 w-48 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-xl shadow-lg p-1.5">
+                
+                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                    <i data-lucide="image" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Photo</span>
                 </button>
+                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                    <i data-lucide="file-text" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Document</span>
+                </button>
+                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                    <i data-lucide="file" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Other</span>
+                </button>
+            </div>
+
+            <!-- Chat Form -->
+            <form id="chat-form" class="flex items-center space-x-2 bg-[var(--chatbar-bg)] backdrop-blur-lg border border-[var(--border-color)] rounded-2xl p-2 shadow-lg">
+                <button @click="attachMenuOpen = !attachMenuOpen" type="button" id="attach-button" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2"><i data-lucide="paperclip" class="w-6 h-6"></i></button>
                 <input type="file" id="file-upload" class="hidden">
-                <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="flex-grow bg-transparent border-none text-white focus:outline-none focus:ring-0 placeholder-gray-500 text-lg py-2">
-                <button type="button" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2">
-                    <i data-lucide="mic" class="w-6 h-6"></i>
-                </button>
-                <button type="submit" class="flex-shrink-0 text-gray-400 hover:text-white transition-colors p-2 disabled:text-gray-700">
-                    <i data-lucide="send" class="w-6 h-6"></i>
-                </button>
+                <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="flex-grow bg-transparent border-none text-[var(--text-color)] focus:outline-none focus:ring-0 placeholder-[var(--text-muted-color)] text-lg py-2">
+                <button type="button" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2"><i data-lucide="mic" class="w-6 h-6"></i></button>
+                <button type="submit" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2 disabled:text-gray-300"><i data-lucide="send" class="w-6 h-6"></i></button>
             </form>
-            <p class="text-center text-xs text-gray-600 mt-2">S can make mistakes. Consider checking important information.</p>
         </div>
     </div>
     
@@ -94,30 +92,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('container');
             const welcomeScreen = document.getElementById('welcome-screen');
-            const chatHeader = document.getElementById('chat-header');
             const chatWindow = document.getElementById('chat-window');
             const chatForm = document.getElementById('chat-form');
-            const formContainer = document.getElementById('form-container');
             const chatInput = document.getElementById('chat-input');
             const submitButton = chatForm.querySelector('button[type="submit"]');
-            const attachButton = document.getElementById('attach-button');
             const fileUpload = document.getElementById('file-upload');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
             let chatHistory = [];
 
-            // Initial state: Form is visible, chat is not.
             container.classList.add('justify-center');
 
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
             const startChatSession = () => {
-                if (!chatWindow.classList.contains('visible')) {
-                    welcomeScreen.classList.add('hidden');
-                    chatHeader.classList.add('visible');
-                    chatWindow.classList.add('visible');
+                if (welcomeScreen.style.display !== 'none') {
+                    welcomeScreen.style.display = 'none';
                     container.classList.remove('justify-center');
                 }
             };
@@ -132,51 +118,59 @@
             };
             
             const addMessageToChat = (sender, message) => {
-                const messageWrapper = document.createElement('div');
-                messageWrapper.classList.add('flex', 'flex-col', 'max-w-[85%]', 'mb-4');
+                const messageContainer = document.createElement('div');
+                messageContainer.classList.add('flex', 'flex-col', 'max-w-[85%]');
                 const labelElement = document.createElement('span');
                 labelElement.classList.add('mb-1');
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('p-3', 'rounded-xl', 'shadow-sm');
                 const messageText = document.createElement('p');
-                messageText.classList.add('text-gray-300', 'leading-relaxed');
+                messageText.classList.add('leading-relaxed');
                 
                 if (sender === 'user') {
-                    messageWrapper.classList.add('self-end', 'items-end');
+                    messageContainer.classList.add('self-end', 'items-end');
                     labelElement.textContent = 'You';
-                    labelElement.classList.add('text-white', 'text-xs', 'font-bold');
+                    labelElement.classList.add('text-[var(--text-color)]', 'text-xs', 'font-bold');
                     messageText.textContent = message;
+                    messageWrapper.classList.add('bg-[var(--bubble-user-bg)]');
+                    messageText.classList.add('text-[var(--bubble-user-text)]');
                 } else {
-                    messageWrapper.classList.add('self-start', 'items-start');
-                    labelElement.innerHTML = `<span class="font-logo text-lg text-white">S</span>`;
+                    messageContainer.classList.add('self-start', 'items-start');
+                    labelElement.innerHTML = `<span class="font-logo text-lg text-[var(--text-color)]">S</span>`;
                     messageText.innerHTML = formatMessage(message);
+                    messageWrapper.classList.add('bg-[var(--bubble-ai-bg)]');
+                    messageText.classList.add('text-[var(--bubble-ai-text)]');
                 }
-                messageWrapper.appendChild(labelElement);
+                messageContainer.appendChild(labelElement);
+                messageContainer.appendChild(messageWrapper);
                 messageWrapper.appendChild(messageText);
-                chatWindow.appendChild(messageWrapper);
+                chatWindow.appendChild(messageContainer);
                 chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
+            };
 
             const showTypingIndicator = () => {
                 const typingElement = document.createElement('div');
                 typingElement.id = 'typing-indicator';
-                typingElement.classList.add('flex', 'flex-col', 'self-start', 'items-start', 'mb-4');
+                typingElement.classList.add('flex', 'flex-col', 'self-start', 'items-start');
+                
                 const labelElement = document.createElement('span');
                 labelElement.classList.add('mb-1');
-                labelElement.innerHTML = `<span class="font-logo text-lg text-white">S</span>`;
-                const textElement = document.createElement('p');
-                textElement.classList.add('text-gray-400');
-                textElement.innerHTML = `<span class="animate-pulse">Analyzing...</span>`;
+                labelElement.innerHTML = `<span class="font-logo text-lg text-[var(--text-color)]">S</span>`;
+                
+                const textElement = document.createElement('div');
+                textElement.classList.add('p-3', 'rounded-xl', 'bg-[var(--bubble-ai-bg)]');
+                textElement.innerHTML = `<p class="text-[var(--text-muted-color)] animate-pulse">Analyzing...</p>`;
+
                 typingElement.appendChild(labelElement);
                 typingElement.appendChild(textElement);
                 chatWindow.appendChild(typingElement);
                 chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
+            };
 
             const removeTypingIndicator = () => {
                 const indicator = document.getElementById('typing-indicator');
                 if (indicator) indicator.remove();
-            }
-            
-            attachButton.addEventListener('click', () => { fileUpload.click(); });
+            };
 
             fileUpload.addEventListener('change', (event) => {
                 const file = event.target.files[0];
@@ -219,11 +213,22 @@
                      chatInput.focus();
                 }
             });
+
             lucide.createIcons();
         });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 

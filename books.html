@@ -13,115 +13,176 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
+        .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        [x-cloak] { display: none !important; }
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
+        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
     </style>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="antialiased">
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
+    x-data="{ theme: localStorage.getItem('theme') || 'light' }"
+    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
-    <!-- Floating Icon Navigation -->
-    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center space-x-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-full p-2 shadow-2xl">
-        <a href="account-creation.html" title="Account" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
-        <a href="index.html" title="Home" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-        <a href="features.html" title="Features" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="layout-grid" class="w-6 h-6"></i></a>
-        <a href="books.html" title="Library" class="p-3 rounded-full bg-white text-black transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-        <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="bot" class="w-6 h-6"></i></a>
-        <a href="contact.html" title="Contact" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
-    </nav>
-
-    <main>
-        <!-- My Library / Books Section -->
-        <section class="py-20 sm:py-24 pb-32 px-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex justify-between items-center mb-12">
-                    <div>
-                        <h2 class="text-3xl font-bold text-white">My Library</h2>
-                        <p class="text-gray-400 mt-2">All your study materials, organized in one place.</p>
-                    </div>
-                    <button class="px-5 py-2.5 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-semibold flex items-center space-x-2">
-                        <i data-lucide="mail" class="w-5 h-5"></i>
-                        <span>Send a Book Recommendation</span>
-                    </button>
-                </div>
-
-                <!-- Senior One -->
-                <div class="mb-16">
-                    <h3 class="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-8">Senior One</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12">
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Biology+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Biology</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Chemistry+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Chemistry</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Citizenship+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Citizenship</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=CRE+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">C.R.E</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20English%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=English+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">English</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Geography+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Geography</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20History%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=History+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">History</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=ICT+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">ICT</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Kiswahili+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Kiswahili</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Maths+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Mathematics</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%201%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Physics+S1" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Physics</h3></a>
-                    </div>
-                </div>
-
-                <!-- Senior Two -->
-                <div class="mb-16">
-                    <h3 class="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-8">Senior Two</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12">
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Biology+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Biology</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Chemistry+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Chemistry</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Citizenship+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Citizenship</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=CRE+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">C.R.E</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20English%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=English+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">English</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Geography+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Geography</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20History%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=History+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">History</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=ICT+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">ICT</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Kiswahili+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Kiswahili</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Maths+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Mathematics</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%202%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Physics+S2" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Physics</h3></a>
-                    </div>
-                </div>
-
-                <!-- Senior Three -->
-                <div class="mb-16">
-                    <h3 class="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-8">Senior Three</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12">
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Biology+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Biology</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Chemistry+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Chemistry</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Citizenship+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Citizenship</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=CRE+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">C.R.E</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20English%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=English+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">English</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Geography+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Geography</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20History%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=History+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">History</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=ICT+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">ICT</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Kiswahili+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Kiswahili</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%203%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Maths+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Mathematics</h3></a>
-                        <a href="https://cgatechnologies.org.uk/sites/default/files/2021-11/OK_Add%20Maths%20S3%20SB%20Cover.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Add.+Maths+S3" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Additional Maths</h3></a>
-                    </div>
-                </div>
-
-                <!-- Senior Four -->
+    <main class="min-h-screen p-4 sm:p-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-12">
                 <div>
-                    <h3 class="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-8">Senior Four</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12">
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Additional%20Maths%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Add.+Maths+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Additional Maths</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Biology+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Biology</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Chemistry+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Chemistry</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Citizenship+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Citizenship</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=CRE+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">C.R.E</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20English%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=English+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">English</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Geography+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Geography</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20History%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=History+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">History</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=ICT+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">ICT</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Kiswahili+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Kiswahili</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Maths+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Mathematics</h3></a>
-                        <a href="https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%204%20Student%20Textbook.pdf" target="_blank" class="text-center group"><img src="https://placehold.co/200x300/111827/ffffff?text=Physics+S4" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"><h3 class="font-semibold text-white mt-2 group-hover:underline">Physics</h3></a>
-                    </div>
+                    <h2 class="text-3xl font-bold text-[var(--text-color)]">My Library</h2>
+                    <p class="text-[var(--text-muted-color)] mt-2">All your study materials, organized in one place.</p>
                 </div>
+                <button class="px-5 py-2.5 bg-[var(--card-bg-color)] text-[var(--text-color)] rounded-md hover:opacity-90 transition-colors duration-300 font-semibold flex items-center space-x-2 border border-[var(--border-color)]">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    <span>Send a Book Recommendation</span>
+                </button>
             </div>
-        </section>
+
+            <!-- Senior One -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-[var(--text-color)] border-b border-[var(--border-color)] pb-2 mb-8">Senior One</h3>
+                <div id="senior-one-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+            </div>
+            
+            <!-- Senior Two -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-[var(--text-color)] border-b border-[var(--border-color)] pb-2 mb-8">Senior Two</h3>
+                <div id="senior-two-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+            </div>
+
+            <!-- Senior Three -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-[var(--text-color)] border-b border-[var(--border-color)] pb-2 mb-8">Senior Three</h3>
+                <div id="senior-three-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+            </div>
+
+            <!-- Senior Four -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-[var(--text-color)] border-b border-[var(--border-color)] pb-2 mb-8">Senior Four</h3>
+                <div id="senior-four-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+            </div>
+        </div>
     </main>
 
+    <!-- Floating Navigation -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+            <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="books.html" title="My Library" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        </div>
+    </nav>
+    
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            const seniorOneLinks = [
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%201%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%201%20Student%20Textbook.pdf"
+            ];
+
+            const seniorTwoLinks = [
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%202%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%202%20Student%20Textbook.pdf"
+            ];
+            
+            const seniorThreeLinks = [
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%203%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%203%20Student%20Textbook.pdf",
+                "https://cgatechnologies.org.uk/sites/default/files/2021-11/OK_Add%20Maths%20S3%20SB%20Cover.pdf"
+            ];
+            
+            const seniorFourLinks = [
+                 "https://cdc.gov.ss/uploads/subjects/Secondary%20Additional%20Maths%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%204%20Student%20Textbook.pdf",
+                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%204%20Student%20Textbook.pdf"
+            ];
+
+            function createBookElement(link) {
+                const fileName = decodeURIComponent(link.split('/').pop());
+                const parts = fileName.replace('.pdf', '').replace(/%20/g, ' ').split(' ');
+                
+                let subject = "Unknown";
+                let year = "";
+
+                if (parts.includes("Additional") && parts.includes("Maths")) {
+                    subject = "Add. Maths";
+                } else if (parts.length > 2) {
+                     subject = parts[1];
+                     if(subject === "CRE") subject = "C.R.E"
+                }
+                
+                year = "S" + parts[2];
+                if(fileName.includes("OK_Add")) {
+                    subject = "Add. Maths";
+                    year = "S3";
+                }
+
+
+                const textColor = theme.value === 'light' ? '1f2937' : 'ffffff';
+                const bgColor = theme.value === 'light' ? 'ffffff' : '111827';
+                
+                const placeholderUrl = `https://placehold.co/200x300/${bgColor}/${textColor}?text=${subject.replace(' ', '+')}+${year}`;
+
+                return `
+                    <a href="${link}" target="_blank" class="text-center group">
+                        <img src="${placeholderUrl}" alt="${subject} ${year}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]">
+                        <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${subject}</h3>
+                    </a>
+                `;
+            }
+            
+            const theme = { value: localStorage.getItem('theme') || 'light' };
+
+            document.getElementById('senior-one-books').innerHTML = seniorOneLinks.map(createBookElement).join('');
+            document.getElementById('senior-two-books').innerHTML = seniorTwoLinks.map(createBookElement).join('');
+            document.getElementById('senior-three-books').innerHTML = seniorThreeLinks.map(createBookElement).join('');
+            document.getElementById('senior-four-books').innerHTML = seniorFourLinks.map(createBookElement).join('');
+        });
     </script>
 </body>
 </html>
+
+
 

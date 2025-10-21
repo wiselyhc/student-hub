@@ -13,47 +13,56 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        [x-cloak] { display: none !important; }
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
+        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
     </style>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="antialiased">
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
+    x-data="{ theme: localStorage.getItem('theme') || 'light' }"
+    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
-    <!-- Floating Icon Navigation -->
-    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center space-x-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-full p-2 shadow-2xl">
-        <a href="account-creation.html" title="Account" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
-        <a href="index.html" title="Home" class="p-3 rounded-full bg-white text-black transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-        <a href="features.html" title="Features" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="layout-grid" class="w-6 h-6"></i></a>
-        <a href="books.html" title="Library" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-        <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="bot" class="w-6 h-6"></i></a>
-        <a href="contact.html" title="Contact" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
-    </nav>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="h-screen flex items-center justify-center text-center px-4">
-            <div>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
-                    Unlock Your Academic Potential, <span class="text-gray-200">Study Smarter.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-                    Our platform provides AI-powered tools to help you analyze texts, organize your studies, and achieve your learning goals faster than ever.
-                </p>
-                <div class="flex justify-center space-x-4">
-                    <a href="ai-notebook.html" class="px-8 py-3 bg-white text-black rounded-md hover:bg-gray-200 transition-transform duration-300 transform hover:scale-105 font-semibold text-lg">
-                        Start Analyzing
-                    </a>
-                    <a href="features.html" class="px-8 py-3 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-transform duration-300 transform hover:scale-105 font-semibold text-lg">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-        </section>
+    <main class="min-h-screen flex flex-col items-center justify-center text-center p-4">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-[var(--text-color)] leading-tight mb-4">
+            Unlock Your Academic Potential, <span class="text-[var(--text-muted-color)]">Study Smarter.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[var(--text-muted-color)] max-w-3xl mx-auto mb-8">
+            Our platform provides AI-powered tools to help you analyze texts, organize your studies, and achieve your learning goals faster than ever.
+        </p>
+        <div class="flex justify-center space-x-4">
+            <a href="ai-notebook.html" class="px-8 py-3 bg-[var(--active-link-color)] text-[var(--bg-color)] rounded-md hover:opacity-90 transition-transform duration-300 transform hover:scale-105 font-semibold text-lg">
+                Start Analyzing
+            </a>
+            <a href="features.html" class="px-8 py-3 bg-[var(--card-bg-color)] text-[var(--text-color)] rounded-md hover:opacity-90 transition-transform duration-300 transform hover:scale-105 font-semibold text-lg border border-[var(--border-color)]">
+                Learn More
+            </a>
+        </div>
     </main>
 
+    <!-- Floating Navigation -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+            <a href="index.html" title="Home" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        </div>
+    </nav>
+    
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
     </script>
 </body>
 </html>
+
+
 

@@ -13,56 +13,93 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
+        .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        [x-cloak] { display: none !important; }
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
+        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
     </style>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="antialiased">
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
+    x-data="{ theme: localStorage.getItem('theme') || 'light' }"
+    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
-    <!-- Floating Icon Navigation -->
-    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center space-x-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-full p-2 shadow-2xl">
-        <a href="account-creation.html" title="Account" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
-        <a href="index.html" title="Home" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-        <a href="features.html" title="Features" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="layout-grid" class="w-6 h-6"></i></a>
-        <a href="books.html" title="Library" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-        <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="bot" class="w-6 h-6"></i></a>
-        <a href="contact.html" title="Contact" class="p-3 rounded-full bg-white text-black transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
-    </nav>
-
-    <main>
-        <!-- Contact Section -->
-        <section class="min-h-screen flex items-center justify-center py-20 sm:py-32 px-4">
-            <div class="max-w-lg w-full">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-white">Contact Us</h2>
-                    <p class="text-gray-400 mt-2">Have a question or feedback? Let's talk.</p>
-                </div>
-                <form action="#" method="POST" class="space-y-6">
-                    <div>
-                        <label for="name" class="sr-only">Name</label>
-                        <input type="text" name="name" id="name" autocomplete="name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Name">
-                    </div>
-                    <div>
-                        <label for="email" class="sr-only">Email</label>
-                        <input type="email" name="email" id="email" autocomplete="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Email">
-                    </div>
-                    <div>
-                        <label for="message" class="sr-only">Message</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Message"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full px-8 py-3 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-semibold text-lg">
-                            Send Message
-                        </button>
-                    </div>
-                </form>
+    <main class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-xl w-full">
+             <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[var(--text-color)]">Contact Us</h2>
+                <p class="text-[var(--text-muted-color)] mt-2">Have a question or feedback? Let's talk.</p>
             </div>
-        </section>
+            <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md border border-[var(--border-color)]">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <!-- Email -->
+                    <a href="mailto:support@example.com" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                        <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">Email</span>
+                    </a>
+                    <!-- WhatsApp (Accurate Grey Replica with centered phone icon) -->
+                    <a href="#" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                        <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                           <!-- WhatsApp Bubble -->
+                           <path d="M12.04 2C6.59 2 2.19 6.27 2.19 11.5c0 1.7.46 3.32 1.25 4.78L2 22l5.09-1.34A9.92 9.92 0 0 0 12.05 21h.01c5.45 0 9.84-4.27 9.84-9.5S17.49 2 12.04 2z"/>
+                           <!-- Phone Icon in Center (Simplified) -->
+                           <path fill="#f3f4f6" d="M15 13.5c-.2-.1-.7-.35-.8-.39s-.18-.06-.27.06c-.09.12-.35.46-.42.55s-.14.12-.25.03c-.1-.09-.44-.16-.84-.52-.3-.27-.75-.66-1.05-.96-.29-.3-.33-.26-.1-.44.07-.15.15-.29.22-.36.07-.08.14-.15.19-.25.05-.1.02-.19-.01-.27-.04-.08-.7-.47-.96-.68-.2-.17-.35-.29-.27-.29s.2.02.3.09c.09.07.22.3.25.35.03.05.05.12.03.19s-.1.2-.24.39c-.14.19-.29.3-.44.42-.14.12-.28.24-.04.47s.82.99.94 1.09c.12.1.25.15.34.12.1-.03.7-.27.85-.35.15-.07.27-.12.3-.09s.2.14.23.23c.03.09.03.52-.3 1.05s-.42.46-.29.6c.13.14.65.34 1.15.53.5.19.78.25 1.05.23.2-.01.62-.27.7-.52.08-.25.08-.46.06-.52s-.08-.14-.17-.18z"/>
+                        </svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">WhatsApp</span>
+                    </a>
+                    <!-- Messenger (Accurate Grey Replica with centered bolt) -->
+                    <a href="#" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                         <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                            <!-- Messenger Bubble -->
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.85 0 3.58-.51 5.07-1.38l3.45 1.82c.51.27 1.12-.23.95-.79l-1.09-3.51A9.95 9.95 0 0 0 22 12c0-5.52-4.48-10-10-10z"/>
+                            <!-- Centered Thunderbolt Path -->
+                            <path fill="#f3f4f6" d="M12.4 13.5l-2.4-2.5-4 2a.5.5 0 0 1-.7-.7l4.5-7.5a.5.5 0 0 1 .9.1l2.4 2.5 4-2a.5.5 0 0 1 .7.7l-4.5 7.5a.5.5 0 0 1-.9-.1z"/>
+                        </svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">Messenger</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                        <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">Instagram</span>
+                    </a>
+                    <!-- Messages -->
+                    <a href="sms:" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                        <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">Messages</span>
+                    </a>
+                    <!-- X -->
+                    <a href="#" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                        <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L12.122 1227.31H117.979L527.734 750.38L859.458 1227.31H1216.78L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6904H306.615L611.412 515.685L658.88 583.579L1076.55 1156.91H913.946L569.165 687.854V687.828Z"/></svg>
+                        <span class="mt-2 font-semibold text-[var(--text-color)]">X</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <!-- Floating Navigation -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+            <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        </div>
+    </nav>
+    
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
     </script>
 </body>
+</html>
+
 </html>
 
 

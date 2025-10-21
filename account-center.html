@@ -13,182 +13,130 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
-        /* Styles for active and inactive tabs */
-        .tab-active {
-            background-color: #1f2937; /* gray-800 */
-            color: #ffffff; /* white */
-        }
-        .tab-inactive {
-            background-color: transparent;
-            color: #9ca3af; /* gray-400 */
-        }
+        [x-cloak] { display: none !important; }
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
+        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
     </style>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="antialiased">
 
-    <!-- Left Sidebar Navigation -->
-    <aside class="fixed top-0 left-0 h-screen w-20 bg-black border-r border-gray-800 flex flex-col items-center py-6 z-50">
-        <!-- Logo -->
-        <a href="index.html" class="font-logo text-3xl text-white mb-12">S</a>
-
-        <!-- Navigation Links -->
-        <nav class="flex flex-col items-center space-y-6 flex-grow">
-            <a href="index.html" title="Home" class="p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
-                <i data-lucide="home" class="w-6 h-6"></i>
-            </a>
-            <a href="features.html" title="Features" class="p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
-                <i data-lucide="layout-grid" class="w-6 h-6"></i>
-            </a>
-            <a href="books.html" title="Library" class="p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
-                <i data-lucide="library" class="w-6 h-6"></i>
-            </a>
-            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
-                <i data-lucide="bot" class="w-6 h-6"></i>
-            </a>
-            <a href="contact.html" title="Contact" class="p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
-                <i data-lucide="mail" class="w-6 h-6"></i>
-            </a>
-        </nav>
-
-        <!-- Profile Link -->
-        <a href="account-center.html" title="Account" class="p-3 rounded-lg bg-gray-800 text-white transition-colors">
-            <i data-lucide="user-circle-2" class="w-6 h-6"></i>
-        </a>
-    </aside>
-
-    <main class="pl-20">
-        <!-- Account Center Section -->
-        <section class="p-8">
-            <header class="mb-10">
-                <h1 class="text-4xl font-bold text-white">Account Center</h1>
-                <p class="text-gray-400 mt-2">Manage your profile, settings, and subscription.</p>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Profile Card -->
-                <div class="bg-gray-900 border border-gray-800 rounded-lg p-6 col-span-1 self-start">
-                    <div class="flex items-center space-x-4 mb-6">
-                        <div class="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center">
-                           <span class="text-3xl font-bold text-white">U</span>
-                        </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-white">Username</h2>
-                            <p class="text-gray-400">user@email.com</p>
-                        </div>
-                    </div>
-                    <button class="w-full py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors">Edit Profile</button>
-                </div>
-
-                <!-- Tabbed Content Card -->
-                <div class="bg-gray-900 border border-gray-800 rounded-lg p-6 col-span-2">
-                    <!-- Tab Navigation -->
-                    <div class="mb-6 border-b border-gray-700">
-                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
-                            <button class="tab-button tab-active whitespace-nowrap py-3 px-1 border-b-2 border-white font-medium text-sm" data-tab="settings">Settings</button>
-                            <button class="tab-button tab-inactive whitespace-nowrap py-3 px-1 border-b-2 border-transparent hover:border-gray-500 font-medium text-sm" data-tab="features">Features</button>
-                            <button class="tab-button tab-inactive whitespace-nowrap py-3 px-1 border-b-2 border-transparent hover:border-gray-500 font-medium text-sm" data-tab="security">Security</button>
-                            <button class="tab-button tab-inactive whitespace-nowrap py-3 px-1 border-b-2 border-transparent hover:border-gray-500 font-medium text-sm" data-tab="about">About</button>
-                        </nav>
-                    </div>
-
-                    <!-- Tab Content -->
-                    <div id="tab-content">
-                        <!-- Settings Panel -->
-                        <div id="settings" class="tab-panel">
-                             <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-lg">Change Password</p>
-                                    <button class="px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition-colors text-sm font-semibold">Change</button>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <p class="text-lg">Theme</p>
-                                     <span class="text-gray-400">Dark Mode</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <p class="text-lg">Notifications</p>
-                                     <span class="text-gray-400">Enabled</span>
-                                </div>
-                                 <div class="mt-8 pt-6 border-t border-gray-800">
-                                     <a href="index.html" class="w-full text-center block py-3 bg-red-600/20 text-red-400 rounded-md hover:bg-red-600/40 transition-colors font-semibold">Logout</a>
-                                 </div>
-                            </div>
-                        </div>
-                        <!-- Features Panel -->
-                        <div id="features" class="tab-panel hidden space-y-8">
-                            <div>
-                                <h3 class="text-xl font-bold text-white mb-4">Core Features</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div class="flex items-start space-x-3"><i data-lucide="key-round" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Unified Login & Identity</h4><p class="text-sm text-gray-400">SSO, MFA, linked accounts, and secure recovery.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="layout-dashboard" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Dashboard Overview</h4><p class="text-sm text-gray-400">Unified view of usage, billing, and alerts.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="credit-card" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Billing & Subscription</h4><p class="text-sm text-gray-400">Manage payments, view invoices, and change plans.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="users" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">User & Role Management</h4><p class="text-sm text-gray-400">Set permissions and view audit logs.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="settings-2" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Settings & Customization</h4><p class="text-sm text-gray-400">Control your profile and notification preferences.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="life-buoy" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Help & Support</h4><p class="text-sm text-gray-400">Integrated help center, ticketing, and FAQs.</p></div></div>
-                                    <div class="flex items-start space-x-3"><i data-lucide="smartphone-nfc" class="w-5 h-5 mt-1 text-gray-400"></i><div><h4 class="font-semibold text-white">Multi-Device Support</h4><p class="text-sm text-gray-400">Fully responsive on all devices.</p></div></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Security Panel -->
-                        <div id="security" class="tab-panel hidden">
-                            <h3 class="text-xl font-bold text-white mb-3">Security & Governance</h3>
-                            <ul class="list-disc list-inside text-gray-400 space-y-2">
-                                <li>Multi-factor authentication</li>
-                                <li>Least-privilege access controls</li>
-                                <li>Comprehensive audit trails</li>
-                                <li>Device and location alerts</li>
-                                <li>Compliance and data governance controls</li>
-                            </ul>
-                        </div>
-                        <!-- About Panel -->
-                        <div id="about" class="tab-panel hidden space-y-6">
-                             <div>
-                                <h3 class="text-xl font-bold text-white mb-3">Design Principles</h3>
-                                <ul class="list-disc list-inside text-gray-400 space-y-2">
-                                    <li>Clean, intuitive UI with logical navigation.</li>
-                                    <li>Mobile-first, accessible, and customizable.</li>
-                                    <li>Fast, secure, and user-friendly.</li>
-                                </ul>
-                            </div>
-                             <div>
-                                <h3 class="text-xl font-bold text-white mb-3">Goal</h3>
-                                <p class="text-gray-400">A seamless, secure, and smart system that centralizes account control, automates management, and empowers users with insights, flexibility, and safety — all in one place.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300" 
+    x-data="{ activeTab: 'settings', theme: localStorage.getItem('theme') || 'light' }"
+    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
     <script>
-        lucide.createIcons();
+        // Gatekeeper Script: This runs immediately on page load.
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            // If the user is not "logged in", redirect them to the account creation page.
+            window.location.href = './account-creation.html';
+        }
+    </script>
 
-        // Tab functionality
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabPanels = document.querySelectorAll('.tab-panel');
+    <!-- Main Content -->
+    <main class="min-h-screen p-6 sm:p-10 pb-24">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <a href="index.html" class="inline-block text-5xl font-logo text-[var(--text-color)]">S</a>
+            </div>
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Deactivate all buttons and panels
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('tab-active', 'border-white');
-                    btn.classList.add('tab-inactive', 'border-transparent');
+            <h1 class="text-3xl font-bold text-[var(--text-color)]">Account Center</h1>
+            <p class="text-[var(--text-muted-color)] mt-1">Manage your profile, settings, and preferences.</p>
+
+            <!-- Tab Navigation -->
+            <div class="mt-8 border-b border-[var(--border-color)]">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <button @click="activeTab = 'settings'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'settings', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'settings' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Settings</button>
+                    <button @click="activeTab = 'features'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'features', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'features' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Features</button>
+                    <button @click="activeTab = 'security'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'security', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'security' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Security</button>
+                    <button @click="activeTab = 'about'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'about', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'about' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">About</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="mt-8">
+                <!-- Settings Tab -->
+                <div x-show="activeTab === 'settings'" x-cloak>
+                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-semibold text-[var(--text-color)]">General Settings</h2>
+                        <p class="text-[var(--text-muted-color)] mt-1">Update your profile and notification settings.</p>
+                        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="username" class="block text-sm font-medium text-[var(--text-color)]">Username</label>
+                                <input type="text" id="username" value="student_user" class="mt-1 block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-[var(--text-color)]">Email Address</label>
+                                <input type="email" id="email" value="student@example.com" class="mt-1 block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
+                            </div>
+                        </div>
+                        <!-- Appearance Section -->
+                        <div class="mt-8 border-t border-[var(--border-color)] pt-6">
+                            <h2 class="text-xl font-semibold text-[var(--text-color)]">Appearance</h2>
+                            <p class="text-[var(--text-muted-color)] mt-1">Choose how S looks and feels. Your theme will be applied across the platform.</p>
+                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <!-- Mild Grey Theme -->
+                                <div @click="theme = 'light'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'light' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Mild Grey</h3><div x-show="theme === 'light'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded bg-gray-100 border border-gray-200"></div><div class="w-1/3 h-8 rounded bg-white border border-gray-200"></div><div class="w-1/3 h-8 rounded bg-gray-200 border border-gray-300"></div></div>
+                                </div>
+                                <!-- Charcoal Theme -->
+                                <div @click="theme = 'dark'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'dark' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Charcoal</h3><div x-show="theme === 'dark'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded bg-gray-900 border border-gray-700"></div><div class="w-1/3 h-8 rounded bg-black border border-gray-800"></div><div class="w-1/3 h-8 rounded bg-gray-800 border border-gray-700"></div></div>
+                                </div>
+                                <!-- Cyber Theme -->
+                                <div @click="theme = 'cyber'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'cyber' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Cyber</h3><div x-show="theme === 'cyber'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded bg-indigo-900 border border-purple-500"></div><div class="w-1/3 h-8 rounded bg-black border border-cyan-400"></div><div class="w-1/3 h-8 rounded bg-purple-800 border border-indigo-500"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Log Out Button -->
+                        <div class="mt-8 border-t border-[var(--border-color)] pt-6">
+                            <button id="logout-button" class="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors">Log Out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other tabs... -->
+            </div>
+        </main>
+    </div>
+
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+            <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            const logoutButton = document.getElementById('logout-button');
+            if(logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    // Remove the login flag
+                    sessionStorage.removeItem('isLoggedIn');
+                    // Redirect to the home page
+                    window.location.href = 'index.html';
                 });
-                tabPanels.forEach(panel => {
-                    panel.classList.add('hidden');
-                });
-
-                // Activate the clicked button and corresponding panel
-                button.classList.add('tab-active', 'border-white');
-                button.classList.remove('tab-inactive', 'border-transparent');
-                const tabId = button.getAttribute('data-tab');
-                const activePanel = document.getElementById(tabId);
-                activePanel.classList.remove('hidden');
-            });
+            }
         });
     </script>
 </body>
 </html>
+
+
+
+
 
