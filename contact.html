@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - S Study Hub</title>
+    <title>Contact - S Study Hub</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,102 +14,55 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #000000; color: #d1d5db; }
-        .active-link { color: #ffffff; }
-        .font-logo { font-family: 'Cinzel Decorative', cursive; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
-    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                 <div class="flex-shrink-0 flex items-center space-x-4">
-                    <a href="index.html" class="text-4xl text-white font-logo">S</a>
-                    <a href="account-creation.html" class="text-gray-300 hover:text-white transition-colors duration-200 hidden md:block">
-                        <i data-lucide="user-circle-2" class="w-7 h-7"></i>
-                    </a>
-                </div>
-                <nav class="hidden md:flex md:items-center md:space-x-8">
-                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
-                    <a href="features.html" class="text-gray-300 hover:text-white transition-colors duration-200">Features</a>
-                    <a href="books.html" class="text-gray-300 hover:text-white transition-colors duration-200">My Library</a>
-                    <a href="ai-notebook.html" class="text-gray-300 hover:text-white transition-colors duration-200">AI Notebook</a>
-                    <a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-200 active-link">Contact</a>
-                </nav>
-                <div class="hidden md:flex items-center">
-                    <a href="account-creation.html" class="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-medium text-sm">
-                        Get Started
-                    </a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
-                        <i data-lucide="menu" class="h-6 w-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Home</a>
-                <a href="features.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Features</a>
-                <a href="books.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">My Library</a>
-                <a href="ai-notebook.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">AI Notebook</a>
-                <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800 active-link">Contact</a>
-                <a href="account-creation.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">Create Account</a>
-            </div>
-        </div>
-    </header>
+    <!-- Floating Icon Navigation -->
+    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center space-x-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-full p-2 shadow-2xl">
+        <a href="account-creation.html" title="Account" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        <a href="index.html" title="Home" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+        <a href="features.html" title="Features" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="layout-grid" class="w-6 h-6"></i></a>
+        <a href="books.html" title="Library" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
+        <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-gray-300 hover:bg-gray-700 transition-colors"><i data-lucide="bot" class="w-6 h-6"></i></a>
+        <a href="contact.html" title="Contact" class="p-3 rounded-full bg-white text-black transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+    </nav>
 
-    <main class="pt-16">
+    <main>
         <!-- Contact Section -->
-        <section id="contact" class="py-20 sm:py-32 min-h-[calc(100vh-4rem)] flex items-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section class="min-h-screen flex items-center justify-center py-20 sm:py-32 px-4">
+            <div class="max-w-lg w-full">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-white">Contact Us</h2>
-                    <p class="text-gray-400 mt-2">Have a question or feedback? Let us know.</p>
+                    <p class="text-gray-400 mt-2">Have a question or feedback? Let's talk.</p>
                 </div>
-                <div class="max-w-lg mx-auto">
-                    <form action="#" method="POST" class="space-y-6">
-                        <div>
-                            <label for="name" class="sr-only">Name</label>
-                            <input type="text" name="name" id="name" autocomplete="name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Name">
-                        </div>
-                        <div>
-                            <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email" id="email" autocomplete="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Email">
-                        </div>
-                        <div>
-                            <label for="message" class="sr-only">Message</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Message"></textarea>
-                        </div>
-                        <div>
-                            <button type="submit" class="w-full px-8 py-3 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-semibold text-lg">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="sr-only">Name</label>
+                        <input type="text" name="name" id="name" autocomplete="name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" name="email" id="email" autocomplete="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Email">
+                    </div>
+                    <div>
+                        <label for="message" class="sr-only">Message</label>
+                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Message"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full px-8 py-3 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-300 font-semibold text-lg">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-black border-t border-gray-800">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p>&copy; 2024 S. All Rights Reserved.</p>
-        </div>
-    </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            lucide.createIcons();
-        });
+        lucide.createIcons();
     </script>
 </body>
 </html>
+
+
