@@ -13,7 +13,14 @@ function handleCredentialResponse(response) {
   // For this demo, we'll decode the payload on the client side
   // to get the user's information.
   // Note: This is insecure for production, but fine for this client-only demo.
-  const payload = JSON.parse(atob(response.credential.split('.')[1]));
+  // WARNING: Never decode or trust JWTs on the client side in production. Always verify tokens securely on your server!
+  function decodeJwtPayload(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
+    return JSON.parse(atob(padded));
+  }
+  const payload = decodeJwtPayload(response.credential);
 
   console.log("Google User ID: " + payload.sub);
   console.log("Full Name: " + payload.name);
@@ -22,8 +29,10 @@ function handleCredentialResponse(response) {
 
   // --- Login Simulation ---
   // This part mimics the behavior of the other buttons to log the user in.
-  
-  // 1. Set the 'isLoggedIn' flag in session storage
+  // NOTE: Storing user information in sessionStorage is for demonstration purposes only.
+  // Do NOT store sensitive information in sessionStorage in production environments.
+  // 1. Set the 'isLoggedIn' flag in session storage as a string ('true')
+  // Note: sessionStorage only stores strings, so 'true' is used here.
   sessionStorage.setItem('isLoggedIn', 'true');
   
   // 2. (Optional) Save user info to display on the account page
@@ -34,4 +43,5 @@ function handleCredentialResponse(response) {
   // 3. Redirect to the account center page
   window.location.href = 'account-center.html';
 }
+
 
