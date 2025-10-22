@@ -15,18 +15,41 @@
     <style>
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
         [x-cloak] { display: none !important; }
+
+        /* 1. Mild Grey (Default) */
         :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
-        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
-        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
+        
+        /* 2. Charcoal */
+        .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
+        
+        /* 3. Cyber */
+        .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
+        
+        /* 4. Forest (Deep Green) */
+        .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
+        
+        /* 5. Ocean (Deep Blue) */
+        .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
+        
+        /* 6. Sunset (Deep Orange/Red) */
+        .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
     </style>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body 
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300" 
-    x-data="{ activeTab: 'settings', theme: localStorage.getItem('theme') || 'light' }"
-    x-init="$watch('theme', val => localStorage.setItem('theme', val))"
-    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
+    x-data="{ 
+        activeTab: 'settings', 
+        theme: localStorage.getItem('theme') || 'light',
+        isEditingUsername: false,
+        currentUsername: ''
+    }"
+    x-init="
+        $watch('theme', val => localStorage.setItem('theme', val));
+        currentUsername = sessionStorage.getItem('userName') || 'student_user';
+    "
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
     <script>
         // Gatekeeper Script: This runs immediately on page load.
@@ -60,24 +83,54 @@
             <div class="mt-8">
                 <!-- Settings Tab -->
                 <div x-show="activeTab === 'settings'" x-cloak>
-                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm">
-                        <h2 class="text-xl font-semibold text-[var(--text-color)]">General Settings</h2>
-                        <p class="text-[var(--text-muted-color)] mt-1">Update your profile and notification settings.</p>
-                        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="username" class="block text-sm font-medium text-[var(--text-color)]">Username</label>
-                                <input type="text" id="username" value="student_user" class="mt-1 block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-[var(--text-color)]">Email Address</label>
-                                <input type="email" id="email" value="student@example.com" class="mt-1 block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
+                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
+                        
+                        <!-- Profile Picture Display -->
+                        <div class="flex justify-center mb-6">
+                            <div class="relative group">
+                                <img id="profile-picture" class="w-24 h-24 rounded-full border-2 border-[var(--border-color)] shadow-sm" src="https://placehold.co/96x96/e5e7eb/6b7280?text=S" alt="Profile Picture">
+                                <input type="file" id="profile-upload" class="hidden" accept="image/*">
+                                <button onclick="document.getElementById('profile-upload').click()" class="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 rounded-full transition-opacity cursor-pointer" aria-label="Change profile picture">
+                                    <i data-lucide="camera" class="w-6 h-6"></i>
+                                </button>
                             </div>
                         </div>
+                        
+                        <h2 class="text-xl font-semibold text-[var(--text-color)] text-center">General Settings</h2>
+                        <p class="text-[var(--text-muted-color)] mt-1 text-center">Update your profile and notification settings.</p>
+                        
+                        <!-- New Username/Email Section -->
+                        <div class="mt-8 space-y-6">
+                            <!-- Username Field -->
+                            <div>
+                                <label class="block text-sm font-medium text-[var(--text-muted-color)]">Username</label>
+                                <div class="flex items-center justify-between mt-1" x-show="!isEditingUsername">
+                                    <span id="username-display" class="text-lg text-[var(--text-color)]" x-text="currentUsername"></span>
+                                    <button @click="isEditingUsername = true" class="text-sm font-medium text-[var(--active-link-color)] hover:underline">Edit</button>
+                                </div>
+                                <!-- Edit Username Form -->
+                                <div x-show="isEditingUsername" x-cloak class="flex items-center space-x-2 mt-1">
+                                    <input type="text" id="username-input" x-model="currentUsername" class="block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
+                                    <button @click="isEditingUsername = false; sessionStorage.setItem('userName', currentUsername)" class="px-3 py-2 rounded-md bg-[var(--active-link-color)] text-[var(--bg-color)] text-sm font-medium">Save</button>
+                                    <button @click="isEditingUsername = false; currentUsername = sessionStorage.getItem('userName') || 'student_user'" class="px-3 py-2 rounded-md bg-[var(--card-bg-color)] border border-[var(--border-color)] text-[var(--text-muted-color)] text-sm font-medium">Cancel</button>
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div>
+                                <label class="block text-sm font-medium text-[var(--text-muted-color)]">Email Address</label>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span id="email-display" class="text-lg text-[var(--text-color)]">student@example.com</span>
+                                    <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-0.5 rounded-full dark:bg-green-900 dark:text-green-200">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Appearance Section -->
                         <div class="mt-8 border-t border-[var(--border-color)] pt-6">
                             <h2 class="text-xl font-semibold text-[var(--text-color)]">Appearance</h2>
                             <p class="text-[var(--text-muted-color)] mt-1">Choose how S looks and feels. Your theme will be applied across the platform.</p>
-                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <!-- Mild Grey Theme -->
                                 <div @click="theme = 'light'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'light' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
                                     <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Mild Grey</h3><div x-show="theme === 'light'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
@@ -86,23 +139,66 @@
                                 <!-- Charcoal Theme -->
                                 <div @click="theme = 'dark'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'dark' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
                                     <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Charcoal</h3><div x-show="theme === 'dark'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
-                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded bg-gray-900 border border-gray-700"></div><div class="w-1/3 h-8 rounded bg-black border border-gray-800"></div><div class="w-1/3 h-8 rounded bg-gray-800 border border-gray-700"></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded" style="background-color: #0f172a; border: 1px solid #334155;"></div><div class="w-1/3 h-8 rounded" style="background-color: #1e293b; border: 1px solid #334155;"></div><div class="w-1/3 h-8 rounded" style="background-color: #334155; border: 1px solid #475569;"></div></div>
                                 </div>
                                 <!-- Cyber Theme -->
                                 <div @click="theme = 'cyber'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'cyber' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
                                     <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Cyber</h3><div x-show="theme === 'cyber'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
-                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded bg-indigo-900 border border-purple-500"></div><div class="w-1/3 h-8 rounded bg-black border border-cyan-400"></div><div class="w-1/3 h-8 rounded bg-purple-800 border border-indigo-500"></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded" style="background-color: #0d0c22; border: 1px solid #4f46e5;"></div><div class="w-1/3 h-8 rounded" style="background-color: rgba(30, 41, 59, 0.7); border: 1px solid #4f46e5;"></div><div class="w-1/3 h-8 rounded" style="background-color: #4338ca; border: 1px solid #a855f7;"></div></div>
+                                </div>
+                                <!-- Forest Theme -->
+                                <div @click="theme = 'forest'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'forest' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Forest</h3><div x-show="theme === 'forest'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded" style="background-color: #052e16; border: 1px solid #047857;"></div><div class="w-1/3 h-8 rounded" style="background-color: #064e3b; border: 1px solid #047857;"></div><div class="w-1/3 h-8 rounded" style="background-color: #047857; border: 1px solid #047857;"></div></div>
+                                </div>
+                                <!-- Ocean Theme -->
+                                <div @click="theme = 'ocean'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'ocean' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Ocean</h3><div x-show="theme === 'ocean'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded" style="background-color: #0c2444; border: 1px solid #1d4ed8;"></div><div class="w-1/3 h-8 rounded" style="background-color: #1e3a8a; border: 1px solid #1d4ed8;"></div><div class="w-1/3 h-8 rounded" style="background-color: #1d4ed8; border: 1px solid #1d4ed8;"></div></div>
+                                </div>
+                                <!-- Sunset Theme -->
+                                <div @click="theme = 'sunset'" :class="{ 'ring-2 ring-offset-2 ring-[var(--focus-ring-color)] ring-offset-[var(--bg-color)]': theme === 'sunset' }" class="cursor-pointer rounded-lg border border-[var(--input-border-color)] p-4 transition-all">
+                                    <div class="flex items-center justify-between"><h3 class="font-semibold text-[var(--text-color)]">Sunset</h3><div x-show="theme === 'sunset'" x-cloak><i data-lucide="check-circle-2" class="w-5 h-5 text-[var(--focus-ring-color)]"></i></div></div>
+                                    <div class="mt-2 flex space-x-1"><div class="w-1/3 h-8 rounded" style="background-color: #450a0a; border: 1px solid #b91c1c;"></div><div class="w-1/3 h-8 rounded" style="background-color: #7f1d1d; border: 1px solid #b91c1c;"></div><div class="w-1/3 h-8 rounded" style="background-color: #b91c1c; border: 1px solid #b91c1c;"></div></div>
                                 </div>
                             </div>
                         </div>
                         <!-- Log Out Button -->
                         <div class="mt-8 border-t border-[var(--border-color)] pt-6">
-                            <button id="logout-button" class="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors">Log Out</button>
+                            <button id="logout-button" class="w-full flex items-center justify-center space-x-2 px-4 py-2.5 text-sm font-medium text-red-600 bg-red-500/10 hover:bg-red-500/20 rounded-md transition-colors">
+                                <i data-lucide="log-out" class="w-4 h-4"></i>
+                                <span>Log Out</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Other tabs... -->
+                <!-- Features Tab -->
+                <div x-show="activeTab === 'features'" x-cloak>
+                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
+                        <h2 class="text-xl font-semibold text-[var(--text-color)]">Manage Features</h2>
+                        <p class="text-[var(--text-muted-color)] mt-1">Enable or disable experimental features.</p>
+                        <!-- Add feature toggles here -->
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div x-show="activeTab === 'security'" x-cloak>
+                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
+                        <h2 class="text-xl font-semibold text-[var(--text-color)]">Security & Privacy</h2>
+                        <p class="text-[var(--text-muted-color)] mt-1">Manage your password and two-factor authentication.</p>
+                        <!-- Add security settings here -->
+                    </div>
+                </div>
+
+                <!-- About Tab -->
+                <div x-show="activeTab === 'about'" x-cloak>
+                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
+                        <h2 class="text-xl font-semibold text-[var(--text-color)]">About S Study Hub</h2>
+                        <p class="text-[var(--text-muted-color)] mt-1">Version 1.0.0</p>
+                        <!-- Add more about info here -->
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -121,12 +217,48 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+
+            // Populate non-Alpine user info from sessionStorage
+            const userEmail = sessionStorage.getItem('userEmail');
+            const userPicture = sessionStorage.getItem('userPicture');
+
+            const emailDisplay = document.getElementById('email-display');
+            const profilePicElement = document.getElementById('profile-picture');
+
+            if (userEmail && emailDisplay) {
+                emailDisplay.textContent = userEmail;
+            }
+            if (userPicture && profilePicElement) {
+                profilePicElement.src = userPicture;
+            }
+
+            // Handle Profile Picture Upload Preview
+            const profileUpload = document.getElementById('profile-upload');
+            if(profileUpload) {
+                profileUpload.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            profilePicElement.src = e.target.result;
+                            // In a real app, you'd upload this to a server
+                            // and update the userPicture in sessionStorage/database.
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
             
+            // Logout button functionality
             const logoutButton = document.getElementById('logout-button');
             if(logoutButton) {
                 logoutButton.addEventListener('click', () => {
-                    // Remove the login flag
+                    // Remove the login flag and all user data
                     sessionStorage.removeItem('isLoggedIn');
+                    sessionStorage.removeItem('userName');
+                    sessionStorage.removeItem('userEmail');
+                    sessionStorage.removeItem('userPicture');
+                    
                     // Redirect to the home page
                     window.location.href = 'index.html';
                 });
@@ -135,6 +267,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 

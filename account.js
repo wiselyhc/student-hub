@@ -12,6 +12,7 @@ function handleCredentialResponse(response) {
   
   // For this demo, we'll decode the payload on the client side
   // to get the user's information.
+  // Note: This is insecure for production, but fine for this client-only demo.
   const payload = JSON.parse(atob(response.credential.split('.')[1]));
 
   console.log("Google User ID: " + payload.sub);
@@ -33,3 +34,4 @@ function handleCredentialResponse(response) {
   // 3. Redirect to the account center page
   window.location.href = 'account-center.html';
 }
+
