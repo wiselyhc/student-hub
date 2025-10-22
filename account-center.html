@@ -43,11 +43,11 @@
         activeTab: 'settings', 
         theme: localStorage.getItem('theme') || 'light',
         isEditingUsername: false,
-        currentUsername: ''
+        currentUsername: sessionStorage.getItem('userName') || 'Student User'
     }"
     x-init="
         $watch('theme', val => localStorage.setItem('theme', val));
-        currentUsername = sessionStorage.getItem('userName') || 'student_user';
+        $watch('currentUsername', val => sessionStorage.setItem('userName', val));
     "
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
@@ -73,9 +73,7 @@
             <div class="mt-8 border-b border-[var(--border-color)]">
                 <nav class="-mb-px flex space-x-6" aria-label="Tabs">
                     <button @click="activeTab = 'settings'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'settings', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'settings' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Settings</button>
-                    <button @click="activeTab = 'features'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'features', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'features' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Features</button>
-                    <button @click="activeTab = 'security'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'security', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'security' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Security</button>
-                    <button @click="activeTab = 'about'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'about', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'about' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">About</button>
+                    <!-- Other tabs... -->
                 </nav>
             </div>
 

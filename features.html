@@ -16,8 +16,11 @@
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
         [x-cloak] { display: none !important; }
         :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
-        .dark { --bg-color: #111827; --text-color: #d1d5db; --text-muted-color: #9ca3af; --card-bg-color: #1f2937; --border-color: #374151; --sidebar-bg-color: #1f2937; --sidebar-border-color: #374151; --active-icon-bg-color: #374151; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #374151; --input-border-color: #4b5563; --focus-ring-color: #ffffff; }
-        .cyber { --bg-color: #0d0c22; --text-color: #93c5fd; --text-muted-color: #60a5fa; --card-bg-color: rgba(30, 41, 59, 0.5); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #a5b4fc; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.5); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
+        .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
+        .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
+        .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
+        .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
     </style>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
@@ -25,30 +28,31 @@
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
     x-data="{ theme: localStorage.getItem('theme') || 'light' }"
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
-    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
     <main class="min-h-screen flex items-center p-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="font-semibold tracking-wider uppercase text-[var(--active-link-color)]">Core Features</span>
-                <h2 class="mt-2 text-4xl font-extrabold sm:text-5xl text-[var(--text-color)]">Tools for Modern Students</h2>
-            </div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-2xl transition-all duration-300 hover:border-[var(--active-link-color)] hover:shadow-lg">
-                    <div class="mb-4"><i data-lucide="brain-circuit" class="w-8 h-8 text-[var(--text-color)]"></i></div>
-                    <h3 class="text-2xl font-bold text-[var(--text-color)] mb-2">AI-Powered Insights</h3>
-                    <p class="text-[var(--text-muted-color)]">Ask complex questions about your study materials and get clear, concise answers in seconds. Summarize, explain, and analyze any text.</p>
-                </div>
-                <div class="p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-2xl transition-all duration-300 hover:border-[var(--active-link-color)] hover:shadow-lg">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pt-16">
+                <!-- S AI Notebook Card -->
+                <a href="ai-notebook.html" class="block p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-2xl transition-all duration-300 hover:border-[var(--active-link-color)] hover:shadow-lg">
                     <div class="mb-4"><span class="font-logo text-4xl text-[var(--text-color)]">S</span></div>
+                    <h3 class="text-2xl font-bold text-[var(--text-color)] mb-2">S</h3>
+                    <p class="text-[var(--text-muted-color)]">Ask complex questions about your study materials and get clear, concise answers in seconds. Summarize, explain, and analyze any text.</p>
+                </a>
+                
+                <!-- S Library Card -->
+                <a href="books.html" class="block p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-2xl transition-all duration-300 hover:border-[var(--active-link-color)] hover:shadow-lg">
+                    <div class="mb-4"><i data-lucide="library" class="w-8 h-8 text-[var(--text-color)]"></i></div>
                     <h3 class="text-2xl font-bold text-[var(--text-color)] mb-2">S Library</h3>
                     <p class="text-[var(--text-muted-color)]">Read and download your books, articles, and class notes all in one place. Your entire semester, available anytime for your studies.</p>
-                </div>
-                <div class="p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-2xl transition-all duration-300 hover:border-[var(--active-link-color)] hover:shadow-lg">
-                    <div class="mb-4"><i data-lucide="edit" class="w-8 h-8 text-[var(--text-color)]"></i></div>
-                    <h3 class="text-2xl font-bold text-[var(--text-color)] mb-2">Smart Study Tools</h3>
-                    <p class="text-[var(--text-muted-color)]">Generate flashcards, create study guides, and identify key concepts automatically. Turn hours of manual work into minutes of smart prep.</p>
+                </a>
+
+                <!-- Coming Soon Card -->
+                <div class="block p-6 bg-[var(--card-bg-color)] rounded-xl border border-[var(--border-color)] shadow-xl opacity-80">
+                    <div class="mb-4"><i data-lucide="sparkles" class="w-8 h-8 text-[var(--text-color)]"></i></div>
+                    <h3 class="text-2xl font-bold text-[var(--text-color)] mb-2">Coming Soon</h3>
+                    <p class="text-[var(--text-muted-color)]">More features will be introduced in future versions. Stay tuned for updates!</p>
                 </div>
             </div>
         </div>
@@ -56,11 +60,11 @@
 
     <!-- Floating Navigation -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
-        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl transition-transform duration-300 ease-in-out hover:-translate-y-1">
             <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-            <a href="features.html" title="Features" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="wand-2" class="w-6 h-6"></i></a>
             <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="S Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><span class="font-logo w-6 h-6 flex items-center justify-center text-xl leading-none">S</span></a>
             <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
             <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
         </div>
@@ -73,4 +77,3 @@
     </script>
 </body>
 </html>
-
