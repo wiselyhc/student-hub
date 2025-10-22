@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Get Started - S Study Hub</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Load the Google Sign-In client library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Load our new account.js file -->
+    <script src="account.js" defer></script>
 
     <style>
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
@@ -28,99 +34,39 @@
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
     <main class="min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full" x-data="{ activeTab: 'signup' }">
+        <div class="max-w-md w-full">
             <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md border border-[var(--border-color)]">
                 <div class="text-center mb-8">
                     <a href="index.html" class="inline-block text-5xl font-logo text-[var(--text-color)]">S</a>
-                    <p class="text-[var(--text-muted-color)] mt-2" x-show="activeTab === 'signup'">Create an account to get started.</p>
-                    <p class="text-[var(--text-muted-color)] mt-2" x-show="activeTab === 'signin'" x-cloak>Welcome back! Sign in to your account.</p>
+                    <p class="text-[var(--text-muted-color)] mt-2">Sign in with Google to continue.</p>
                 </div>
 
-                <!-- Social Logins -->
-                <div class="space-y-3">
-                    <button class="action-button w-full flex items-center justify-center space-x-3 py-2.5 border border-[var(--input-border-color)] rounded-md hover:bg-[var(--active-icon-bg-color)] transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.223 0-9.641-3.657-11.303-8.657l-6.571 4.819C9.656 39.663 16.318 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.018 36.463 44 31.023 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
-                        <span class="font-medium text-[var(--text-color)] text-sm">Continue with Google</span>
-                    </button>
-                    <button class="action-button w-full flex items-center justify-center space-x-3 py-2.5 border border-[var(--input-border-color)] rounded-md hover:bg-[var(--active-icon-bg-color)] transition-colors">
-                        <svg class="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.041c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-                        <span class="font-medium text-[var(--text-color)] text-sm">Continue with Facebook</span>
-                    </button>
-                    <button class="action-button w-full flex items-center justify-center space-x-3 py-2.5 border border-[var(--input-border-color)] rounded-md hover:bg-[var(--active-icon-bg-color)] transition-colors">
-                        <svg class="w-5 h-5 text-[var(--text-color)]" fill="currentColor" viewBox="0 0 1200 1227"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L12.122 1227.31H117.979L527.734 750.38L859.458 1227.31H1216.78L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6904H306.615L611.412 515.685L658.88 583.579L1076.55 1156.91H913.946L569.165 687.854V687.828Z"/></svg>
-                        <span class="font-medium text-[var(--text-color)] text-sm">Continue with X</span>
-                    </button>
-                    <button class="action-button w-full flex items-center justify-center space-x-3 py-2.5 border border-[var(--input-border-color)] rounded-md hover:bg-[var(--active-icon-bg-color)] transition-colors">
-                        <svg class="w-5 h-5" viewBox="0 0 21 21"><path fill="#f25022" d="M1 1h9v9H1z"/><path fill="#00a4ef" d="M1 11h9v9H1z"/><path fill="#7fba00" d="M11 1h9v9h-9z"/><path fill="#ffb900" d="M11 11h9v9h-9z"/></svg>
-                        <span class="font-medium text-[var(--text-color)] text-sm">Continue with Microsoft</span>
-                    </button>
+                <!-- Google Sign-In only -->
+                <div class="flex justify-center w-full">
+                    <div id="g_id_onload"
+                         data-client_id="922901182665-8dvhqr4v4m9qte4kac31a816439jkaa3.apps.googleusercontent.com"
+                         data-callback="handleCredentialResponse"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="continue_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="384">
+                    </div>
                 </div>
 
-                <div class="my-6 flex items-center">
-                    <div class="flex-grow border-t border-[var(--border-color)]"></div>
-                    <span class="flex-shrink mx-4 text-xs text-[var(--text-muted-color)] uppercase">Or</span>
-                    <div class="flex-grow border-t border-[var(--border-color)]"></div>
-                </div>
-
-                <!-- Tabs -->
-                <div class="flex border-b border-[var(--border-color)]">
-                    <button @click="activeTab = 'signup'" :class="{'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'signup'}" class="flex-1 -mb-px py-3 font-medium border-b-2">Sign Up</button>
-                    <button @click="activeTab = 'signin'" :class="{'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'signin'}" class="flex-1 -mb-px py-3 font-medium border-b-2 text-[var(--text-muted-color)]">Sign In</button>
-                </div>
-
-                <!-- Sign Up Form -->
-                <form class="mt-6 space-y-4" x-show="activeTab === 'signup'">
-                     <div>
-                        <label for="username" class="sr-only">Username</label>
-                        <input type="text" id="username" placeholder="Username" required class="w-full px-4 py-2.5 rounded-md bg-[var(--input-bg-color)] border border-[var(--input-border-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)]">
-                    </div>
-                    <div>
-                        <label for="email-signup" class="sr-only">Email</label>
-                        <input type="email" id="email-signup" placeholder="Email Address" required class="w-full px-4 py-2.5 rounded-md bg-[var(--input-bg-color)] border border-[var(--input-border-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)]">
-                    </div>
-                    <div>
-                        <label for="password-signup" class="sr-only">Password</label>
-                        <input type="password" id="password-signup" placeholder="Password" required class="w-full px-4 py-2.5 rounded-md bg-[var(--input-bg-color)] border border-[var(--input-border-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)]">
-                    </div>
-                    <button class="action-button w-full py-2.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-md font-semibold hover:opacity-90">Create Account</button>
-                </form>
-
-                <!-- Sign In Form -->
-                <form class="mt-6 space-y-4" x-show="activeTab === 'signin'" x-cloak>
-                    <div>
-                        <label for="email-signin" class="sr-only">Email</label>
-                        <input type="email" id="email-signin" placeholder="Email Address" required class="w-full px-4 py-2.5 rounded-md bg-[var(--input-bg-color)] border border-[var(--input-border-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)]">
-                    </div>
-                    <div>
-                        <label for="password-signin" class="sr-only">Password</label>
-                        <input type="password" id="password-signin" placeholder="Password" required class="w-full px-4 py-2.5 rounded-md bg-[var(--input-bg-color)] border border-[var(--input-border-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)]">
-                    </div>
-                    <button class="action-button w-full py-2.5 bg-[var(--text-color)] text-[var(--bg-color)] rounded-md font-semibold hover:opacity-90">Sign In</button>
-                </form>
             </div>
         </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-
-            const actionButtons = document.querySelectorAll('.action-button');
-            actionButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent actual form submission for this simulation
-                    
-                    // Simulate a successful login by setting a flag in the browser's session storage
-                    sessionStorage.setItem('isLoggedIn', 'true');
-                    
-                    // Redirect to the account center page
-                    window.location.href = 'account-center.html';
-                });
-            });
+            if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
         });
     </script>
 </body>
 </html>
-
-
-
