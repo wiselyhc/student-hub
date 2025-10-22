@@ -23,7 +23,6 @@
         .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
         .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
         .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
-    
     </style>
     <!-- Removed the Intersect plugin script -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -32,7 +31,7 @@
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
     x-data="{ theme: localStorage.getItem('theme') || 'light' }"
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
-    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme ==="sunset" }">
+    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
     <main class="min-h-screen flex flex-col items-center justify-center text-center p-4">
         <h1 class="text-5xl md:text-7xl font-extrabold text-[var(--text-color)] leading-tight mb-4">
@@ -66,6 +65,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            
+            // Check login status
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const accountLink = document.querySelector('a[href="account-center.html"]');
+            const aiNotebookLink = document.querySelector('a[href="ai-notebook.html"]');
+            const libraryLink = document.querySelector('a[href="books.html"]');
+            
+            // Update navigation based on login status
+            if (!isLoggedIn) {
+                accountLink.href = 'account-creation.html';
+                aiNotebookLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'account-creation.html';
+                });
+                libraryLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'account-creation.html';
+                });
+            }
+
+            // Apply stored theme immediately to prevent flash of default theme
+            const storedTheme = localStorage.getItem('theme') || 'light';
+            document.body.classList.add(storedTheme);
         });
     </script>
 </body>
