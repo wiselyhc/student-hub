@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Started - S Study Hub</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -38,7 +38,7 @@
             <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md border border-[var(--border-color)]">
                 <div class="text-center mb-8">
                     <a href="index.html" class="inline-block text-5xl font-logo text-[var(--text-color)]">S</a>
-                    <p class="text-[var(--text-muted-color)] mt-2">Sign in with Google to continue.</p>
+                    <p class="text-[var(--text-muted-color)] mt-2">Sign in to continue using S Study Hub.</p>
                 </div>
 
                 <!-- Google Sign-In only -->
@@ -65,7 +65,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+            lucide.createIcons();
+            // No non-Google sign-in buttons to wire up anymore.
         });
     </script>
 </body>
