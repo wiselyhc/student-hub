@@ -13,6 +13,125 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        /* Radial menu styles removed: chat/menu now integrated into nav as dropdowns */
+        
+        .glassmorphism-settings {
+            background: rgba(255,255,255,0.25) !important;
+            backdrop-filter: blur(18px) saturate(1.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        }
+        .glassmorphism-voice {
+            background: rgba(255,255,255,0.35) !important;
+            backdrop-filter: blur(10px) saturate(1.5);
+            box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        /* Playback bar styles */
+        .playback-bar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 360px;
+            height: 64px;
+            max-width: calc(100% - 48px);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(16px) saturate(1.5);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 12px 32px rgba(2,6,23,0.4);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform-origin: right bottom;
+            transition: all 300ms cubic-bezier(.2,.9,.2,1);
+            cursor: grab;
+            resize: none;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        .playback-bar:active {
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+        .playback-bar.hidden { 
+            opacity: 0; 
+            transform: scale(0.95) translateY(10px); 
+            pointer-events: none; 
+        }
+        .playback-btn.play-pause {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 200ms cubic-bezier(.3,.7,.4,1.5);
+            color: white;
+            cursor: pointer;
+        }
+        .playback-btn.play-pause:hover {
+            transform: scale(1.08);
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.35);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        }
+        .playback-btn.play-pause:active {
+            transform: scale(0.95);
+        }
+        .playback-progress {
+            flex: 1;
+            height: 44px;
+            padding: 18px 0;
+            cursor: pointer;
+            position: relative;
+        }
+        .playback-progress::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+        .playback-progress > i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            height: 8px;
+            width: 0%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.7));
+            border-radius: 4px;
+            transform: translateY(-50%);
+            transition: width 100ms linear;
+        }
+        .playback-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+        .playback-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+        /* Stronger glass for settings */
+        .glassmorphism-settings { background: rgba(255,255,255,0.08) !important; backdrop-filter: blur(22px) saturate(1.3); border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
         [x-cloak] { display: none !important; }
         :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; --header-bg: rgba(255,255,255,0.8); --chatbar-bg: rgba(255,255,255,0.5); --bubble-user-bg: #ffffff; --bubble-ai-bg: #e5e7eb; --bubble-user-text: #1f2937; --bubble-ai-text: #1f2937; }
@@ -34,15 +153,60 @@
     x-data="{ theme: localStorage.getItem('theme') || 'light' }"
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
+
+
+    <!-- Settings dropdown will be rendered inside the navigation bar (only in AI Notebook view) -->
     
-    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center">
         <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl transition-transform duration-300 ease-in-out hover:-translate-y-1">
+            <!-- Left section -->
+            <div class="flex items-center space-x-2">
+    
+
             <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
             <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="wand-2" class="w-6 h-6"></i></a>
             <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
             <a href="ai-notebook.html" title="S Notebook" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><span class="font-logo w-6 h-6 flex items-center justify-center text-xl leading-none">S</span></a>
             <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
             <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+
+            <!-- Right section - Only visible in AI Notebook -->
+            <div class="pl-2 ml-2 border-l border-[var(--border-color)]/50 flex items-center space-x-2" x-data="{ showMenus: window.location.pathname.includes('ai-notebook') }" x-show="showMenus">
+                <!-- New Chat / Search / History buttons (separate icons) -->
+                <button title="New Chat" @click="startNewChat()" class="p-2 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors">
+                    <i data-lucide="plus-circle" class="w-6 h-6"></i>
+                </button>
+                <button title="Search Chats" @click="openChatSearch()" class="p-2 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors">
+                    <i data-lucide="search" class="w-6 h-6"></i>
+                </button>
+                <button title="Chat History" @click="openChatHistory()" class="p-2 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors">
+                    <i data-lucide="history" class="w-6 h-6"></i>
+                </button>
+
+                <!-- Settings Button -->
+                <button 
+                    x-data="{ open: false }" 
+                    @click="open = !open"
+                    @click.away="open = false"
+                    class="relative p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"
+                    :class="{ 'bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)]': open }">
+                    <i data-lucide="settings" class="w-6 h-6"></i>
+                    
+                    <!-- Settings Dropdown (voice controls) -->
+                    <div x-show="open" x-cloak @click.outside="open = false" class="absolute right-0 mt-2 w-72 rounded-2xl shadow-2xl p-4 flex flex-col space-y-4 border border-[var(--border-color)] glassmorphism-settings">
+                        <div>
+                            <h3 class="font-semibold text-[var(--text-color)] mb-2 flex items-center">
+                                <i data-lucide="volume-2" class="w-5 h-5 mr-2"></i>
+                                AI Voice
+                                <span id="current-voice-badge" class="ml-3 inline-flex items-center justify-center w-7 h-7 rounded-full glassmorphism-voice text-sm font-bold text-blue-900">S</span>
+                            </h3>
+                            <ul id="voice-list" class="space-y-2">
+                                <!-- Voice options will be injected here -->
+                            </ul>
+                        </div>
+                    </div>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -67,15 +231,15 @@
                  x-transition:leave-end="opacity-0 scale-95"
                  class="absolute bottom-full mb-2 w-48 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-xl shadow-lg p-1.5">
                 
-                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                <button id="attach-photo" type="button" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
                     <i data-lucide="image" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Photo</span>
                 </button>
-                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                <button id="attach-document" type="button" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
                     <i data-lucide="file-text" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Document</span>
                 </button>
-                <button @click="document.getElementById('file-upload').click(); attachMenuOpen = false" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
+                <button id="attach-other" type="button" class="w-full flex items-center space-x-3 px-3 py-2 text-left text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors text-sm">
                     <i data-lucide="file" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Other</span>
                 </button>
@@ -84,23 +248,606 @@
             <!-- Chat Form -->
             <form id="chat-form" class="flex items-center space-x-2 bg-[var(--chatbar-bg)] backdrop-blur-lg border border-[var(--border-color)] rounded-2xl p-2 shadow-lg">
                 <button @click="attachMenuOpen = !attachMenuOpen" type="button" id="attach-button" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2"><i data-lucide="paperclip" class="w-6 h-6"></i></button>
-                <input type="file" id="file-upload" class="hidden">
+                <input type="file" id="file-upload-photo" class="hidden" accept="image/*">
+                <input type="file" id="file-upload-document" class="hidden" accept=".pdf,.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/plain">
+                <input type="file" id="file-upload-other" class="hidden">
                 <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off" class="flex-grow bg-transparent border-none text-[var(--text-color)] focus:outline-none focus:ring-0 placeholder-[var(--text-muted-color)] text-lg py-2">
-                <button type="button" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2"><i data-lucide="mic" class="w-6 h-6"></i></button>
+                <button id="mic-button" type="button" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2" aria-label="Start voice input"><i data-lucide="mic" class="w-6 h-6"></i></button>
                 <button type="submit" class="flex-shrink-0 text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors p-2 disabled:text-gray-300"><i data-lucide="send" class="w-6 h-6"></i></button>
             </form>
         </div>
     </div>
     
     <script>
+        // Chat Menu Functions
+        function startNewChat() {
+            // Clear chat window and welcome screen
+            const chatWindow = document.getElementById('chat-window');
+            const welcomeScreen = document.getElementById('welcome-screen');
+            if (chatWindow) chatWindow.innerHTML = '';
+            if (welcomeScreen) welcomeScreen.style.display = 'none';
+            // Reset chat history
+            chatHistory = [];
+            // Focus input
+            document.getElementById('chat-input')?.focus();
+        }
+
+        function openChatSearch() {
+            const searchModal = document.createElement('div');
+            searchModal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4';
+            searchModal.innerHTML = `
+                <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" data-close></div>
+                <div class="relative w-full max-w-lg bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-6 transform transition-all">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="flex-1 relative">
+                            <input type="search" placeholder="Search your chats..." class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-2 pl-10 text-[var(--text-color)] placeholder-white/50">
+                            <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-white/50"></i>
+                        </div>
+                        <button class="p-2 hover:bg-white/10 rounded-lg transition-colors" data-close>
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <!-- Search results will go here -->
+                        <div class="text-center text-[var(--text-muted-color)] py-8">
+                            Start typing to search your chat history
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(searchModal);
+            lucide.createIcons();
+            
+            // Close handlers
+            const closeModal = () => searchModal.remove();
+            searchModal.querySelectorAll('[data-close]').forEach(el => 
+                el.addEventListener('click', closeModal)
+            );
+            searchModal.addEventListener('click', e => {
+                if (e.target === searchModal) closeModal();
+            });
+        }
+
+        function openChatHistory() {
+            const historyModal = document.createElement('div');
+            historyModal.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4';
+            historyModal.innerHTML = `
+                <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" data-close></div>
+                <div class="relative w-full max-w-lg bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-6 transform transition-all">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-[var(--text-color)]">Chat History</h3>
+                        <button class="p-2 hover:bg-white/10 rounded-lg transition-colors" data-close>
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <!-- Example history items -->
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer">
+                            <div class="font-medium text-[var(--text-color)]">Previous Chat 1</div>
+                            <div class="text-sm text-[var(--text-muted-color)] mt-1">Last message preview...</div>
+                        </div>
+                        <div class="text-center text-[var(--text-muted-color)] py-4">
+                            No previous chats found
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(historyModal);
+            lucide.createIcons();
+            
+            // Close handlers
+            const closeModal = () => historyModal.remove();
+            historyModal.querySelectorAll('[data-close]').forEach(el => 
+                el.addEventListener('click', closeModal)
+            );
+            historyModal.addEventListener('click', e => {
+                if (e.target === historyModal) closeModal();
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons for chat menu
+            lucide.createIcons({
+                icons: ['message-circle', 'plus', 'search', 'history', 'x']
+            });
+
+            // No radial menu initialization needed; chat/settings are dropdowns inside the nav
+            
+            // Settings menu: AI voice selection
+            let selectedVoice = null;
+            let limitedVoices = [];
+
+            function populateVoices() {
+                try {
+                    const all = window.speechSynthesis.getVoices();
+                    // Prefer English voices first, then the rest
+                    limitedVoices = all.slice().sort((a, b) => {
+                        const aEn = /en/i.test(a.lang) ? 0 : 1;
+                        const bEn = /en/i.test(b.lang) ? 0 : 1;
+                        return aEn - bEn;
+                    });
+                    const voiceList = document.getElementById('voice-list');
+                    if (voiceList) {
+                        voiceList.innerHTML = '';
+                        limitedVoices.forEach((voice) => {
+                            const li = document.createElement('li');
+                            li.className = 'flex items-center space-x-3 p-2 rounded-xl cursor-pointer border border-transparent transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 hover:shadow-lg';
+                            li.tabIndex = 0;
+                            li.setAttribute('role', 'option');
+                            li.setAttribute('aria-selected', selectedVoice === voice ? 'true' : 'false');
+                            const display = voice.name || voice.voiceURI || (voice.displayName || 'Unknown');
+                            const initial = (display && display.length) ? display[0] : 'S';
+                            li.innerHTML = `<span class="inline-block w-8 h-8 rounded-full glassmorphism-voice flex items-center justify-center text-blue-900 font-bold text-lg shadow border-2 border-white">${initial}</span><span class="font-semibold text-[var(--text-color)]">${display}</span><span class="text-xs text-[var(--text-muted-color)]">${voice.lang || ''}</span>`;
+
+                            // Click to select voice
+                            li.addEventListener('click', () => {
+                                selectedVoice = voice;
+                                Array.from(voiceList.children).forEach(child => {
+                                    child.setAttribute('aria-selected', 'false');
+                                    child.classList.remove('ring-2', 'ring-blue-400');
+                                });
+                                li.setAttribute('aria-selected', 'true');
+                                li.classList.add('ring-2', 'ring-blue-400');
+                                // Auto-close settings menu
+                                try { document.querySelector('.glassmorphism-settings').parentElement.__x.$data.open = false; } catch (e) {}
+                                // update badge
+                                const badge = document.getElementById('current-voice-badge');
+                                if (badge) badge.textContent = initial || 'S';
+                                try { localStorage.setItem('selectedVoiceURI', voice.voiceURI || voice.name || display); } catch (e) {}
+                            });
+
+                            li.addEventListener('keydown', (e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    li.click();
+                                }
+                            });
+
+                            // Hover to preview the voice
+                            li.addEventListener('mouseenter', () => {
+                                try {
+                                    if (window.speechSynthesis && voice) {
+                                        // stop any current preview
+                                        window.speechSynthesis.cancel();
+                                        const preview = new SpeechSynthesisUtterance('This is a sample of ' + (voice.name || display));
+                                        preview.voice = voice;
+                                        preview.rate = 1.0;
+                                        preview.pitch = 1.0;
+                                        try { preview.volume = 1.0; } catch (e) {}
+                                        window.speechSynthesis.speak(preview);
+                                    }
+                                } catch (e) { console.error('Preview error', e); }
+                            });
+                            // Stop preview on leave
+                            li.addEventListener('mouseleave', () => {
+                                try { window.speechSynthesis.cancel(); } catch (e) {}
+                            });
+
+                            if (selectedVoice === voice) {
+                                li.classList.add('ring-2', 'ring-blue-400');
+                            }
+                            voiceList.appendChild(li);
+                        });
+                    }
+
+                    // restore selected voice by URI if present
+                    try {
+                        const saved = localStorage.getItem('selectedVoiceURI');
+                        if (saved) {
+                            const found = limitedVoices.find(v => (v.voiceURI === saved) || (v.name === saved) || (v.displayName === saved));
+                            if (found) selectedVoice = found;
+                        }
+                    } catch (e) {}
+
+                    if (!selectedVoice && limitedVoices.length) {
+                        selectedVoice = limitedVoices[0];
+                        const badge = document.getElementById('current-voice-badge');
+                        if (badge) badge.textContent = (selectedVoice.displayName || selectedVoice.name || selectedVoice.voiceURI || 'S')[0] || 'S';
+                    }
+                } catch (err) {
+                    console.error('populateVoices error', err);
+                }
+            }
+
+            // Initialize voices when supported
+            if ('speechSynthesis' in window) {
+                populateVoices();
+                window.speechSynthesis.onvoiceschanged = populateVoices;
+            }
+
+            // restore selected voice by name if present
+            try {
+                const savedName = localStorage.getItem('selectedVoiceName');
+                if (savedName) {
+                    // after voices populate, pick matching displayName
+                    const tryRestore = () => {
+                        const all = window.speechSynthesis.getVoices();
+                        const match = all.find(v => (v.name === savedName) || (v.displayName === savedName));
+                        if (match) selectedVoice = match;
+                    };
+                    tryRestore();
+                    window.speechSynthesis.onvoiceschanged = tryRestore;
+                }
+            } catch (e) {}
+
+            // Speak AI message if voice is selected
+            // Speak AI message if voice is selected (manual only)
+            function speakAIMessage(text) {
+                if ('speechSynthesis' in window && selectedVoice) {
+                    // cancel any current speech and speak in chunks for better progress tracking
+                    window.speechSynthesis.cancel();
+                    speakChunks(text.replace(/<[^>]+>/g, ''));
+                }
+            }
+
+            // Playback controls state
+            let currentUtterance = null;
+            let playbackBar = null;
+            let playbackProgressInterval = null;
+            let chunkQueue = [];
+            let currentChunkIndex = 0;
+
+            function createPlaybackBar() {
+                if (playbackBar) return playbackBar;
+                playbackBar = document.createElement('div');
+                playbackBar.className = 'playback-bar hidden';
+                playbackBar.style.position = 'fixed';
+                playbackBar.innerHTML = `
+                    <button class="playback-btn play-pause" data-action="toggle-play" title="Play/Pause">
+                        <svg class="play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5v14l11-7z"></path></svg>
+                        <svg class="pause-icon hidden" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6 4h4v16H6zm8 0h4v16h-4z"></path></svg>
+                    </button>
+                    <div class="playback-progress"><i></i></div>
+                    <button class="playback-close" data-action="close" title="Close">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                `;
+                document.body.appendChild(playbackBar);
+
+                // Restore position from localStorage
+                try {
+                    const pos = JSON.parse(localStorage.getItem('playbackBarPos') || 'null');
+                    if (pos && typeof pos.left === 'number' && typeof pos.top === 'number') {
+                        playbackBar.style.left = pos.left + 'px';
+                        playbackBar.style.top = pos.top + 'px';
+                    } else {
+                        playbackBar.style.right = '24px';
+                        playbackBar.style.bottom = '24px';
+                    }
+                } catch (e) {
+                    playbackBar.style.right = '24px';
+                    playbackBar.style.bottom = '24px';
+                }
+
+                // Make entire bar draggable
+                let isDragging = false;
+                let offset = { x: 0, y: 0 };
+                const onStart = (clientX, clientY, target) => {
+                    // Don't initiate drag if clicking buttons or progress bar
+                    if (target.closest('.playback-btn') || target.closest('.playback-close') || target.closest('.playback-progress')) return;
+                    isDragging = true;
+                    playbackBar.style.cursor = 'grabbing';
+                    offset.x = clientX - playbackBar.getBoundingClientRect().left;
+                    offset.y = clientY - playbackBar.getBoundingClientRect().top;
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                };
+
+                const onMouseMove = (e) => {
+                    if (!isDragging) return;
+                    let left = e.clientX - offset.x;
+                    let top = e.clientY - offset.y;
+                    const pad = 8;
+                    left = Math.max(pad, Math.min(window.innerWidth - playbackBar.offsetWidth - pad, left));
+                    top = Math.max(pad, Math.min(window.innerHeight - playbackBar.offsetHeight - pad, top));
+                    playbackBar.style.left = left + 'px';
+                    playbackBar.style.top = top + 'px';
+                };
+
+                const onMouseUp = () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    playbackBar.style.cursor = 'grab';
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                    try { localStorage.setItem('playbackBarPos', JSON.stringify({ left: playbackBar.getBoundingClientRect().left, top: playbackBar.getBoundingClientRect().top })); } catch (e) {}
+                };
+
+                // Mouse events for entire bar
+                playbackBar.addEventListener('mousedown', (e) => {
+                    onStart(e.clientX, e.clientY, e.target);
+                });
+
+                // Touch events for entire bar
+                playbackBar.addEventListener('touchstart', (e) => {
+                    const target = e.target;
+                    // Don't initiate drag if touching buttons or progress bar
+                    if (target.closest('.playback-btn') || target.closest('.playback-close') || target.closest('.playback-progress')) return;
+                    const t = e.touches[0];
+                    offset.x = t.clientX - playbackBar.getBoundingClientRect().left;
+                    offset.y = t.clientY - playbackBar.getBoundingClientRect().top;
+                    isDragging = true;
+                    playbackBar.style.cursor = 'grabbing';
+                    document.addEventListener('touchmove', onTouchMove, { passive: false });
+                    document.addEventListener('touchend', onTouchEnd);
+                }, { passive: true });
+
+                const onTouchMove = (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const t = e.touches[0];
+                    let left = t.clientX - offset.x;
+                    let top = t.clientY - offset.y;
+                    const pad = 8;
+                    left = Math.max(pad, Math.min(window.innerWidth - playbackBar.offsetWidth - pad, left));
+                    top = Math.max(pad, Math.min(window.innerHeight - playbackBar.offsetHeight - pad, top));
+                    playbackBar.style.left = left + 'px';
+                    playbackBar.style.top = top + 'px';
+                };
+
+                const onTouchEnd = () => {
+                    isDragging = false;
+                    playbackBar.style.cursor = 'grab';
+                    document.removeEventListener('touchmove', onTouchMove);
+                    document.removeEventListener('touchend', onTouchEnd);
+                    try { localStorage.setItem('playbackBarPos', JSON.stringify({ left: playbackBar.getBoundingClientRect().left, top: playbackBar.getBoundingClientRect().top })); } catch (e) {}
+                };
+
+                // Controls
+                const toggleBtn = playbackBar.querySelector('[data-action="toggle-play"]');
+                const playIcon = toggleBtn.querySelector('.play-icon');
+                const pauseIcon = toggleBtn.querySelector('.pause-icon');
+                function setPlayingState(isPlaying) {
+                    try {
+                        const bar = createPlaybackBar();
+                        const tbtn = bar.querySelector('[data-action="toggle-play"]');
+                        const pIcon = tbtn.querySelector('.play-icon');
+                        const paIcon = tbtn.querySelector('.pause-icon');
+                        if (isPlaying) {
+                            pIcon.classList.add('hidden');
+                            paIcon.classList.remove('hidden');
+                        } else {
+                            pIcon.classList.remove('hidden');
+                            paIcon.classList.add('hidden');
+                        }
+                    } catch (e) {}
+                }
+
+                // Add progress bar click/touch handling
+                const progressBar = playbackBar.querySelector('.playback-progress');
+                let isProgressDragging = false;
+
+                function updateProgressFromEvent(e) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    let percent = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+                    
+                    // Update visual progress
+                    const progress = progressBar.querySelector('i');
+                    if (progress) progress.style.width = (percent * 100) + '%';
+                    
+                    // Seek to position in speech
+                    if (window.speechSynthesis.speaking && chunkQueue && chunkQueue.length) {
+                        // Calculate which chunk we should be on
+                        const totalWords = chunkQueue.join(' ').split(/\s+/).length;
+                        const targetWord = Math.floor(totalWords * percent);
+                        let wordCount = 0;
+                        let targetChunk = 0;
+                        
+                        for (let i = 0; i < chunkQueue.length; i++) {
+                            const chunkWords = chunkQueue[i].split(/\s+/).length;
+                            if (wordCount + chunkWords > targetWord) {
+                                targetChunk = i;
+                                break;
+                            }
+                            wordCount += chunkWords;
+                        }
+                        
+                        if (targetChunk !== currentChunkIndex) {
+                            window.speechSynthesis.cancel();
+                            currentChunkIndex = targetChunk;
+                            const remainingText = chunkQueue.slice(currentChunkIndex).join(' ');
+                            speakChunks(remainingText);
+                        }
+                    }
+                }
+
+                progressBar.addEventListener('mousedown', (e) => {
+                    if (e.button === 0) {
+                        isProgressDragging = true;
+                        updateProgressFromEvent(e);
+                        document.addEventListener('mousemove', updateProgressFromEvent);
+                        document.addEventListener('mouseup', () => {
+                            isProgressDragging = false;
+                            document.removeEventListener('mousemove', updateProgressFromEvent);
+                        });
+                    }
+                });
+
+                progressBar.addEventListener('touchstart', (e) => {
+                    isProgressDragging = true;
+                    updateProgressFromEvent(e);
+                    document.addEventListener('touchmove', updateProgressFromEvent, { passive: true });
+                    document.addEventListener('touchend', () => {
+                        isProgressDragging = false;
+                        document.removeEventListener('touchmove', updateProgressFromEvent);
+                    });
+                }, { passive: true });
+                toggleBtn.addEventListener('click', () => {
+                    if (window.speechSynthesis.speaking) {
+                        if (!window.speechSynthesis.paused) {
+                            window.speechSynthesis.pause();
+                            // Store current time to resume from same position
+                            if (currentUtterance) {
+                                currentUtterance._pauseTime = Date.now();
+                            }
+                            setPlayingState(false);
+                        } else {
+                            window.speechSynthesis.resume();
+                            setPlayingState(true);
+                        }
+                    } else {
+                        // Not speaking: start from current chunk index
+                        if (chunkQueue && chunkQueue.length) {
+                            // speak remaining chunks starting from currentChunkIndex
+                            const remaining = chunkQueue.slice(currentChunkIndex).join(' ');
+                            speakChunks(remaining);
+                            setPlayingState(true);
+                        }
+                    }
+                });
+                const restartBtn = playbackBar.querySelector('[data-action="restart"]');
+                if (restartBtn) {
+                    restartBtn.addEventListener('click', () => {
+                        if (!chunkQueue || chunkQueue.length === 0) return;
+                        // restart from beginning
+                        window.speechSynthesis.cancel();
+                        currentChunkIndex = 0;
+                        speakChunks(chunkQueue.join(' '));
+                    });
+                }
+                // minimize (optional)
+                const minimizeBtn = playbackBar.querySelector('[data-action="minimize"]');
+                if (minimizeBtn) {
+                    minimizeBtn.addEventListener('click', () => {
+                        const minimized = playbackBar.classList.toggle('minimized');
+                        try { localStorage.setItem('playbackBarMinimized', minimized ? '1' : '0'); } catch (e) {}
+                        if (minimized) playbackBar.style.height = '48px'; else playbackBar.style.height = '';
+                    });
+                }
+                playbackBar.querySelector('[data-action="close"]').addEventListener('click', () => {
+                    window.speechSynthesis.cancel();
+                    playbackBar.classList.add('hidden');
+                    if (playbackProgressInterval) { clearInterval(playbackProgressInterval); playbackProgressInterval = null; }
+                });
+
+                // restore minimized state
+                try { if (localStorage.getItem('playbackBarMinimized') === '1') playbackBar.classList.add('minimized'); } catch (e) {}
+
+                return playbackBar;
+            }
+
+            function showPlaybackBarFor(utter, text) {
+                const bar = createPlaybackBar();
+                bar.classList.remove('hidden');
+                // if no explicit position set, ensure default
+                if (!bar.style.left) {
+                    bar.style.right = '24px';
+                    bar.style.bottom = '24px';
+                }
+            }
+
+            // chunk text into N-word chunks
+            function chunkText(text, wordsPerChunk = 35) {
+                // Prefer splitting by sentence boundaries, then fallback to word chunks
+                const sentences = text.match(/[^.!?]+[.!?]+\s*|[^.!?]+$/g);
+                const chunks = [];
+                if (sentences && sentences.length) {
+                    let buffer = '';
+                    sentences.forEach(s => {
+                        if ((buffer + ' ' + s).split(/\s+/).length <= wordsPerChunk) {
+                            buffer = (buffer + ' ' + s).trim();
+                        } else {
+                            if (buffer) chunks.push(buffer.trim());
+                            buffer = s.trim();
+                        }
+                    });
+                    if (buffer) chunks.push(buffer.trim());
+                    // if any chunk is still too big, split by words
+                    return chunks.flatMap(c => c.split(/\s+/).length > wordsPerChunk ? (function(){
+                        const w = c.split(/\s+/);
+                        const res = [];
+                        for (let i=0;i<w.length;i+=wordsPerChunk) res.push(w.slice(i,i+wordsPerChunk).join(' '));
+                        return res;
+                    })() : [c]);
+                }
+                // fallback
+                const words = text.split(/\s+/).filter(Boolean);
+                for (let i = 0; i < words.length; i += wordsPerChunk) {
+                    chunks.push(words.slice(i, i + wordsPerChunk).join(' '));
+                }
+                return chunks;
+            }
+
+            function speakChunks(text) {
+                chunkQueue = chunkText(text, 35);
+                if (!chunkQueue.length) return;
+                // approximate durations
+                const estimatedDurations = chunkQueue.map(chunk => Math.max(500, (chunk.split(/\s+/).length / 150) * 60000));
+                const totalEstimated = estimatedDurations.reduce((a,b)=>a+b,0);
+                currentChunkIndex = 0;
+
+                function speakCurrentChunk() {
+                    if (currentChunkIndex >= chunkQueue.length) {
+                        currentUtterance = null;
+                        return;
+                    }
+                    const chunk = chunkQueue[currentChunkIndex];
+                    const u = new SpeechSynthesisUtterance(chunk);
+                    u.voice = selectedVoice;
+                    currentUtterance = u;
+                    
+                    // Track pause state
+                    u._startTime = Date.now();
+                    u._pauseTime = null;
+                    // update playback bar
+                    const bar = createPlaybackBar();
+                    bar.classList.remove('hidden');
+                    // start timing progress
+                    const startTime = Date.now();
+                    let pausedTime = 0;
+                    if (playbackProgressInterval) clearInterval(playbackProgressInterval);
+                    playbackProgressInterval = setInterval(() => {
+                        // compute elapsed over all chunks
+                        const elapsedCompleted = estimatedDurations.slice(0, currentChunkIndex).reduce((a,b)=>a+b,0);
+                        // Account for paused time
+                        if (window.speechSynthesis.paused && currentUtterance?._pauseTime) {
+                            pausedTime = Date.now() - currentUtterance._pauseTime;
+                        }
+                        const currentElapsed = Date.now() - startTime - pausedTime;
+                        const globalElapsed = elapsedCompleted + currentElapsed;
+                        const pct = Math.min(100, (globalElapsed / totalEstimated) * 100);
+                        const progressBar = bar.querySelector('.playback-progress > i');
+                        const handle = bar.querySelector('.playback-handle');
+                        if (progressBar) progressBar.style.width = pct + '%';
+                        if (handle) handle.style.left = pct + '%';
+                        // stop interval when done
+                        if (pct >= 100) { clearInterval(playbackProgressInterval); playbackProgressInterval = null; }
+                    }, 200);
+
+                    u.onend = () => {
+                        currentChunkIndex++;
+                        if (currentChunkIndex < chunkQueue.length) {
+                            speakCurrentChunk();
+                        } else {
+                            if (playbackProgressInterval) { clearInterval(playbackProgressInterval); playbackProgressInterval = null; }
+                            setPlayingState(false);
+                        }
+                    };
+                    u.onpause = () => { setPlayingState(false); };
+                    u.onresume = () => { setPlayingState(true); };
+                    window.speechSynthesis.speak(u);
+                }
+
+                // start
+                window.speechSynthesis.cancel();
+                speakCurrentChunk();
+            }
             const container = document.getElementById('container');
             const welcomeScreen = document.getElementById('welcome-screen');
             const chatWindow = document.getElementById('chat-window');
             const chatForm = document.getElementById('chat-form');
             const chatInput = document.getElementById('chat-input');
             const submitButton = chatForm.querySelector('button[type="submit"]');
-            const fileUpload = document.getElementById('file-upload');
+            const fileUploadPhoto = document.getElementById('file-upload-photo');
+            const fileUploadDocument = document.getElementById('file-upload-document');
+            const fileUploadOther = document.getElementById('file-upload-other');
+            const attachPhoto = document.getElementById('attach-photo');
+            const attachDocument = document.getElementById('attach-document');
+            const attachOther = document.getElementById('attach-other');
+            const micButton = document.getElementById('mic-button');
             let chatHistory = [];
 
             container.classList.add('justify-center');
@@ -121,7 +868,157 @@
                 return html;
             };
             
-            const addMessageToChat = (sender, message) => {
+                        // Helper to create AI message menu
+                        function createAIDropdownMenu(messageContainer, messageText, aiMessage) {
+                                                // Create menu button (positioned below the message bubble)
+                                                const menuWrapper = document.createElement('div');
+                                                // position: place the menu button at the bottom-right of the message, dropdown will appear below
+                                                menuWrapper.className = 'absolute right-2 bottom-2';
+                                                menuWrapper.style.pointerEvents = 'auto';
+                                menuWrapper.style.zIndex = 10;
+                                menuWrapper.innerHTML = `
+                                                    <div class="relative">
+                                                        <button class="rounded-full p-2 backdrop-blur-xl backdrop-saturate-150 border border-white/15 shadow-lg hover:bg-white/15 active:scale-95 transition-all duration-200 flex items-center space-x-1 text-[var(--text-color)]" style="background: rgba(255,255,255,0.08)" aria-label="AI message options" tabindex="0">
+                                                            <i data-lucide="chevrons-down" class="w-4 h-4"></i>
+                                                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                                                        </button>
+                                                        <div class="hidden absolute right-0 top-full mt-2 w-44 bg-[var(--card-bg-color)]/90 border border-[var(--border-color)] rounded-xl shadow-xl p-2 animate-fade-in-up z-50" tabindex="-1">
+                                            <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-blue-100/60 transition-all duration-200" data-action="read" tabindex="0"><i data-lucide="volume-2" class="w-4 h-4"></i><span>Read</span></button>
+                                            <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-yellow-100/60 transition-all duration-200" data-action="change" tabindex="0"><i data-lucide="refresh-ccw" class="w-4 h-4"></i><span>Change Response</span></button>
+                                            <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-red-100/60 transition-all duration-200" data-action="remove" tabindex="0"><i data-lucide="trash-2" class="w-4 h-4"></i><span>Remove</span></button>
+                                        </div>
+                                    </div>
+                                `;
+                                // Add the menu button into the message container
+                                messageContainer.appendChild(menuWrapper);
+                                lucide.createIcons({ icons: ['more-vertical', 'chevrons-down', 'volume-2', 'refresh-ccw', 'trash-2'] });
+                                const menuBtn = menuWrapper.querySelector('button[aria-label]');
+
+                                // Create a separate menu element appended to body so it can overflow chat scroll
+                                const menu = document.createElement('div');
+                                menu.className = 'hidden absolute w-44 backdrop-blur-xl backdrop-saturate-150 rounded-xl shadow-2xl p-2 animate-fade-in-up z-50';
+                                menu.setAttribute('role', 'menu');
+                                menu.style.background = 'rgba(255,255,255,0.08)';
+                                menu.style.border = '1px solid rgba(255,255,255,0.15)';
+                                menu.innerHTML = `
+                                    <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-[var(--text-color)] hover:bg-white/10 transition-all duration-200" data-action="read"><i data-lucide="volume-2" class="w-4 h-4"></i><span>Read</span></button>
+                                    <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-[var(--text-color)] hover:bg-white/10 transition-all duration-200" data-action="change"><i data-lucide="refresh-ccw" class="w-4 h-4"></i><span>Change Response</span></button>
+                                    <button class="w-full flex items-center space-x-2 px-3 py-2 rounded-lg text-[var(--text-color)] hover:bg-white/10 transition-all duration-200" data-action="remove"><i data-lucide="trash-2" class="w-4 h-4"></i><span>Remove</span></button>
+                                `;
+                                document.body.appendChild(menu);
+                                lucide.createIcons();
+
+                                // Helper to position the menu below the menuBtn and keep it within viewport
+                                function positionMenu() {
+                                    const rect = menuBtn.getBoundingClientRect();
+                                    const menuRect = menu.getBoundingClientRect();
+                                    const spaceBelow = window.innerHeight - rect.bottom;
+                                    const top = (spaceBelow < menuRect.height + 8) ? (window.scrollY + rect.top - menuRect.height - 8) : (window.scrollY + rect.bottom + 8);
+                                    // Align right edges
+                                    const right = window.innerWidth - rect.right;
+                                    // ensure it doesn't overflow left
+                                    let left = rect.right - menuRect.width;
+                                    if (left < 8) left = 8;
+                                    menu.style.top = top + 'px';
+                                    menu.style.left = left + 'px';
+                                }
+                                // Toggle menu on click or Enter/Space
+                                                                function toggleMenu(e) {
+                                                                    e.stopPropagation();
+                                                                    const willShow = menu.classList.contains('hidden');
+                                                                    // Close other menus
+                                                                    document.querySelectorAll('body > .chat-open-menu').forEach(el => el.remove());
+                                                                    if (willShow) {
+                                                                        // Position and show
+                                                                        menu.classList.remove('hidden');
+                                                                        menuBtn.classList.add('ring-2', 'ring-blue-300');
+                                                                        menu.classList.add('chat-menu-open');
+                                                                        menu.classList.add('chat-open-menu');
+                                                                        positionMenu();
+                                                                        // reposition on scroll/resize
+                                                                        window.addEventListener('scroll', positionMenu, true);
+                                                                        window.addEventListener('resize', positionMenu);
+                                                                        setTimeout(() => menu.querySelector('[data-action]')?.focus(), 50);
+                                                                    } else {
+                                                                        menu.classList.add('hidden');
+                                                                        menuBtn.classList.remove('ring-2', 'ring-blue-300');
+                                                                        menu.classList.remove('chat-menu-open');
+                                                                        menu.classList.remove('chat-open-menu');
+                                                                        window.removeEventListener('scroll', positionMenu, true);
+                                                                        window.removeEventListener('resize', positionMenu);
+                                                                    }
+                                                                }
+                                                menuBtn.addEventListener('click', toggleMenu);
+                                                menuBtn.addEventListener('keydown', (e) => {
+                                                        if (e.key === 'Enter' || e.key === ' ') toggleMenu(e);
+                                                });
+                                                // Close on outside click or Escape
+                                                function onDocClick(e) {
+                                                        if (e.target === menuBtn || menu.contains(e.target)) return;
+                                                        if (!menu.classList.contains('hidden')) toggleMenu(e);
+                                                }
+                                                function onEscape(e) {
+                                                        if (e.key === 'Escape' && !menu.classList.contains('hidden')) toggleMenu(e);
+                                                }
+                                                document.addEventListener('click', onDocClick);
+                                                document.addEventListener('keydown', onEscape);
+                                // Read
+                                menu.querySelector('[data-action="read"]').addEventListener('click', () => {
+                                    speakAIMessage(aiMessage);
+                                    toggleMenu(new Event('click'));
+                                });
+                                // Change Response (regenerate)
+                                menu.querySelector('[data-action="change"]').addEventListener('click', async () => {
+                                    toggleMenu(new Event('click'));
+                                    // Find the last user message in chatHistory
+                                    const lastUser = [...chatHistory].reverse().find(h => h.role === 'user');
+                                    if (!lastUser) {
+                                        alert('No user message to regenerate for.');
+                                        return;
+                                    }
+                                    // Remove the AI message we are replacing
+                                    messageContainer.remove();
+                                    // Show typing indicator and request a new response
+                                    showTypingIndicator();
+                                    try {
+                                        const apiKey = "AIzaSyBG2ybj97sIOankFVzKc6LQwL2oK1IIe4c";
+                                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                                        const systemPrompt = `You are S, a friendly, encouraging, and knowledgeable AI study assistant, with the personality of Gemini by Google. Communicate in a conversational and supportive tone.`;
+                                        const payload = { contents: [lastUser], systemInstruction: { parts: [{ text: systemPrompt }] } };
+                                        const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                                        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+                                        const result = await response.json();
+                                        const aiMessage = (result?.candidates?.[0]?.content?.parts?.[0]?.text) ? result.candidates[0].content.parts[0].text : "Sorry, I couldn't process that.";
+                                        removeTypingIndicator();
+                                        addMessageToChat('ai', aiMessage);
+                                        chatHistory.push({ role: 'model', parts: [{ text: aiMessage }] });
+                                    } catch (err) {
+                                        console.error('Regeneration error', err);
+                                        removeTypingIndicator();
+                                        addMessageToChat('ai', 'Sorry, I couldn\'t regenerate the response.');
+                                    }
+                                });
+                                // Remove
+                                menu.querySelector('[data-action="remove"]').addEventListener('click', () => {
+                                    toggleMenu(new Event('click'));
+                                    messageContainer.remove();
+                                });
+
+                                // Cleanup when message is removed from DOM
+                                const observer = new MutationObserver(() => {
+                                    if (!document.body.contains(messageContainer)) {
+                                        menu.remove();
+                                        document.removeEventListener('click', onDocClick);
+                                        document.removeEventListener('keydown', onEscape);
+                                        window.removeEventListener('scroll', positionMenu, true);
+                                        window.removeEventListener('resize', positionMenu);
+                                        observer.disconnect();
+                                    }
+                                });
+                                observer.observe(document.body, { childList: true, subtree: true });
+                        }
+
+                        const addMessageToChat = (sender, message) => {
                 const messageContainer = document.createElement('div');
                 messageContainer.classList.add('flex', 'flex-col', 'max-w-[85%]');
                 const labelElement = document.createElement('span');
@@ -139,11 +1036,14 @@
                     messageWrapper.classList.add('bg-[var(--bubble-user-bg)]');
                     messageText.classList.add('text-[var(--bubble-user-text)]');
                 } else {
-                    messageContainer.classList.add('self-start', 'items-start');
-                    labelElement.innerHTML = `<span class="font-logo text-lg text-[var(--text-color)]">S</span>`;
+                    messageContainer.classList.add('self-start', 'items-start', 'relative');
+                    labelElement.innerHTML = `<span class=\"font-logo text-lg text-[var(--text-color)]\">S</span>`;
                     messageText.innerHTML = formatMessage(message);
                     messageWrapper.classList.add('bg-[var(--bubble-ai-bg)]');
                     messageText.classList.add('text-[var(--bubble-ai-text)]');
+                    // No auto-read
+                    // Add dropdown menu for AI message
+                    createAIDropdownMenu(messageContainer, messageText, message);
                 }
                 messageContainer.appendChild(labelElement);
                 messageContainer.appendChild(messageWrapper);
@@ -176,12 +1076,51 @@
                 if (indicator) indicator.remove();
             };
 
-            fileUpload.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) { 
-                    startChatSession();
-                    addMessageToChat('user', `Uploaded file: ${file.name}`); 
+            // Attach menu event listeners
+            attachPhoto.addEventListener('click', () => {
+                fileUploadPhoto.value = '';
+                fileUploadPhoto.click();
+                document.querySelector('[x-data]').__x.$data.attachMenuOpen = false;
+            });
+            attachDocument.addEventListener('click', () => {
+                fileUploadDocument.value = '';
+                fileUploadDocument.click();
+                document.querySelector('[x-data]').__x.$data.attachMenuOpen = false;
+            });
+            attachOther.addEventListener('click', () => {
+                fileUploadOther.value = '';
+                fileUploadOther.click();
+                document.querySelector('[x-data]').__x.$data.attachMenuOpen = false;
+            });
+
+            // File upload handlers
+            function handleFileUpload(file) {
+                startChatSession();
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = `<img src="${e.target.result}" alt="${file.name}" class="max-w-[200px] max-h-[200px] rounded shadow border border-[var(--border-color)]" />`;
+                        addMessageToChat('user', `Photo uploaded:<br>${img}`);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // For document or other files, show name and download link
+                    const url = URL.createObjectURL(file);
+                    const icon = file.type.includes('pdf') ? '📄' : file.type.includes('word') ? '📝' : '📎';
+                    addMessageToChat('user', `${icon} <a href="${url}" download="${file.name}" class="underline text-blue-600" target="_blank">${file.name}</a>`);
                 }
+            }
+            fileUploadPhoto.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) handleFileUpload(file);
+            });
+            fileUploadDocument.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) handleFileUpload(file);
+            });
+            fileUploadOther.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) handleFileUpload(file);
             });
 
             chatForm.addEventListener('submit', async (e) => {
@@ -197,7 +1136,7 @@
                 submitButton.disabled = true;
                 showTypingIndicator();
                 try {
-                    const apiKey = ""; // API Key will be injected by the environment
+                    const apiKey = "AIzaSyBG2ybj97sIOankFVzKc6LQwL2oK1IIe4c"; // Inserted API Key
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                     const systemPrompt = `You are S, a friendly, encouraging, and knowledgeable AI study assistant, with the personality of Gemini by Google. Communicate in a conversational and supportive tone. When explaining concepts, use clear, natural language. Use lists, bold text, and other formatting to structure your answers for readability, but strictly avoid using code blocks (\`\`\`) unless you are specifically asked to write code. Do not provide code for UI elements like navigation or positioning.`;
                     const payload = { contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } };
@@ -219,6 +1158,49 @@
             });
 
             lucide.createIcons();
+            // Speech-to-Text (Web Speech API)
+            let recognition;
+            let recognizing = false;
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                recognition.onstart = () => {
+                    recognizing = true;
+                    micButton.classList.add('text-blue-600');
+                    micButton.setAttribute('aria-pressed', 'true');
+                };
+                recognition.onend = () => {
+                    recognizing = false;
+                    micButton.classList.remove('text-blue-600');
+                    micButton.setAttribute('aria-pressed', 'false');
+                };
+                recognition.onerror = (event) => {
+                    recognizing = false;
+                    micButton.classList.remove('text-blue-600');
+                    micButton.setAttribute('aria-pressed', 'false');
+                    alert('Speech recognition error: ' + event.error);
+                };
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    chatInput.value = transcript;
+                    chatInput.focus();
+                };
+                micButton.addEventListener('click', () => {
+                    if (recognizing) {
+                        recognition.stop();
+                    } else {
+                        recognition.start();
+                    }
+                });
+            } else {
+                micButton.addEventListener('click', () => {
+                    alert('Sorry, your browser does not support speech recognition.');
+                });
+            }
         });
     </script>
 </body>

@@ -27,7 +27,14 @@
 </head>
 <body 
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
-    x-data="{ theme: localStorage.getItem('theme') || 'light', showModal: false, mainOpen: true, openSenior: '' }"
+    x-data="{ 
+        theme: localStorage.getItem('theme') || 'light', 
+        showModal: false, 
+        mainSecondaryOpen: true, 
+        mainPrimaryOpen: true, 
+        openSenior: '', 
+        openPrimary: '' 
+    }"
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
@@ -51,24 +58,61 @@
              x-transition:leave="transition ease-in duration-75"
              x-transition:leave-start="opacity-100 scale-100"
              x-transition:leave-end="opacity-0 scale-95"
-             class="absolute top-full mt-2 w-56 bg-[var(--card-bg-color)] rounded-xl shadow-2xl border border-[var(--border-color)] overflow-hidden">
+             class="absolute top-full mt-2 w-56 bg-[var(--card-bg-color)] rounded-xl shadow-2xl border border-[var(--border-color)] overflow-hidden max-h-96 overflow-y-auto">
             
             <div class="p-2">
-                <a href="#s1-folder" @click="open = false; mainOpen = true; openSenior = 's1'; $nextTick(() => document.getElementById('s1-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                <!-- Secondary Section Links -->
+                <div class="px-3 py-1 text-xs font-semibold text-[var(--text-muted-color)] uppercase">Secondary</div>
+                <a href="#s1-folder" @click="open = false; mainSecondaryOpen = true; openSenior = 's1'; $nextTick(() => document.getElementById('s1-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
                     <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Senior One</span>
                 </a>
-                <a href="#s2-folder" @click="open = false; mainOpen = true; openSenior = 's2'; $nextTick(() => document.getElementById('s2-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                <a href="#s2-folder" @click="open = false; mainSecondaryOpen = true; openSenior = 's2'; $nextTick(() => document.getElementById('s2-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
                     <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Senior Two</span>
                 </a>
-                <a href="#s3-folder" @click="open = false; mainOpen = true; openSenior = 's3'; $nextTick(() => document.getElementById('s3-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                <a href="#s3-folder" @click="open = false; mainSecondaryOpen = true; openSenior = 's3'; $nextTick(() => document.getElementById('s3-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
                     <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Senior Three</span>
                 </a>
-                <a href="#s4-folder" @click="open = false; mainOpen = true; openSenior = 's4'; $nextTick(() => document.getElementById('s4-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                <a href="#s4-folder" @click="open = false; mainSecondaryOpen = true; openSenior = 's4'; $nextTick(() => document.getElementById('s4-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
                     <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
                     <span>Senior Four</span>
+                </a>
+
+                <!-- Primary Section Links -->
+                <div class="px-3 py-1 mt-2 text-xs font-semibold text-[var(--text-muted-color)] uppercase">Primary</div>
+                <a href="#p1-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p1'; $nextTick(() => document.getElementById('p1-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary One</span>
+                </a>
+                <a href="#p2-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p2'; $nextTick(() => document.getElementById('p2-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Two</span>
+                </a>
+                <a href="#p3-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p3'; $nextTick(() => document.getElementById('p3-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Three</span>
+                </a>
+                <a href="#p4-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p4'; $nextTick(() => document.getElementById('p4-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Four</span>
+                </a>
+                <a href="#p5-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p5'; $nextTick(() => document.getElementById('p5-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Five</span>
+                </a>
+                <a href="#p6-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p6'; $nextTick(() => document.getElementById('p6-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Six</span>
+                </a>
+                <a href="#p7-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p7'; $nextTick(() => document.getElementById('p7-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Seven</span>
+                </a>
+                <a href="#p8-folder" @click="open = false; mainPrimaryOpen = true; openPrimary = 'p8'; $nextTick(() => document.getElementById('p8-folder').scrollIntoView({ behavior: 'smooth' }))" class="flex items-center space-x-3 px-3 py-2.5 text-sm font-medium text-[var(--text-color)] hover:bg-[var(--active-icon-bg-color)] rounded-lg transition-colors">
+                    <i data-lucide="folder" class="w-4 h-4 text-[var(--text-muted-color)]"></i>
+                    <span>Primary Eight</span>
                 </a>
             </div>
         </div>
@@ -86,108 +130,208 @@
                     <span>Send a Book Recommendation</span>
                 </button>
             </div>
-
-            <!-- Web Search Bar -->
-            <form id="web-search-form" class="mb-12 max-w-3xl mx-auto" x-data>
-                
+            
             <!-- Local Search Bar -->
             <div id="local-search-bar" class="mb-12 max-w-3xl mx-auto">
                 <div class="relative flex items-center mt-8">
-                    <input type="text" id="web-search-input" placeholder="e.g., 'Secondary Physics 1 Student Textbook'" class="w-full pl-12 pr-4 py-3 rounded-lg bg-[var(--input-bg-color)] border border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)] transition-shadow shadow-sm" oninput="filterBooks()">
+                    <input type="text" id="local-search-input" placeholder="e.g., 'Secondary Physics 1' or 'Primary 3'" class="w-full pl-12 pr-4 py-3 rounded-lg bg-[var(--input-bg-color)] border border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-1 focus:ring-[var(--focus-ring-color)] transition-shadow shadow-sm" oninput="filterBooks()">
                     <i data-lucide="search" class="w-5 h-5 text-[var(--text-muted-color)] absolute left-4"></i>
-                    <!-- Removed search button as it's now a live filter -->
                 </div>
             </div>
 
-            <!-- South Sudan Secondary books Folder -->
-            <div class="bg-[var(--card-bg-color)] border border-[var(--border-color)] rounded-xl shadow-sm overflow-hidden">
-                <!-- Main Folder Button -->
-                <button @click="mainOpen = !mainOpen" class="w-full flex items-center justify-between p-5 text-left transition-colors hover:bg-[var(--active-icon-bg-color)]">
-                    <div class="flex items-center space-x-3">
-                        <i data-lucide="folder-archive" class="w-6 h-6 text-[var(--text-color)]"></i>
-                        <span class="text-2xl font-bold text-[var(--text-color)]">South Sudan Secondary books</span>
+            <!-- No Results Message (for local search) -->
+            <div id="no-results-message" class="text-center py-8 text-[var(--text-muted-color)]" style="display: none;">
+                <i data-lucide="folder-search" class="w-12 h-12 mx-auto mb-4"></i>
+                <h3 class="text-xl font-semibold text-[var(--text-color)]">No Results Found</h3>
+                <p>No books in the library match your search term.</p>
+            </div>
+            
+            <!-- Wrapper for book sections -->
+            <div id="book-sections-wrapper" class="space-y-8">
+                
+                <!-- South Sudan Primary books Folder -->
+                <div class="bg-[var(--card-bg-color)] border border-[var(--border-color)] rounded-xl shadow-sm overflow-hidden">
+                    <!-- Main Folder Button -->
+                    <button @click="mainPrimaryOpen = !mainPrimaryOpen" class="w-full flex items-center justify-between p-5 text-left transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="folder-archive" class="w-6 h-6 text-[var(--text-color)]"></i>
+                            <span class="text-2xl font-bold text-[var(--text-color)]">South Sudan Primary books</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': mainPrimaryOpen }"></i>
+                    </button>
+                    <!-- Main Folder Content (The Primary Folders) -->
+                    <div x-show="mainPrimaryOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="p-4 pt-0">
+                        <p id="library-description-primary" class="text-base text-[var(--text-muted-color)] px-4 py-3 mb-4 border-b border-[var(--border-color)]">
+                            A curated collection of official textbooks for the South Sudan primary curriculum.
+                        </p>
+                        <div class="space-y-4">
+                            <!-- Primary One Folder -->
+                            <div class="book-section" data-section-name="primary one">
+                                <button id="p1-folder" @click="openPrimary = (openPrimary === 'p1' ? '' : 'p1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary One</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p1' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p1' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-one-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Two Folder -->
+                            <div class="book-section" data-section-name="primary two">
+                                <button id="p2-folder" @click="openPrimary = (openPrimary === 'p2' ? '' : 'p2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Two</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p2' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p2' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-two-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Three Folder -->
+                            <div class="book-section" data-section-name="primary three">
+                                <button id="p3-folder" @click="openPrimary = (openPrimary === 'p3' ? '' : 'p3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Three</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p3' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p3' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-three-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Four Folder -->
+                            <div class="book-section" data-section-name="primary four">
+                                <button id="p4-folder" @click="openPrimary = (openPrimary === 'p4' ? '' : 'p4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Four</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p4' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p4' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-four-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Five Folder -->
+                            <div class="book-section" data-section-name="primary five">
+                                <button id="p5-folder" @click="openPrimary = (openPrimary === 'p5' ? '' : 'p5')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Five</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p5' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p5' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-five-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Six Folder -->
+                            <div class="book-section" data-section-name="primary six">
+                                <button id="p6-folder" @click="openPrimary = (openPrimary === 'p6' ? '' : 'p6')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Six</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p6' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p6' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-six-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Seven Folder -->
+                            <div class="book-section" data-section-name="primary seven">
+                                <button id="p7-folder" @click="openPrimary = (openPrimary === 'p7' ? '' : 'p7')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Seven</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p7' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p7' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-seven-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                            <!-- Primary Eight Folder -->
+                            <div class="book-section" data-section-name="primary eight">
+                                <button id="p8-folder" @click="openPrimary = (openPrimary === 'p8' ? '' : 'p8')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Eight</span></div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p8' }"></i>
+                                </button>
+                                <div x-show="openPrimary === 'p8' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="primary-eight-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': mainOpen }"></i>
-                </button>
+                </div>
 
-                <!-- Main Folder Content (The Senior Folders) -->
-                <div x-show="mainOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="p-4 pt-0">
-                    
-                    <!-- New Professional Description -->
-                    <p id="library-description" class="text-base text-[var(--text-muted-color)] px-4 py-3 mb-4 border-b border-[var(--border-color)]">
-                        A curated collection of official textbooks for the South Sudan secondary curriculum.
-                    </p>
+                <!-- South Sudan Secondary books Folder -->
+                <div class="bg-[var(--card-bg-color)] border border-[var(--border-color)] rounded-xl shadow-sm overflow-hidden">
+                    <!-- Main Folder Button -->
+                    <button @click="mainSecondaryOpen = !mainSecondaryOpen" class="w-full flex items-center justify-between p-5 text-left transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="folder-archive" class="w-6 h-6 text-[var(--text-color)]"></i>
+                            <span class="text-2xl font-bold text-[var(--text-color)]">South Sudan Secondary books</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': mainSecondaryOpen }"></i>
+                    </button>
 
-                    <!-- No Results Message (for local search) -->
-                    <div id="no-results-message" class="text-center py-8 text-[var(--text-muted-color)]" style="display: none;">
-                        <i data-lucide="folder-search" class="w-12 h-12 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-semibold text-[var(--text-color)]">No Results Found</h3>
-                        <p>No books in the library match your search term.</p>
-                    </div>
-
-                    <div class="space-y-4">
+                    <!-- Main Folder Content (The Senior Folders) -->
+                    <div x-show="mainSecondaryOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="p-4 pt-0">
                         
-                        <!-- Senior One Folder -->
-                        <div class="senior-section">
-                            <!-- S1 Folder Button -->
-                            <button id="s1-folder" @click="openSenior = (openSenior === 's1' ? '' : 's1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
-                                <div class="flex items-center space-x-2">
-                                    <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
-                                    <span class="text-xl font-semibold text-[var(--text-color)]">Senior One</span>
-                                </div>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's1' }"></i>
-                            </button>
-                            <!-- S1 Content -->
-                            <div x-show="openSenior === 's1' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
-                                <div id="senior-one-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
-                            </div>
-                        </div>
+                        <!-- New Professional Description -->
+                        <p id="library-description-secondary" class="text-base text-[var(--text-muted-color)] px-4 py-3 mb-4 border-b border-[var(--border-color)]">
+                            A curated collection of official textbooks for the South Sudan secondary curriculum.
+                        </p>
 
-                        <!-- Senior Two Folder -->
-                        <div class="senior-section">
-                            <button id="s2-folder" @click="openSenior = (openSenior === 's2' ? '' : 's2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
-                                <div class="flex items-center space-x-2">
-                                    <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
-                                    <span class="text-xl font-semibold text-[var(--text-color)]">Senior Two</span>
+                        <div class="space-y-4">
+                            
+                            <!-- Senior One Folder -->
+                            <div class="book-section" data-section-name="senior one s1">
+                                <!-- S1 Folder Button -->
+                                <button id="s1-folder" @click="openSenior = (openSenior === 's1' ? '' : 's1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
+                                        <span class="text-xl font-semibold text-[var(--text-color)]">Senior One</span>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's1' }"></i>
+                                </button>
+                                <!-- S1 Content -->
+                                <div x-show="openSenior === 's1' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="senior-one-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                                 </div>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's2' }"></i>
-                            </button>
-                            <div x-show="openSenior === 's2' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
-                                <div id="senior-two-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                             </div>
-                        </div>
 
-                        <!-- Senior Three Folder -->
-                        <div class="senior-section">
-                            <button id="s3-folder" @click="openSenior = (openSenior === 's3' ? '' : 's3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
-                                <div class="flex items-center space-x-2">
-                                    <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
-                                    <span class="text-xl font-semibold text-[var(--text-color)]">Senior Three</span>
+                            <!-- Senior Two Folder -->
+                            <div class="book-section" data-section-name="senior two s2">
+                                <button id="s2-folder" @click="openSenior = (openSenior === 's2' ? '' : 's2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
+                                        <span class="text-xl font-semibold text-[var(--text-color)]">Senior Two</span>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's2' }"></i>
+                                </button>
+                                <div x-show="openSenior === 's2' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="senior-two-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                                 </div>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's3' }"></i>
-                            </button>
-                            <div x-show="openSenior === 's3' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
-                                <div id="senior-three-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                             </div>
-                        </div>
 
-                        <!-- Senior Four Folder -->
-                        <div class="senior-section">
-                            <button id="s4-folder" @click="openSenior = (openSenior === 's4' ? '' : 's4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
-                                <div class="flex items-center space-x-2">
-                                    <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
-                                    <span class="text-xl font-semibold text-[var(--text-color)]">Senior Four</span>
+                            <!-- Senior Three Folder -->
+                            <div class="book-section" data-section-name="senior three s3">
+                                <button id="s3-folder" @click="openSenior = (openSenior === 's3' ? '' : 's3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
+                                        <span class="text-xl font-semibold text-[var(--text-color)]">Senior Three</span>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's3' }"></i>
+                                </button>
+                                <div x-show="openSenior === 's3' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="senior-three-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                                 </div>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's4' }"></i>
-                            </button>
-                            <div x-show="openSenior === 's4' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
-                                <div id="senior-four-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                             </div>
-                        </div>
 
+                            <!-- Senior Four Folder -->
+                            <div class="book-section" data-section-name="senior four s4">
+                                <button id="s4-folder" @click="openSenior = (openSenior === 's4' ? '' : 's4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
+                                        <span class="text-xl font-semibold text-[var(--text-color)]">Senior Four</span>
+                                    </div>
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openSenior === 's4' }"></i>
+                                </button>
+                                <div x-show="openSenior === 's4' || openSenior === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <div id="senior-four-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- End book sections wrapper -->
             
         </div>
     </main>
@@ -254,67 +398,133 @@
         </div>
     </nav>
     
+    <!-- Book Viewer Modal has been removed -->
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
+            // --- Primary Book Links ---
+            const primaryOneLinks = [
+                "https://drive.google.com/file/d/10uYthpZTwLQAsCJ9tsZTlJ52goVqcFQR/view?usp=sharing",
+                "https://drive.google.com/file/d/16eQuWMghs9nAjeHXqi0Sck_eKTU8MnsG/view?usp=sharing",
+                "https://drive.google.com/file/d/1_cxeUXzNQ4hgJ3JZkm89cfCO2Vttg98X/view?usp=sharing",
+                "https://drive.google.com/file/d/11zn2tRYM7K5nZzjXps-WIdItVeyS0nMU/view?usp=sharing",
+                "https://drive.google.com/file/d/1EaQ0qRo60-YqCCOCyGnf9vvRP8iE4tPn/view?usp=sharing"
+            ];
+            const primaryTwoLinks = [
+                "https://drive.google.com/file/d/1Cg2FjPDe7X61obHvA0GLqBlM4GOg51Eg/view?usp=sharing",
+                "https://drive.google.com/file/d/1eLYRMT6lLuZSwTFedwXTLfob0VkYngsQ/view?usp=sharing",
+                "https://drive.google.com/file/d/1t3i1odpiUafgpe_sJwllmf4EYRdNdoeZ/view?usp=sharing",
+                "https://drive.google.com/file/d/1UYemb3ZQVnLJHcr1zg2JDpsLCE6AYNnF/view?usp=sharing",
+                "https://drive.google.com/file/d/16vGSZtQV7yY-JMLhTvIUT3wABDoaK1Tj/view?usp=sharing"
+            ];
+            const primaryThreeLinks = [
+                "https://drive.google.com/file/d/1e9YNAnP6fDqTI7WGte55LYVyqO7bB0fS/view?usp=sharing",
+                "https://drive.google.com/file/d/1ddO303Xrf5CaCadJbU6xhTtHHuu3pF9z/view?usp=sharing",
+                "https://drive.google.com/file/d/1aDU4LXGk9su4kTUWIXCimV9OKNo8adgJ/view?usp=sharing",
+                "https://drive.google.com/file/d/1rd7022MH8G-7J6GhrJVZB-1YZzRexKP4/view?usp=sharing",
+                "https://drive.google.com/file/d/1uRKll6Gog4E4975zrLhcTFbH6awsAoDX/view?usp=sharing"
+            ];
+            const primaryFourLinks = [
+                "https://drive.google.com/file/d/1i0jarxCJK9AK42l6Y7u8kVLvySpT0Nnb/view?usp=sharing",
+                "https://drive.google.com/file/d/1vhHNFgKCJHFGl243ZuoLgoRSD9leqDpU/view?usp=sharing",
+                "https://drive.google.com/file/d/1qGwTlLuD8Q_z1NSdB5V9kwWkG96VmqXW/view?usp=sharing",
+                "https://drive.google.com/file/d/1gDx35tPpmjT9EuONlLkjtcroNgEj-y_/view?usp=sharing",
+                "https://drive.google.com/file/d/1hyZWlL1X5fIfff2AlGjkB_eTY5AOn9ma/view?usp=sharing"
+            ];
+            const primaryFiveLinks = [
+                "https://drive.google.com/file/d/1dX1Ec-9Dd1D5mU9iNTlwXv_-PicU_qjq/view?usp=sharing",
+                "https://drive.google.com/file/d/1Z12pqTQnxpvezWbKweilj1vI4s-wA7Eq/view?usp=sharing",
+                "https://drive.google.com/file/d/1ZYWkutwL7_E-6V5isMd6BbBr-RCSJvst/view?usp=sharing",
+                "https://drive.google.com/file/d/15nJXuBRJA2II4NGX-cFXx6eO1puSmw-5/view?usp=sharing",
+                "https://drive.google.com/file/d/1x0HL8AP1cTinp5siJrYtdGzuiXYJ4AC_/view?usp=sharing"
+            ];
+            const primarySixLinks = [
+                "https://drive.google.com/file/d/1Jvh34rPUD3oY2oSZJKd2LheaWwcFatd9/view?usp=sharing",
+                "https://drive.google.com/file/d/1MkzQpKN_uKzFQJY2eUafQyG5Ph3b4y3F/view?usp=sharing",
+                "https://drive.google.com/file/d/10_Ssir4w9tOziBTqxzwPSzOed9kxRtzW/view?usp=sharing",
+                "https://drive.google.com/file/d/1nlBEOYNByQWDTtXt7rfs9U3SiAekC4Ub/view?usp=sharing",
+                "https://drive.google.com/file/d/10I4Qz8DVEGCyYihTFyCIhhjz8UHHMOGh/view?usp=sharing"
+            ];
+            const primarySevenLinks = [
+                "https://drive.google.com/file/d/1_t0jslHzbNGzUqXLwA21GQZDVh4YurpN/view?usp=sharing",
+                "https://drive.google.com/file/d/1uoXH3AWuvvrg2wMG4ZXWe2mgcPk4bt07/view?usp=sharing",
+                "https://drive.google.com/file/d/1yiUKhd6qMNeV04MUarbr4dU1fbik52X9/view?usp=sharing",
+                "https://drive.google.com/file/d/18w-qieRIiTOEKFwlh9RfA-Ns6cQTxCXE/view?usp=sharing",
+                "https://drive.google.com/file/d/1ivaAz_M38ZQKjx4Jdqayb_AS-MNEW0mX/view?usp=sharing"
+            ];
+            const primaryEightLinks = [
+                "https://drive.google.com/file/d/1w8OSkwDdb2mNZ-_hFLXlgKycgcCmGXz2/view?usp=sharing",
+                "https://drive.google.com/file/d/1urlKC6KLLBcroRlH45gBWmDFV_qbHPOL/view?usp=sharing",
+                "https://drive.google.com/file/d/1HPKlXO9VBTtMVsLeVfbb9RB8Ov-RmBK3/view?usp=sharing",
+                "https://drive.google.com/file/d/1YrLbC8I7tmQ4oXYTWiOeck1zGiwXAcM4/view?usp=sharing",
+                "https://drive.google.com/file/d/1R3-bldE5WNbWFkAdvbCuDc7_FYp1e7U4/view?usp=sharing"
+            ];
+
+            // --- Secondary Book Links ---
             const seniorOneLinks = [
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%201%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%201%20Student%20Textbook.pdf"
+                "https://drive.google.com/file/d/1Z_dglxyUv6l8dEJzmoDg20fnii7-clSA/view?usp=sharing",
+                "https://drive.google.com/file/d/1WuC6Bl_BhTy4PE6Lpad-rriJkSIc99BN/view?usp=sharing",
+                "https://drive.google.com/file/d/1z0adQliHyKLdci1KmxsQUap4-okstJp3/view?usp=sharing",
+                "https://drive.google.com/file/d/1jovC3nY-XBuTSNsv5NvIQH0XkGn2UvJX/view?usp=sharing",
+                "https://drive.google.com/file/d/1EcoufB6rL76FyJyyio-8F_ma9AL8JOcv/view?usp=sharing",
+                "https://drive.google.com/file/d/1tghWgPkpnthKNncFuJ5E9u9qlYpPhNLb/view?usp=sharing",
+                "https://drive.google.com/file/d/11n8gcwV8d6rQDaFuviFDiTj88HKUhKOt/view?usp=sharing",
+                "https://drive.google.com/file/d/1vsokbxy4gAWa8Tv3s9C-su_a3_id4pHt/view?usp=sharing",
+                "https://drive.google.com/file/d/1o1hjsl2gGdiRJHJAt1x_6sDyn9I5iH3D/view?usp=sharing",
+                "https://drive.google.com/file/d/1tw1dH9exiT5PGe6f_tGnf70K9ky_ns3l/view?usp=sharing",
+                "https://drive.google.com/file/d/1B9xzv_xy38D3EBWDvn8wVx0-IHJBumGM/view?usp=sharing"
             ];
 
             const seniorTwoLinks = [
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%202%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%202%20Student%20Textbook.pdf"
+                "https://drive.google.com/file/d/1BrUPadIyJAiwJ2ahxKJbeSEd-gAhkBJB/view?usp=sharing",
+                "https://drive.google.com/file/d/1S-767dPbYssRQHo5jl0kU0ySfCipEUdk/view?usp=sharing",
+                "https://drive.google.com/file/d/1zj5bXnRW4g8-KKW2B6RmRRlur5H_-KV-/view?usp=sharing",
+                "https://drive.google.com/file/d/1R7OZGGORmBePqvw0v2lgjTlIHkPMDfXC/view?usp=sharing",
+                "https://drive.google.com/file/d/1hE1a6pONYeLQEwucZkJR71c-CkOWs0ZD/view?usp=sharing",
+                "https://drive.google.com/file/d/1Pcw-zqDSrYg5ImoQyOIwf6fJ4Rp0zGz9/view?usp=sharing",
+                "https://drive.google.com/file/d/1yHK_OmRzOHdDLOBneR1Il5nbaG_I_DDp/view?usp=sharing",
+                "https://drive.google.com/file/d/1a5p5x6ZVwOgo0TE0_ewRNrKZIxdrIme4/view?usp=sharing",
+                "https://drive.google.com/file/d/1IgvMtFEIVXZt4OHernSTsxzoF_mJg0uM/view?usp=sharing",
+                "https://drive.google.com/file/d/1kzye2M3rz4tTTXHKqwvkBm2bJk2ofghM/view?usp=sharing",
+                "https://drive.google.com/file/d/1Cpze-MlpVU9OhhhrjhtyfaSutGiRvHnM/view?usp=sharing"
             ];
             
             const seniorThreeLinks = [
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%203%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%203%20Student%20Textbook.pdf",
-                "https://cgatechnologies.org.uk/sites/default/files/2021-11/OK_Add%20Maths%20S3%20SB%20Cover.pdf"
+                "https://drive.google.com/file/d/1LomXbQ1F8l9qIHWzbAZMrbsa_5ZDP2tR/view?usp=sharing",
+                "https://drive.google.com/file/d/1gt18nnYJsgn99lCR0oh2Wz-YEovn_UI8/view?usp=sharing",
+                "https://drive.google.com/file/d/1XRvtokQt7JvOzGrmp-dywgGUKDDQ2boA/view?usp=sharing",
+                "https://drive.google.com/file/d/1wLWf7DhGrHMU0w0d6o3dE-KZFnYFOSIP/view?usp=sharing",
+                "https://drive.google.com/file/d/1KODkn0Hjvx8YnJoAXIfz_ApBUZTTBigo/view?usp=sharing",
+                "https://drive.google.com/file/d/1pT2lKKmNhWIYxpqq7VIyChmnDr8stV7I/view?usp=sharing",
+                "https://drive.google.com/file/d/1eq3aVVTnOkD0RrecrCM7g_OPDcE_ISOR/view?usp=sharing",
+                "https://drive.google.com/file/d/1fx3bvQx1Htl2wsIDNGep1UMkSw3rZkTj/view?usp=sharing",
+                "https://drive.google.com/file/d/1mvTO89OynLOtsE2bSvj-2xcnCwmZHFbB/view?usp=sharing",
+                "https://drive.google.com/file/d/1xdrQY8in0FKozFwalQMrTUpYzh9gpewi/view?usp=sharing",
+                "https://drive.google.com/file/d/1aYOgE-krClsGL1vK9Ip5qEJ8XSUY0JZr/view?usp=sharing"
             ];
             
             const seniorFourLinks = [
-                 "https://cdc.gov.ss/uploads/subjects/Secondary%20Additional%20Maths%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Biology%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Chemistry%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Citizenship%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20CRE%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20English%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Geography%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20History%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20ICT%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Kiswahili%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Mathematics%204%20Student%20Textbook.pdf",
-                "https://cdc.gov.ss/uploads/subjects/Secondary%20Physics%204%20Student%20Textbook.pdf"
+                "https://drive.google.com/file/d/1dJTWykBTtdrsUni4TFRmQaucedfIDJxz/view?usp=sharing",
+                "https://drive.google.com/file/d/1Z8NsbGJsK0JlAXSWI-CcPF6mX41a2gu7/view?usp=sharing",
+                "https://drive.google.com/file/d/15gofSi0QXA7A04WDvgSrDfv34Gz8Tnrf/view?usp=sharing",
+                "https://drive.google.com/file/d/1EEGIgnVTpCBueU9qp9eYizhGvvBVe7uM/view?usp=sharing",
+                "https://drive.google.com/file/d/1aHKgeNPMKvCDrI6PbXQOkL_gXkzbPO-O/view?usp=sharing",
+                "https://drive.google.com/file/d/1NMoA_mhuJUxbbyXWpzw70K2xycZJcrHs/view?usp=sharing",
+                "https://drive.google.com/file/d/1nxVOZsMyxxvgJiMEocXzaMMUku1x3IOH/view?usp=sharing",
+                "https://drive.google.com/file/d/1sC0B7bCnYHU2yN9bPNDpI4a4AlDFoPXb/view?usp=sharing",
+                "https://drive.google.com/file/d/1H8RkGBdRfJe-m1upK2ULGnqzm6HAOnfc/view?usp=sharing",
+                "https://drive.google.com/file/d/1HWeQwXgiobrfSSy4gF00sUhYEbr4Mai7/view?usp=sharing",
+                "https://drive.google.com/file/d/1M6OXvB8FLc8ao2whjp0q0_7oi_jInAjS/view?usp=sharing",
+                "https://drive.google.com/file/d/1XKWrSzK4BaLbfcFa2eQnmVYR6QZvE_GM/view?usp=sharing"
             ];
 
+            /**
+             * Creates book element for SECONDARY books
+             * Uses filename parsing to get title
+             */
+            /* This function is no longer used, replaced by createPrimaryBookElement
             function createBookElement(link) {
                 const fileName = decodeURIComponent(link.split('/').pop());
                 const parts = fileName.replace('.pdf', '').replace(/%20/g, ' ').split(' ');
@@ -334,77 +544,135 @@
                     subject = "Add. Maths";
                     year = "S3";
                 }
-
+                
+                const title = `${subject} ${year}`; // Title for viewer
 
                 const textColor = (localStorage.getItem('theme') || 'light') === 'light' ? '1f2937' : 'ffffff';
                 const bgColor = (localStorage.getItem('theme') || 'light') === 'light' ? 'ffffff' : '111827';
                 
                 const placeholderUrl = `https://placehold.co/200x300/${bgColor}/${textColor}?text=${subject.replace(' ', '+')}+${year}`;
+                
+                // MODIFIED: Link to crystaldocs.html viewer
+                const viewerUrl = `crystaldocs.html?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`;
 
                 return `
-                    <a href="${link}" target="_blank" class="text-center group book-item">
-                        <img src="${placeholderUrl}" alt="${subject} ${year}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
+                    <a href="${viewerUrl}" class="text-center group book-item w-full">
+                        <img src="${placeholderUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
                         <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${subject}</h3>
                     </a>
                 `;
             }
+            */
 
-            document.getElementById('senior-one-books').innerHTML = seniorOneLinks.map(createBookElement).join('');
-            document.getElementById('senior-two-books').innerHTML = seniorTwoLinks.map(createBookElement).join('');
-            document.getElementById('senior-three-books').innerHTML = seniorThreeLinks.map(createBookElement).join('');
-            document.getElementById('senior-four-books').innerHTML = seniorFourLinks.map(createBookElement).join('');
+            /**
+             * Creates book element for PRIMARY books
+             * Uses year and index for title as links are not descriptive
+             */
+            function createPrimaryBookElement(link, primaryYear, index) {
+                // primaryYear is "Primary 1", "Primary 2", etc.
+                // index is 0, 1, 2...
+                const title = `${primaryYear} - Book ${index + 1}`;
 
-            // Remove web search functionality
-            // const webSearchForm = document.getElementById('web-search-form'); ...
+                const textColor = (localStorage.getItem('theme') || 'light') === 'light' ? '1f2937' : 'ffffff';
+                const bgColor = (localStorage.getItem('theme') || 'light') === 'light' ? 'ffffff' : '111827';
+                
+                const placeholderText = `${primaryYear.replace(' ', '+')}+B${index + 1}`;
+                const placeholderUrl = `https://placehold.co/200x300/${bgColor}/${textColor}?text=${placeholderText}`;
+                
+                // MODIFIED: Link to crystaldocs.html viewer
+                const viewerUrl = `crystaldocs.html?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`;
+
+                return `
+                    <a href="${viewerUrl}" class="text-center group book-item w-full">
+                        <img src="${placeholderUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
+                        <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${title}</h3>
+                    </a>
+                `;
+            }
+
+            // --- Populate Primary Books ---
+            document.getElementById('primary-one-books').innerHTML = primaryOneLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 1', i)).join('');
+            document.getElementById('primary-two-books').innerHTML = primaryTwoLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 2', i)).join('');
+            document.getElementById('primary-three-books').innerHTML = primaryThreeLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 3', i)).join('');
+            document.getElementById('primary-four-books').innerHTML = primaryFourLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 4', i)).join('');
+            document.getElementById('primary-five-books').innerHTML = primaryFiveLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 5', i)).join('');
+            document.getElementById('primary-six-books').innerHTML = primarySixLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 6', i)).join('');
+            document.getElementById('primary-seven-books').innerHTML = primarySevenLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 7', i)).join('');
+            document.getElementById('primary-eight-books').innerHTML = primaryEightLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 8', i)).join('');
+
+            // --- Populate Secondary Books ---
+            document.getElementById('senior-one-books').innerHTML = seniorOneLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 1', i)).join('');
+            document.getElementById('senior-two-books').innerHTML = seniorTwoLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 2', i)).join('');
+            document.getElementById('senior-three-books').innerHTML = seniorThreeLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 3', i)).join('');
+            document.getElementById('senior-four-books').innerHTML = seniorFourLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 4', i)).join('');
         });
 
-        // New local book filtering function
+        // Book viewer functions (openBookViewer, closeBookViewer) have been removed as they are no longer used.
+
+        /**
+         * New local book filtering function
+         * Now searches both primary and secondary sections
+         */
         function filterBooks() {
-            const searchTerm = document.getElementById('web-search-input').value.toLowerCase();
-            const seniorSections = document.querySelectorAll('.senior-section');
+            const searchTerm = document.getElementById('local-search-input').value.toLowerCase();
+            const bookSections = document.querySelectorAll('.book-section'); // Targets both primary and senior
             const noResultsMessage = document.getElementById('no-results-message');
-            const libraryDescription = document.getElementById('library-description');
+            const primaryDesc = document.getElementById('library-description-primary');
+            const secondaryDesc = document.getElementById('library-description-secondary');
+            
             const alpineData = document.body._x_dataStack[0];
             let totalResultsFound = 0;
 
             if (searchTerm === '') {
                 // Reset everything to default
-                seniorSections.forEach(section => {
+                bookSections.forEach(section => {
                     section.style.display = 'block';
                     section.querySelectorAll('.book-item').forEach(book => {
-                        book.style.display = 'block';
+                        book.style.display = 'block'; // Ensure parent anchor is visible
                     });
                 });
-                if (libraryDescription) libraryDescription.style.display = 'block';
+                if (primaryDesc) primaryDesc.style.display = 'block';
+                if (secondaryDesc) secondaryDesc.style.display = 'block';
                 if (noResultsMessage) noResultsMessage.style.display = 'none';
-                alpineData.mainOpen = true; // Keep main folder open
+                
+                // Reset folder states
+                alpineData.mainPrimaryOpen = true; 
+                alpineData.mainSecondaryOpen = true;
                 alpineData.openSenior = ''; // Close all senior folders
+                alpineData.openPrimary = ''; // Close all primary folders
                 return;
             }
 
             // --- We have a search term ---
-            if (libraryDescription) libraryDescription.style.display = 'none'; // Hide description
-            alpineData.mainOpen = true; // Ensure main folder is open
+            if (primaryDesc) primaryDesc.style.display = 'none'; // Hide descriptions
+            if (secondaryDesc) secondaryDesc.style.display = 'none';
+            alpineData.mainPrimaryOpen = true; // Ensure main folders are open
+            alpineData.mainSecondaryOpen = true;
             alpineData.openSenior = 'all'; // Custom value to force all senior folders open
+            alpineData.openPrimary = 'all'; // Custom value to force all primary folders open
 
-            seniorSections.forEach(section => {
+            bookSections.forEach(section => {
                 let sectionResultsFound = 0;
                 const books = section.querySelectorAll('.book-item');
+                const sectionName = section.dataset.sectionName || '';
                 
                 books.forEach(book => {
                     const titleElement = book.querySelector('h3');
+                    let title = '';
                     if (titleElement) {
-                        const title = titleElement.textContent.toLowerCase();
-                        if (title.includes(searchTerm)) {
-                            book.style.display = 'block';
-                            sectionResultsFound++;
-                        } else {
-                            book.style.display = 'none';
-                        }
+                        title = titleElement.textContent.toLowerCase();
+                    }
+                    
+                    // Search book title OR section name (e.g., "primary 3")
+                    if (title.includes(searchTerm) || sectionName.includes(searchTerm)) {
+                        book.style.display = 'block'; // Ensure parent anchor is visible
+                        sectionResultsFound++;
+                    } else {
+                        book.style.display = 'none'; // Hide parent anchor
                     }
                 });
 
-                // Show or hide the entire section
+                // Show or hide the entire section (folder button + content)
                 if (sectionResultsFound > 0) {
                     section.style.display = 'block'; 
                     totalResultsFound += sectionResultsFound;

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrystalDocs Viewer - S Study Hub</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <style>
+        .font-logo { font-family: 'Cinzel Decorative', cursive; }
+        [x-cloak] { display: none !important; }
+
+        /* Copied Theme Variables from account-center.html */
+        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
+        .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
+        .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
+        .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
+        .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
+        .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; /* Make track invisible */
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--text-muted-color);
+            border-radius: 10px;
+            border: 3px solid var(--bg-color); /* Creates a "floating" thumb effect */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--text-color);
+        }
+
+        /* Make body take full height */
+        html, body { margin: 0; padding: 0; /* Removed overflow: hidden and height: 100% */ }
+        /* Style for the viewer container */
+        #viewer-container {
+             /* height: calc(100vh - 80px - 64px); */ /* Full height minus top bar and bottom nav approx */
+             margin-top: 80px; /* Space for top bar */
+             margin-bottom: 96px; /* Space for bottom nav + extra padding */
+             /* We need to adjust height slightly to make room for the download button */
+             /* height: calc(100vh - 80px - 112px); */ /* Removed fixed height */
+        }
+    </style>
+</head>
+
+<body 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300 flex flex-col" 
+    x-data="{ 
+        theme: localStorage.getItem('theme') || 'light',
+        docTitle: 'Loading Document...' // State for the title
+    }"
+    x-init="
+        $watch('theme', val => localStorage.setItem('theme', val));
+        lucide.createIcons();
+        
+        // --- Get URL parameters ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const docUrl = urlParams.get('url');
+        const titleFromParam = urlParams.get('title');
+        
+        if (titleFromParam) {
+            docTitle = decodeURIComponent(titleFromParam); // Set Alpine state
+             document.title = docTitle + ' - CrystalDocs Viewer'; // Set page title
+        } else {
+             docTitle = 'Document Viewer'; // Default if no title
+        }
+
+        const viewerFrame = document.getElementById('viewer-iframe');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const errorIndicator = document.getElementById('error-indicator');
+        const downloadContainer = document.getElementById('download-container'); // Get container
+        const downloadLink = document.getElementById('download-link'); // Get link
+
+        if (titleFromParam) {
+            docTitle = decodeURIComponent(titleFromParam); // Set Alpine state
+             document.title = docTitle + ' - CrystalDocs Viewer'; // Set page title
+             if (downloadLink) {
+                downloadLink.download = docTitle.replace(/ /g, '_') + '.pdf'; // Set download filename
+             }
+        } else {
+             docTitle = 'Document Viewer'; // Default if no title
+        }
+
+        if (docUrl && viewerFrame) {
+            // --- MODIFICATION START ---
+            // Check if it's a Google Drive link. If so, convert to /preview URL.
+            // Otherwise, use the Google Docs gview embedder.
+            let embedUrl;
+            if (docUrl.includes('drive.google.com')) {
+                embedUrl = docUrl.replace('/view?usp=sharing', '/preview');
+            } else {
+                // Fallback for any non-Google Drive links
+                embedUrl = `https://docs.google.com/gview?url=${encodeURIComponent(docUrl)}&embedded=true`;
+            }
+            
+            viewerFrame.src = embedUrl;
+            if (downloadLink) {
+                downloadLink.href = docUrl; // Set download URL
+            }
+            // --- MODIFICATION END ---
+            
+            viewerFrame.onload = () => {
+                loadingIndicator.style.display = 'none';
+                 viewerFrame.style.display = 'block'; // Show iframe on load
+                 if (downloadContainer) {
+                    downloadContainer.style.display = 'block'; // Show download button
+                 }
+            };
+            // Basic error handling (doesn't catch all viewer errors)
+             viewerFrame.onerror = () => {
+                 loadingIndicator.style.display = 'none';
+                 errorIndicator.style.display = 'flex';
+                 viewerFrame.style.display = 'none'; // Hide iframe on error
+                 if (downloadContainer) {
+                    downloadContainer.style.display = 'none'; // Hide download button on error
+                 }
+            };
+
+        } else {
+             // Handle case where URL is missing
+             loadingIndicator.style.display = 'none';
+             errorIndicator.style.display = 'flex';
+             docTitle = 'Error - No Document URL Provided';
+             document.title = docTitle + ' - CrystalDocs Viewer';
+             if (viewerFrame) viewerFrame.style.display = 'none';
+             if (downloadContainer) {
+                downloadContainer.style.display = 'none'; // Hide download button if no URL
+             }
+        }
+    "
+    :class="{ 
+        'dark': theme === 'dark', 
+        'cyber': theme === 'cyber', 
+        'forest': theme === 'forest', 
+        'ocean': theme === 'ocean', 
+        'sunset': theme === 'sunset' 
+    }">
+
+    <!-- Top Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--header-bg, var(--card-bg-color))/80] backdrop-blur-lg border-b border-[var(--border-color)] px-6 py-3 flex items-center justify-between h-[80px]">
+         <!-- Dynamic Title -->
+        <h1 class="text-xl font-semibold text-[var(--text-color)] truncate" x-text="docTitle"></h1>
+
+        <!-- Theme Toggle -->
+         <button @click="
+                theme = (theme === 'light' ? 'dark' : 
+                        (theme === 'dark' ? 'cyber' : 
+                        (theme === 'cyber' ? 'forest' : 
+                        (theme === 'forest' ? 'ocean' : 
+                        (theme === 'ocean' ? 'sunset' : 'light')))));
+             " class="p-2 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring-color)] focus:ring-offset-2 focus:ring-offset-[var(--bg-color)]" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="w-5 h-5" x-show="theme === 'light'"></i>
+            <i data-lucide="sun" class="w-5 h-5" x-show="theme !== 'light'" x-cloak></i>
+        </button>
+    </header>
+
+    <!-- Main Content Area (Viewer) -->
+    <main id="viewer-container" class="w-full max-w-3xl mx-auto px-2 sm:px-4 flex flex-col"> <!-- Changed to flex-col -->
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="flex flex-col items-center text-[var(--text-muted-color)]">
+             <svg class="animate-spin h-10 w-10 text-[var(--text-color)] mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            <p>Loading document...</p>
+        </div>
+        <!-- Error Indicator -->
+        <div id="error-indicator" class="hidden flex flex-col items-center text-red-500">
+             <i data-lucide="alert-triangle" class="w-10 h-10 mb-4"></i>
+            <p>Could not load document preview.</p>
+             <p class="text-sm text-[var(--text-muted-color)] mt-2">The file might be too large, private, or in an unsupported format.</p>
+             <!-- Optional: Add download button here as fallback -->
+             <a :href="new URLSearchParams(window.location.search).get('url')" target="_blank" download class="mt-4 px-4 py-2 bg-[var(--active-link-color)] text-[var(--bg-color)] rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
+                 Download Original File
+             </a>
+        </div>
+        <!-- Iframe Viewer -->
+         <iframe id="viewer-iframe" class="w-full h-[85vh] border-2 border-[var(--focus-ring-color)] rounded-lg shadow-xl hidden transition-all duration-300" style="background-color: var(--card-bg-color); box-shadow: 0 0 12px 0px var(--focus-ring-color);"></iframe>
+        
+        <!-- Download Button Container -->
+        <div id="download-container" class="w-full text-center mt-4 hidden"> <!-- Hidden by default -->
+            <a id="download-link" href="#" download="book.pdf" target="_blank" class="inline-flex items-center space-x-2 px-6 py-2 bg-[var(--active-link-color)] text-[var(--bg-color)] rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Download Book</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Floating Navigation (Copied from other pages) -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
+        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl transition-transform duration-300 ease-in-out hover:-translate-y-1">
+            <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="wand-2" class="w-6 h-6"></i></a>
+            <!-- Library link might be active if coming from there, but keep it consistent -->
+            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a> 
+            <a href="ai-notebook.html" title="S Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><span class="font-logo w-6 h-6 flex items-center justify-center text-xl leading-none">S</span></a>
+            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
+        </div>
+    </nav>
+
+    <script>
+        // No complex JS needed here anymore, handled in x-init
+         // Add login check logic from index.html (important for nav consistency)
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const accountLink = document.querySelector('nav a[href="account-center.html"]'); // Be specific
+            const aiNotebookLink = document.querySelector('nav a[href="ai-notebook.html"]');
+            const libraryLink = document.querySelector('nav a[href="books.html"]');
+            
+            if (!isLoggedIn) {
+                if(accountLink) accountLink.href = 'account-creation.html';
+                
+                [aiNotebookLink, libraryLink].forEach(link => {
+                    if (link) {
+                        link.addEventListener('click', (e) => {
+                             // Only redirect if it's not the current page
+                             if (!window.location.pathname.endsWith(link.getAttribute('href'))) {
+                                e.preventDefault();
+                                window.location.href = 'account-creation.html';
+                             }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

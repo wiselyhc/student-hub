@@ -26,7 +26,11 @@
 </head>
 <body 
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
+<<<<<<< HEAD
+    x-data="{ theme: localStorage.getItem('theme') || 'light', showEmailModal: false, showSmsModal: false, showFloatingMessage: false }"
+=======
     x-data="{ theme: localStorage.getItem('theme') || 'light', showEmailModal: false, showSmsModal: false }"
+>>>>>>> f02d2c2b5b1eed922103ab3be8768a71c8e0c9ec
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
@@ -50,15 +54,35 @@
                         <span class="mt-2 font-semibold text-[var(--text-color)]">Messages</span>
                     </button>
                     <!-- X -->
-                    <a href="#" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
+                    <button @click="showFloatingMessage = true" class="flex flex-col items-center justify-center p-4 bg-[var(--bg-color)] rounded-lg border border-[var(--border-color)] hover:bg-[var(--active-icon-bg-color)] transition-colors group">
                         <svg class="w-10 h-10 text-[var(--text-muted-color)] group-hover:text-[var(--text-color)] transition-colors" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L12.122 1227.31H117.979L527.734 750.38L859.458 1227.31H1216.78L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6904H306.615L611.412 515.685L658.88 583.579L1076.55 1156.91H913.946L569.165 687.854V687.828Z"/></svg>
                         <span class="mt-2 font-semibold text-[var(--text-color)]">X</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
+<<<<<<< HEAD
+        <!-- Centered X DM Modal (same style as Email modal) -->
+        <div x-show="showFloatingMessage" x-cloak x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <div @click.outside="showFloatingMessage = false" x-show="showFloatingMessage" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="bg-[var(--card-bg-color)] w-full max-w-md p-6 rounded-lg shadow-xl border border-[var(--border-color)]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-[var(--text-color)]">Message us privately on X</h3>
+                    <button @click="showFloatingMessage = false" class="text-[var(--text-muted-color)] hover:text-[var(--text-color)] transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <p class="text-[var(--text-muted-color)] mb-6">Send a private message to our team on X (formerly Twitter). Your message will go directly to <span class="font-bold text-blue-700">@hubSsouth</span> and will not be public.</p>
+                <a href="https://twitter.com/messages/compose?recipient_id=1708583772829444096" target="_blank" rel="noopener" class="flex items-center justify-center w-full px-4 py-2.5 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors">
+                    <svg class="w-5 h-5 mr-2" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L12.122 1227.31H117.979L527.734 750.38L859.458 1227.31H1216.78L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6904H306.615L611.412 515.685L658.88 583.579L1076.55 1156.91H913.946L569.165 687.854V687.828Z"/></svg>
+                    <span>Message @hubSsouth</span>
+                </a>
+            </div>
+        </div>
+
+=======
+>>>>>>> f02d2c2b5b1eed922103ab3be8768a71c8e0c9ec
     <!-- Email Modal -->
     <div x-show="showEmailModal" 
          x-cloak 

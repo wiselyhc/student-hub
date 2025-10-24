@@ -1,3 +1,4 @@
+
 /**
  * Handles the response from Google's Sign-In.
  * This function is called by the Google GSI library (loaded in account-creation.html)
@@ -43,5 +44,3 @@ function handleCredentialResponse(response) {
   // 3. Redirect to the account center page
   window.location.href = 'account-center.html';
 }
-
-
