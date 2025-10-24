@@ -26,11 +26,9 @@
 </head>
 <body 
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
-<<<<<<< HEAD
+
     x-data="{ theme: localStorage.getItem('theme') || 'light', showEmailModal: false, showSmsModal: false, showFloatingMessage: false }"
-=======
-    x-data="{ theme: localStorage.getItem('theme') || 'light', showEmailModal: false, showSmsModal: false }"
->>>>>>> f02d2c2b5b1eed922103ab3be8768a71c8e0c9ec
+
     x-init="$watch('theme', val => localStorage.setItem('theme', val))"
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
@@ -183,6 +181,7 @@
     </script>
 </body>
 </html>
+
 
 
 
