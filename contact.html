@@ -60,8 +60,6 @@
             </div>
         </div>
     </main>
-
-<<<<<<< HEAD
         <!-- Centered X DM Modal (same style as Email modal) -->
         <div x-show="showFloatingMessage" x-cloak x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
             <div @click.outside="showFloatingMessage = false" x-show="showFloatingMessage" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="bg-[var(--card-bg-color)] w-full max-w-md p-6 rounded-lg shadow-xl border border-[var(--border-color)]">
@@ -78,9 +76,6 @@
                 </a>
             </div>
         </div>
-
-=======
->>>>>>> f02d2c2b5b1eed922103ab3be8768a71c8e0c9ec
     <!-- Email Modal -->
     <div x-show="showEmailModal" 
          x-cloak 
@@ -179,6 +174,32 @@
             lucide.createIcons();
         });
     </script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDEdSKTgVM3F_cycWFN5aoWiaHYhkvRoCA",
+    authDomain: "decent-glazing-475914-p3.firebaseapp.com",
+    projectId: "decent-glazing-475914-p3",
+    storageBucket: "decent-glazing-475914-p3.firebasestorage.app",
+    messagingSenderId: "922901182665",
+    appId: "1:922901182665:web:83bec99021f51874fd3518",
+    measurementId: "G-6C5PW0JVTM"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
 

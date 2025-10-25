@@ -7,61 +7,118 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Firebase SDKs (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- Your Firebase config file -->
+    <script src="firebase-init.js"></script>
+
     <style>
         .font-logo { font-family: 'Cinzel Decorative', cursive; }
         [x-cloak] { display: none !important; }
-
-        /* 1. Mild Grey (Default) */
+        /* ... rest of your styles ... */
         :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
-        
-        /* 2. Charcoal */
         .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
-        
-        /* 3. Cyber */
         .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
-        
-        /* 4. Forest (Deep Green) */
         .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
-        
-        /* 5. Ocean (Deep Blue) */
         .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
-        
-        /* 6. Sunset (Deep Orange/Red) */
         .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
+        /* Style to hide the body until auth check is complete */
+        body:not(.auth-checked) { visibility: hidden; }
     </style>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- *** NEW: Enhanced Gatekeeper Script *** -->
+    <script>
+        // Use Firebase Auth state to control access *before* Alpine starts
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                // If no user is logged in, redirect immediately
+                console.log("No user found, redirecting to login.");
+                window.location.href = './account-creation.html';
+            } else {
+                // User is logged in, allow the page to load
+                console.log("User found, proceeding to load page.");
+                // Add class to make body visible
+                document.body.classList.add('auth-checked'); 
+            }
+        });
+    </script>
+    <!-- *** End Enhanced Gatekeeper *** -->
+
 </head>
 
 <body 
     class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300" 
     x-data="{ 
         activeTab: 'settings', 
-        theme: localStorage.getItem('theme') || 'light',
+        theme: 'light',
         isEditingUsername: false,
-        currentUsername: sessionStorage.getItem('userName') || 'Student User'
+        currentUsername: 'Student User',
+        currentUser: null
     }"
     x-init="
-        $watch('theme', val => localStorage.setItem('theme', val));
-        $watch('currentUsername', val => sessionStorage.setItem('userName', val));
+        // This now runs *after* the gatekeeper confirms a user exists
+        currentUser = auth.currentUser; // Get the user object confirmed by the gatekeeper
+        if (currentUser) {
+            const userRef = db.collection('users').doc(currentUser.uid);
+            userRef.get().then(doc => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    theme = userData.theme || 'light';
+                    currentUsername = userData.displayName || 'Student User';
+                    document.getElementById('email-display').textContent = userData.email || 'No email';
+                    document.getElementById('profile-picture').src = userData.photoURL || 'https://placehold.co/96x96/e5e7eb/6b7280?text=S';
+                } else {
+                    // Handle case where DB doc might be missing (shouldn't happen with current logic)
+                     console.warn('User document missing in Firestore for UID:', currentUser.uid);
+                     // Set defaults from auth object
+                     theme = localStorage.getItem('theme') || 'light';
+                     currentUsername = currentUser.displayName || 'Student User';
+                     document.getElementById('email-display').textContent = currentUser.email || 'No email';
+                     document.getElementById('profile-picture').src = currentUser.photoURL || 'https://placehold.co/96x96/e5e7eb/6b7280?text=S';
+                     // Optionally, recreate the doc here if needed
+                }
+            }).catch(error => {
+                console.error('Error getting user document:', error);
+                // Fallback using auth object if DB read fails
+                theme = localStorage.getItem('theme') || 'light';
+                currentUsername = currentUser.displayName || 'Student User';
+                document.getElementById('email-display').textContent = currentUser.email || 'No email';
+                document.getElementById('profile-picture').src = currentUser.photoURL || 'https://placehold.co/96x96/e5e7eb/6b7280?text=S';
+            });
+        } else {
+             // This else should technically not be reachable due to the gatekeeper,
+             // but included as a safeguard.
+             console.error('Alpine init ran but currentUser is null. Redirecting.');
+             window.location.href = './account-creation.html';
+        }
+
+        // Watch for theme changes and save to Firestore
+        $watch('theme', val => {
+            localStorage.setItem('theme', val);
+            if (currentUser) {
+                const userRef = db.collection('users').doc(currentUser.uid);
+                userRef.update({ theme: val })
+                    .catch(error => console.error('Error saving theme:', error));
+            }
+        });
     "
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
-    <script>
-        // Gatekeeper Script: This runs immediately on page load.
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            // If the user is not "logged in", redirect them to the account creation page.
-            window.location.href = './account-creation.html';
-        }
-    </script>
+    <!-- REMOVED the old <script> gatekeeper that checked sessionStorage -->
 
     <!-- Main Content -->
     <main class="min-h-screen p-6 sm:p-10 pb-24">
-        <div class="max-w-4xl mx-auto">
+       <!-- ... rest of your main content ... -->
+         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-10">
                 <a href="index.html" class="inline-block text-5xl font-logo text-[var(--text-color)]">S</a>
             </div>
@@ -73,7 +130,7 @@
             <div class="mt-8 border-b border-[var(--border-color)]">
                 <nav class="-mb-px flex space-x-6" aria-label="Tabs">
                     <button @click="activeTab = 'settings'" :class="{ 'border-[var(--active-tab-border-color)] text-[var(--text-color)]': activeTab === 'settings', 'border-transparent text-[var(--text-muted-color)] hover:text-[var(--text-color)] hover:border-[var(--border-color)]': activeTab !== 'settings' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Settings</button>
-                    <!-- Other tabs... -->
+                    <!-- Other tabs... (You can add more later e.g., 'Subscription', 'Security') -->
                 </nav>
             </div>
 
@@ -86,18 +143,22 @@
                         <!-- Profile Picture Display -->
                         <div class="flex justify-center mb-6">
                             <div class="relative group">
-                                <img id="profile-picture" class="w-24 h-24 rounded-full border-2 border-[var(--border-color)] shadow-sm" src="https://placehold.co/96x96/e5e7eb/6b7280?text=S" alt="Profile Picture">
+                                <img id="profile-picture" class="w-24 h-24 rounded-full border-2 border-[var(--border-color)] shadow-sm object-cover" src="https://placehold.co/96x96/e5e7eb/6b7280?text=S" alt="Profile Picture">
+                                <!-- Placeholder image added -->
+                                <!-- Optional: Add image upload functionality -->
+                                <!-- 
                                 <input type="file" id="profile-upload" class="hidden" accept="image/*">
                                 <button onclick="document.getElementById('profile-upload').click()" class="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 rounded-full transition-opacity cursor-pointer" aria-label="Change profile picture">
                                     <i data-lucide="camera" class="w-6 h-6"></i>
                                 </button>
+                                -->
                             </div>
                         </div>
                         
                         <h2 class="text-xl font-semibold text-[var(--text-color)] text-center">General Settings</h2>
                         <p class="text-[var(--text-muted-color)] mt-1 text-center">Update your profile and notification settings.</p>
                         
-                        <!-- New Username/Email Section -->
+                        <!-- Username/Email Section -->
                         <div class="mt-8 space-y-6">
                             <!-- Username Field -->
                             <div>
@@ -109,8 +170,10 @@
                                 <!-- Edit Username Form -->
                                 <div x-show="isEditingUsername" x-cloak class="flex items-center space-x-2 mt-1">
                                     <input type="text" id="username-input" x-model="currentUsername" class="block w-full rounded-md shadow-sm sm:text-sm bg-[var(--input-bg-color)] border-[var(--input-border-color)] text-[var(--text-color)] focus:border-[var(--focus-ring-color)] focus:ring-[var(--focus-ring-color)]">
-                                    <button @click="isEditingUsername = false; sessionStorage.setItem('userName', currentUsername)" class="px-3 py-2 rounded-md bg-[var(--active-link-color)] text-[var(--bg-color)] text-sm font-medium">Save</button>
-                                    <button @click="isEditingUsername = false; currentUsername = sessionStorage.getItem('userName') || 'student_user'" class="px-3 py-2 rounded-md bg-[var(--card-bg-color)] border border-[var(--border-color)] text-[var(--text-muted-color)] text-sm font-medium">Cancel</button>
+                                    <!-- Save button updates Firestore -->
+                                    <button @click="isEditingUsername = false; if(currentUser) { db.collection('users').doc(currentUser.uid).update({ displayName: currentUsername }).catch(e => console.error(e)) }" class="px-3 py-2 rounded-md bg-[var(--active-link-color)] text-[var(--bg-color)] text-sm font-medium">Save</button>
+                                    <!-- Cancel button re-fetches from Firestore -->
+                                    <button @click="isEditingUsername = false; if(currentUser) { db.collection('users').doc(currentUser.uid).get().then(doc => { if(doc.exists) currentUsername = doc.data().displayName }).catch(e => console.error(e)) }" class="px-3 py-2 rounded-md bg-[var(--card-bg-color)] border border-[var(--border-color)] text-[var(--text-muted-color)] text-sm font-medium">Cancel</button>
                                 </div>
                             </div>
 
@@ -118,7 +181,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-[var(--text-muted-color)]">Email Address</label>
                                 <div class="flex items-center justify-between mt-1">
-                                    <span id="email-display" class="text-lg text-[var(--text-color)]">student@example.com</span>
+                                    <span id="email-display" class="text-lg text-[var(--text-color)]">loading...</span>
                                     <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-0.5 rounded-full dark:bg-green-900 dark:text-green-200">Verified</span>
                                 </div>
                             </div>
@@ -171,100 +234,63 @@
                     </div>
                 </div>
 
-                <!-- Features Tab -->
+                <!-- Features Tab (Example - Not Functional Yet) -->
                 <div x-show="activeTab === 'features'" x-cloak>
-                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
-                        <h2 class="text-xl font-semibold text-[var(--text-color)]">Manage Features</h2>
-                        <p class="text-[var(--text-muted-color)] mt-1">Enable or disable experimental features.</p>
-                        <!-- Add feature toggles here -->
-                    </div>
+                    <!-- ... content ... -->
                 </div>
 
-                <!-- Security Tab -->
+                 <!-- Security Tab (Example - Not Functional Yet) -->
                 <div x-show="activeTab === 'security'" x-cloak>
-                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
-                        <h2 class="text-xl font-semibold text-[var(--text-color)]">Security & Privacy</h2>
-                        <p class="text-[var(--text-muted-color)] mt-1">Manage your password and two-factor authentication.</p>
-                        <!-- Add security settings here -->
-                    </div>
+                   <!-- ... content ... -->
                 </div>
 
-                <!-- About Tab -->
+                 <!-- About Tab (Example - Not Functional Yet) -->
                 <div x-show="activeTab === 'about'" x-cloak>
-                    <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-sm border border-[var(--border-color)]">
-                        <h2 class="text-xl font-semibold text-[var(--text-color)]">About S Study Hub</h2>
-                        <p class="text-[var(--text-muted-color)] mt-1">Version 1.0.0</p>
-                        <!-- Add more about info here -->
-                    </div>
+                    <!-- ... content ... -->
                 </div>
-            </div>
-        </main>
-    </div>
+            </div> <!-- End Tab Content -->
+        </div>
+    </main>
 
-    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl">
+    <!-- Floating Navigation -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
+        <!-- ... navigation links ... -->
+         <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl transition-transform duration-300 ease-in-out hover:-translate-y-1">
             <a href="index.html" title="Home" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="sparkles" class="w-6 h-6"></i></a>
+            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="wand-2" class="w-6 h-6"></i></a>
             <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-            <a href="ai-notebook.html" title="AI Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="brain-circuit" class="w-6 h-6"></i></a>
+            <a href="ai-notebook.html" title="S Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><span class="font-logo w-6 h-6 flex items-center justify-center text-xl leading-none">S</span></a>
             <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            <!-- Highlight the current page (Account) -->
             <a href="account-center.html" title="Account" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
         </div>
     </nav>
+    <!-- END of new <nav> section -->
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
-
-            // Populate non-Alpine user info from sessionStorage
-            const userEmail = sessionStorage.getItem('userEmail');
-            const userPicture = sessionStorage.getItem('userPicture');
-
-            const emailDisplay = document.getElementById('email-display');
-            const profilePicElement = document.getElementById('profile-picture');
-
-            if (userEmail && emailDisplay) {
-                emailDisplay.textContent = userEmail;
-            }
-            if (userPicture && profilePicElement) {
-                profilePicElement.src = userPicture;
-            }
-
-            // Handle Profile Picture Upload Preview
-            const profileUpload = document.getElementById('profile-upload');
-            if(profileUpload) {
-                profileUpload.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            profilePicElement.src = e.target.result;
-                            // In a real app, you'd upload this to a server
-                            // and update the userPicture in sessionStorage/database.
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
             
-            // Logout button functionality
+            // Logout button functionality (still needed here as it's outside Alpine scope)
             const logoutButton = document.getElementById('logout-button');
             if(logoutButton) {
                 logoutButton.addEventListener('click', () => {
-                    // Remove the login flag and all user data
-                    sessionStorage.removeItem('isLoggedIn');
-                    sessionStorage.removeItem('userName');
-                    sessionStorage.removeItem('userEmail');
-                    sessionStorage.removeItem('userPicture');
-                    
-                    // Redirect to the home page
-                    window.location.href = 'index.html';
+                    auth.signOut().then(() => {
+                        sessionStorage.clear(); 
+                        localStorage.removeItem('theme'); 
+                        window.location.href = 'index.html'; 
+                    }).catch((error) => {
+                        console.error("Logout Error: ", error);
+                    });
                 });
             }
         });
     </script>
+      
+    <!-- No conflicting module script needed -->
 </body>
 </html>
+
 
 
 

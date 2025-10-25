@@ -1,46 +1,47 @@
-
 /**
  * Handles the response from Google's Sign-In.
- * This function is called by the Google GSI library (loaded in account-creation.html)
- * after a user successfully signs in with their Google account.
+ * This function is called by the Google GSI library.
  */
-function handleCredentialResponse(response) {
-  // The 'response.credential' is a JWT (JSON Web Token)
-  console.log("Encoded JWT ID token: " + response.credential);
-  
-  // In a real application, you would send this 'response.credential' to your
-  // server for verification to securely authenticate the user.
-  
-  // For this demo, we'll decode the payload on the client side
-  // to get the user's information.
-  // Note: This is insecure for production, but fine for this client-only demo.
-  // WARNING: Never decode or trust JWTs on the client side in production. Always verify tokens securely on your server!
-  function decodeJwtPayload(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const padded = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
-    return JSON.parse(atob(padded));
+async function handleCredentialResponse(response) {
+  // 1. Get the Google ID token
+  const idToken = response.credential;
+
+  // 2. Create a Firebase credential with the Google ID token
+  // 'firebase' is available globally from the SDK script
+  const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+
+  try {
+    // 3. Sign the user into Firebase with the credential
+    // 'auth' is available globally from firebase-init.js
+    const result = await auth.signInWithCredential(credential);
+    const user = result.user;
+
+    // 4. CHECK IF THIS IS A NEW USER
+    if (result.additionalUserInfo.isNewUser) {
+      // 5. ADD THE USER TO THE DATABASE
+      // 'db' is available globally from firebase-init.js
+      const userRef = db.collection('users').doc(user.uid);
+      await userRef.set({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        theme: 'light', // Set a default theme
+        role: 'user' // Set a default role
+      });
+      console.log("New user created in Firestore database");
+    } else {
+      console.log("Existing user signed in.");
+    }
+
+    // 6. Set sessionStorage items so your other pages know you're logged in
+    sessionStorage.setItem('isLoggedIn', 'true');
+
+    // 7. Redirect to the account center
+    window.location.href = 'account-center.html';
+
+  } catch (error) {
+    console.error("Error signing in with Google: ", error);
   }
-  const payload = decodeJwtPayload(response.credential);
-
-  console.log("Google User ID: " + payload.sub);
-  console.log("Full Name: " + payload.name);
-  console.log("Email: " + payload.email);
-  console.log("Profile Picture URL: " + payload.picture);
-
-  // --- Login Simulation ---
-  // This part mimics the behavior of the other buttons to log the user in.
-  // NOTE: Storing user information in sessionStorage is for demonstration purposes only.
-  // Do NOT store sensitive information in sessionStorage in production environments.
-  // 1. Set the 'isLoggedIn' flag in session storage as a string ('true')
-  // Note: sessionStorage only stores strings, so 'true' is used here.
-  sessionStorage.setItem('isLoggedIn', 'true');
-  
-  // 2. (Optional) Save user info to display on the account page
-  sessionStorage.setItem('userName', payload.name);
-  sessionStorage.setItem('userEmail', payload.email);
-  sessionStorage.setItem('userPicture', payload.picture);
-
-  // 3. Redirect to the account center page
-  window.location.href = 'account-center.html';
 }

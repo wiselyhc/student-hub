@@ -15,7 +15,15 @@
     <!-- Load the Google Sign-In client library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Load our new account.js file -->
+    <!-- Firebase SDKs (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- Your new config file -->
+    <script src="firebase-init.js"></script>
+
+    <!-- Load our account.js file (must be AFTER firebase-init.js) -->
     <script src="account.js" defer></script>
 
     <style>
@@ -69,5 +77,7 @@
             // No non-Google sign-in buttons to wire up anymore.
         });
     </script>
+     
+    <!-- REMOVED the conflicting v9/v12 module script -->
 </body>
 </html>
