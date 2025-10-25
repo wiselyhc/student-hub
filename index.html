@@ -96,11 +96,11 @@
 
                 const accountLink = document.querySelector('a[title="Account"]');
                 const aiNotebookLink = document.querySelector('a[title="S Notebook"]');
-                const libraryLink = document.querySelector('a[title="My Library"]');
+                const libraryLink = document.querySelector('a[title="My Library"]'); // Still need to select it, just not protecting it
 
                 if (!isLoggedIn) {
-                    accountLink.href = 'account-creation.html';
-                    const protectedLinks = [aiNotebookLink, libraryLink];
+                    // accountLink.href is no longer changed
+                    const protectedLinks = [aiNotebookLink]; // <-- libraryLink removed
                     
                     // We must remove old listeners to prevent bugs
                     protectedLinks.forEach(link => {
@@ -113,10 +113,10 @@
                         });
                     });
                 } else {
-                    accountLink.href = 'account-center.html';
+                    // accountLink.href is no longer changed
                     
                     // Re-bind protected links to their real destinations
-                    const protectedLinks = [aiNotebookLink, libraryLink];
+                    const protectedLinks = [aiNotebookLink]; // <-- libraryLink removed
                      protectedLinks.forEach(link => {
                         const newLink = link.cloneNode(true);
                         link.parentNode.replaceChild(newLink, link);
@@ -131,6 +131,9 @@
     <!-- REMOVED the conflicting v9/v12 module script -->
 </body>
 </html>
+
+
+
 
 
 
