@@ -3,137 +3,1243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S - Student Study Hub</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9019534232760059"
-     crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Firebase SDKs (v8) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
-    <!-- Your new config file -->
-    <script src="firebase-init.js"></script>
-
+    <title>AI Chatbot Settings - Advanced Configuration</title>
     <style>
-        .font-logo { font-family: 'Cinzel Decorative', cursive; }
-        [x-cloak] { display: none !important; }
-        :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
-        .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
-        .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
-        .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
-        .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
-        .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
-    </style>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
-<body 
-    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300"
-    x-data="{ 
-        theme: 'light',
-        init() {
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    const userRef = db.collection('users').doc(user.uid);
-                    userRef.get().then((doc) => {
-                        if (doc.exists) {
-                            const userData = doc.data();
-                            this.theme = userData.theme || 'light';
-                            localStorage.setItem('theme', this.theme);
-                        }
-                    });
-                } else {
-                    this.theme = localStorage.getItem('theme') || 'light';
-                }
-            });
-            this.$watch('theme', val => localStorage.setItem('theme', val));
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }"
-    :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
-    <main class="min-h-screen flex flex-col items-center justify-center text-center p-4">
-        <h1 class="text-5xl md:text-7xl font-extrabold text-[var(--text-color)] leading-tight mb-4">
-            Learn more with <span class="font-logo">S</span>
-        </h1>
-        <p class="text-lg md:text-xl text-[var(--text-muted-color)] max-w-3xl mx-auto mb-8">
-            Our platform provides AI-powered tools to help you analyze texts, organize your studies, and achieve your learning goals faster than ever.
-        </p>
-        <div class="flex justify-center space-x-4">
-            <a href="ai-notebook.html" class="px-8 py-3 bg-[var(--active-link-color)] text-[var(--bg-color)] rounded-md hover:opacity-90 transition-transform duration-300 transform hover:scale-105 font-semibold text-lg">
-                Start Analyzing
-            </a>
-        </div>
-    </main>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    <!-- Floating Navigation -->
-    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2">
-        <div class="flex items-center space-x-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full p-2 shadow-2xl transition-transform duration-300 ease-in-out hover:-translate-y-1">
-            <a href="index.html" title="Home" class="p-3 rounded-full bg-[var(--active-icon-bg-color)] text-[var(--active-link-color)] transition-colors"><i data-lucide="home" class="w-6 h-6"></i></a>
-            <a href="features.html" title="Features" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="wand-2" class="w-6 h-6"></i></a>
-            <a href="books.html" title="My Library" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="library" class="w-6 h-6"></i></a>
-            <a href="ai-notebook.html" title="S Notebook" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><span class="font-logo w-6 h-6 flex items-center justify-center text-xl leading-none">S</span></a>
-            <a href="contact.html" title="Contact" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
-            <a href="account-center.html" title="Account" class="p-3 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors"><i data-lucide="user-circle-2" class="w-6 h-6"></i></a>
-        </div>
-    </nav>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: backgroundShift 15s ease infinite;
+            z-index: 0;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glass morphism header */
+        .header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* Glass morphism cards */
+        .settings-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .settings-card:nth-child(1) { animation-delay: 0.1s; }
+        .settings-card:nth-child(2) { animation-delay: 0.2s; }
+        .settings-card:nth-child(3) { animation-delay: 0.3s; }
+        .settings-card:nth-child(4) { animation-delay: 0.4s; }
+        .settings-card:nth-child(5) { animation-delay: 0.5s; }
+        .settings-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .settings-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .card-title {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 25px;
+            background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.5));
+            border-radius: 2px;
+        }
+
+        .setting-item {
+            margin-bottom: 20px;
+        }
+
+        .setting-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        /* Input styles */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        option {
+            background: #764ba2;
+            color: white;
+        }
+
+        /* Range slider */
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            -moz-animation: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: 0.4s;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Range value display */
+        .range-value {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Chips/Tags */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .chip {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-buttons {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* Color picker */
+        input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .color-picker-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Info tooltip */
+        .info-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            color: white;
+            cursor: help;
+            margin-left: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .info-icon:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background: #38ef7d;
+            box-shadow: 0 0 10px #38ef7d;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: #333;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid #38ef7d;
+        }
+
+        .toast.error {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
             
-            // This script will now work because 'auth' and 'db' are loaded
-            // from firebase-init.js
-            auth.onAuthStateChanged(user => {
-                const isLoggedIn = !!user;
-                sessionStorage.setItem('isLoggedIn', isLoggedIn ? 'true' : ''); // Store state for other pages
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .action-buttons {
+                padding: 20px;
+            }
+        }
 
-                const accountLink = document.querySelector('a[title="Account"]');
-                const aiNotebookLink = document.querySelector('a[title="S Notebook"]');
-                const libraryLink = document.querySelector('a[title="My Library"]'); // Still need to select it, just not protecting it
+        /* Placeholder color */
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>⚙️ AI Chatbot Settings</h1>
+            <p><span class="status-indicator status-online"></span>Advanced Configuration Dashboard</p>
+        </div>
 
-                if (!isLoggedIn) {
-                    // accountLink.href is no longer changed
-                    const protectedLinks = [aiNotebookLink]; // <-- libraryLink removed
-                    
-                    // We must remove old listeners to prevent bugs
-                    protectedLinks.forEach(link => {
-                        const newLink = link.cloneNode(true);
-                        link.parentNode.replaceChild(newLink, link);
+        <!-- Settings Grid -->
+        <div class="settings-grid">
+            <!-- Personality Settings -->
+            <div class="settings-card">
+                <h2 class="card-title">🎭 Personality</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Bot Name</label>
+                    <input type="text" id="botName" placeholder="Enter bot name..." value="AI Assistant">
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Personality Type</label>
+                    <select id="personality">
+                        <option value="professional">Professional & Formal</option>
+                        <option value="friendly">Friendly & Casual</option>
+                        <option value="enthusiastic">Enthusiastic & Energetic</option>
+                        <option value="empathetic">Empathetic & Supportive</option>
+                        <option value="witty">Witty & Humorous</option>
+                        <option value="concise">Concise & Direct</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Creativity Level <span class="info-icon" title="Higher values make responses more creative and varied">?</span></label>
+                    <input type="range" id="creativity" min="0" max="100" value="70" oninput="updateRangeValue('creativity')">
+                    <span class="range-value" id="creativity-value">70%</span>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Formality Level</label>
+                    <input type="range" id="formality" min="0" max="100" value="50" oninput="updateRangeValue('formality')">
+                    <span class="range-value" id="formality-value">50%</span>
+                </div>
+            </div>
+
+            <!-- Response Settings -->
+            <div class="settings-card">
+                <h2 class="card-title">💬 Response Behavior</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Response Length</label>
+                    <select id="responseLength">
+                        <option value="brief">Brief (1-2 sentences)</option>
+                        <option value="moderate" selected>Moderate (2-4 sentences)</option>
+                        <option value="detailed">Detailed (Paragraph)</option>
+                        <option value="comprehensive">Comprehensive (Multiple paragraphs)</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Response Speed</label>
+                    <input type="range" id="responseSpeed" min="0" max="100" value="80" oninput="updateRangeValue('responseSpeed')">
+                    <span class="range-value" id="responseSpeed-value">80%</span>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Use Emojis</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="useEmojis" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Include Examples</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="includeExamples" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Ask Follow-up Questions</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="followUp" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Knowledge & Expertise -->
+            <div class="settings-card">
+                <h2 class="card-title">🧠 Knowledge Domains</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Primary Expertise Areas</label>
+                    <div class="chips-container">
+                        <div class="chip active" onclick="toggleChip(this)">Technology</div>
+                        <div class="chip active" onclick="toggleChip(this)">Business</div>
+                        <div class="chip" onclick="toggleChip(this)">Health</div>
+                        <div class="chip" onclick="toggleChip(this)">Education</div>
+                        <div class="chip active" onclick="toggleChip(this)">Science</div>
+                        <div class="chip" onclick="toggleChip(this)">Arts</div>
+                        <div class="chip" onclick="toggleChip(this)">Finance</div>
+                        <div class="chip" onclick="toggleChip(this)">Law</div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Technical Depth</label>
+                    <input type="range" id="technicalDepth" min="0" max="100" value="60" oninput="updateRangeValue('technicalDepth')">
+                    <span class="range-value" id="technicalDepth-value">60%</span>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Provide Sources & Citations</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="provideSources" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Language & Localization -->
+            <div class="settings-card">
+                <h2 class="card-title">🌍 Language & Localization</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Primary Language</label>
+                    <select id="language">
+                        <option value="en" selected>English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="zh">Chinese</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ar">Arabic</option>
+                        <option value="hi">Hindi</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Regional Variant</label>
+                    <select id="regional">
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="au">Australia</option>
+                        <option value="ca">Canada</option>
+                        <option value="in">India</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Auto-Detect Language</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoDetect" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Translation Mode</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="translation">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Memory & Context -->
+            <div class="settings-card">
+                <h2 class="card-title">💾 Memory & Context</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Context Window Size</label>
+                    <select id="contextSize">
+                        <option value="short">Short (Last 5 messages)</option>
+                        <option value="medium" selected>Medium (Last 10 messages)</option>
+                        <option value="long">Long (Last 20 messages)</option>
+                        <option value="full">Full Conversation</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Remember User Preferences</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="rememberPrefs" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Remember Past Conversations</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="rememberConvo" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Learn from Feedback</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="learnFeedback" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Memory Retention (Days)</label>
+                    <input type="number" id="retentionDays" min="1" max="365" value="30" placeholder="Days">
+                </div>
+            </div>
+
+            <!-- Privacy & Safety -->
+            <div class="settings-card">
+                <h2 class="card-title">🔒 Privacy & Safety</h2>
+                
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Content Filter</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="contentFilter" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Safety Level</label>
+                    <select id="safetyLevel">
+                        <option value="strict">Strict (Maximum protection)</option>
+                        <option value="moderate" selected>Moderate (Balanced)</option>
+                        <option value="permissive">Permissive (Minimal filtering)</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Anonymous Mode</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="anonymous">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Data Encryption</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="encryption" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Share Analytics</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="analytics">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Appearance Customization -->
+            <div class="settings-card">
+                <h2 class="card-title">🎨 Appearance</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Theme Mode</label>
+                    <select id="theme">
+                        <option value="light">Light Mode</option>
+                        <option value="dark" selected>Dark Mode</option>
+                        <option value="auto">Auto (System)</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Primary Color</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="primaryColor" value="#667eea">
+                        <span style="color: white;">Chat bubble & accent color</span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Font Size</label>
+                    <select id="fontSize">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                        <option value="xlarge">Extra Large</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Show Typing Indicator</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="typingIndicator" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Sound Effects</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="soundEffects" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Advanced AI Parameters -->
+            <div class="settings-card">
+                <h2 class="card-title">🔧 Advanced AI</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Temperature <span class="info-icon" title="Controls randomness. Lower = more focused, Higher = more creative">?</span></label>
+                    <input type="range" id="temperature" min="0" max="100" value="70" oninput="updateRangeValue('temperature')">
+                    <span class="range-value" id="temperature-value">0.7</span>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Top P (Nucleus Sampling)</label>
+                    <input type="range" id="topP" min="0" max="100" value="90" oninput="updateRangeValue('topP')">
+                    <span class="range-value" id="topP-value">0.9</span>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Frequency Penalty</label>
+                    <input type="range" id="frequencyPenalty" min="0" max="100" value="30" oninput="updateRangeValue('frequencyPenalty')">
+                    <span class="range-value" id="frequencyPenalty-value">0.3</span>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Presence Penalty</label>
+                    <input type="range" id="presencePenalty" min="0" max="100" value="30" oninput="updateRangeValue('presencePenalty')">
+                    <span class="range-value" id="presencePenalty-value">0.3</span>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Max Response Tokens</label>
+                    <input type="number" id="maxTokens" min="50" max="4000" value="2000" placeholder="Max tokens">
+                </div>
+            </div>
+
+            <!-- Integration & API -->
+            <div class="settings-card">
+                <h2 class="card-title">🔌 Integration</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">API Endpoint</label>
+                    <input type="text" id="apiEndpoint" placeholder="https://api.example.com/chat">
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">API Key</label>
+                    <input type="text" id="apiKey" placeholder="Enter your API key...">
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Model Selection</label>
+                    <select id="model">
+                        <option value="gpt4">GPT-4 (Most capable)</option>
+                        <option value="gpt35" selected>GPT-3.5 Turbo (Balanced)</option>
+                        <option value="claude">Claude (Alternative)</option>
+                        <option value="custom">Custom Model</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Webhook Integration</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="webhook">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Webhook URL</label>
+                    <input type="text" id="webhookUrl" placeholder="https://your-webhook.com/endpoint">
+                </div>
+            </div>
+
+            <!-- User Experience -->
+            <div class="settings-card">
+                <h2 class="card-title">✨ User Experience</h2>
+                
+                <div class="setting-item">
+                    <label class="setting-label">Welcome Message</label>
+                    <textarea id="welcomeMessage" placeholder="Enter custom welcome message...">Hello! I'm your AI assistant. How can I help you today?</textarea>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Error Message Template</label>
+                    <textarea id="errorMessage" placeholder="Custom error message...">I apologize, but I encountered an issue. Please try again.</textarea>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Quick Reply Suggestions</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="quickReplies" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Auto-Scroll to Latest</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoScroll" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Analytics & Monitoring -->
+            <div class="settings-card">
+                <h2 class="card-title">📊 Analytics</h2>
+                
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Enable Analytics</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="enableAnalytics" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Track User Satisfaction</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="trackSatisfaction" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Response Time Monitoring</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="responseMonitoring" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Analytics Email</label>
+                    <input type="email" id="analyticsEmail" placeholder="reports@example.com">
+                </div>
+
+                <div class="setting-item">
+                    <label class="setting-label">Report Frequency</label>
+                    <select id="reportFrequency">
+                        <option value="daily">Daily</option>
+                        <option value="weekly" selected>Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Advanced Features -->
+            <div class="settings-card">
+                <h2 class="card-title">🚀 Advanced Features</h2>
+                
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Multi-turn Conversations</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="multiTurn" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Context-Aware Responses</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="contextAware" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Sentiment Analysis</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sentiment" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Intent Recognition</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="intent" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Entity Extraction</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="entityExtraction">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item toggle-container">
+                    <label class="setting-label">Voice Input/Output</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="voice">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-success" onclick="saveSettings()">💾 Save All Settings</button>
+            <button class="btn btn-primary" onclick="testSettings()">🧪 Test Configuration</button>
+            <button class="btn btn-secondary" onclick="exportSettings()">📤 Export Settings</button>
+            <button class="btn btn-secondary" onclick="importSettings()">📥 Import Settings</button>
+            <button class="btn btn-secondary" onclick="resetSettings()">🔄 Reset to Default</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Initialize range values
+        function updateRangeValue(id) {
+            const input = document.getElementById(id);
+            const valueSpan = document.getElementById(id + '-value');
+            let value = input.value;
+
+            // Convert to decimal for certain parameters
+            if (['temperature', 'topP', 'frequencyPenalty', 'presencePenalty'].includes(id)) {
+                value = (value / 100).toFixed(2);
+            } else {
+                value = value + '%';
+            }
+
+            valueSpan.textContent = value;
+        }
+
+        // Toggle chip selection
+        function toggleChip(chip) {
+            chip.classList.toggle('active');
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            const settings = {
+                botName: document.getElementById('botName').value,
+                personality: document.getElementById('personality').value,
+                creativity: document.getElementById('creativity').value,
+                formality: document.getElementById('formality').value,
+                responseLength: document.getElementById('responseLength').value,
+                responseSpeed: document.getElementById('responseSpeed').value,
+                useEmojis: document.getElementById('useEmojis').checked,
+                includeExamples: document.getElementById('includeExamples').checked,
+                followUp: document.getElementById('followUp').checked,
+                technicalDepth: document.getElementById('technicalDepth').value,
+                provideSources: document.getElementById('provideSources').checked,
+                language: document.getElementById('language').value,
+                regional: document.getElementById('regional').value,
+                autoDetect: document.getElementById('autoDetect').checked,
+                translation: document.getElementById('translation').checked,
+                contextSize: document.getElementById('contextSize').value,
+                rememberPrefs: document.getElementById('rememberPrefs').checked,
+                rememberConvo: document.getElementById('rememberConvo').checked,
+                learnFeedback: document.getElementById('learnFeedback').checked,
+                retentionDays: document.getElementById('retentionDays').value,
+                contentFilter: document.getElementById('contentFilter').checked,
+                safetyLevel: document.getElementById('safetyLevel').value,
+                anonymous: document.getElementById('anonymous').checked,
+                encryption: document.getElementById('encryption').checked,
+                analytics: document.getElementById('analytics').checked,
+                theme: document.getElementById('theme').value,
+                primaryColor: document.getElementById('primaryColor').value,
+                fontSize: document.getElementById('fontSize').value,
+                typingIndicator: document.getElementById('typingIndicator').checked,
+                soundEffects: document.getElementById('soundEffects').checked,
+                temperature: document.getElementById('temperature').value,
+                topP: document.getElementById('topP').value,
+                frequencyPenalty: document.getElementById('frequencyPenalty').value,
+                presencePenalty: document.getElementById('presencePenalty').value,
+                maxTokens: document.getElementById('maxTokens').value,
+                apiEndpoint: document.getElementById('apiEndpoint').value,
+                apiKey: document.getElementById('apiKey').value,
+                model: document.getElementById('model').value,
+                webhook: document.getElementById('webhook').checked,
+                webhookUrl: document.getElementById('webhookUrl').value,
+                welcomeMessage: document.getElementById('welcomeMessage').value,
+                errorMessage: document.getElementById('errorMessage').value,
+                quickReplies: document.getElementById('quickReplies').checked,
+                autoScroll: document.getElementById('autoScroll').checked,
+                enableAnalytics: document.getElementById('enableAnalytics').checked,
+                trackSatisfaction: document.getElementById('trackSatisfaction').checked,
+                responseMonitoring: document.getElementById('responseMonitoring').checked,
+                analyticsEmail: document.getElementById('analyticsEmail').value,
+                reportFrequency: document.getElementById('reportFrequency').value,
+                multiTurn: document.getElementById('multiTurn').checked,
+                contextAware: document.getElementById('contextAware').checked,
+                sentiment: document.getElementById('sentiment').checked,
+                intent: document.getElementById('intent').checked,
+                entityExtraction: document.getElementById('entityExtraction').checked,
+                voice: document.getElementById('voice').checked,
+                
+                // Get active knowledge domains
+                knowledgeDomains: Array.from(document.querySelectorAll('.chip.active')).map(chip => chip.textContent)
+            };
+
+            localStorage.setItem('chatbotSettings', JSON.stringify(settings));
+            showToast('✅ Settings saved successfully!', 'success');
+        }
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const saved = localStorage.getItem('chatbotSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                
+                // Restore all settings
+                Object.keys(settings).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = settings[key];
+                        } else {
+                            element.value = settings[key];
+                        }
                         
-                        newLink.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            window.location.href = 'account-creation.html';
-                        });
-                    });
-                } else {
-                    // accountLink.href is no longer changed
-                    
-                    // Re-bind protected links to their real destinations
-                    const protectedLinks = [aiNotebookLink]; // <-- libraryLink removed
-                     protectedLinks.forEach(link => {
-                        const newLink = link.cloneNode(true);
-                        link.parentNode.replaceChild(newLink, link);
-                        
-                        // No event listener needed, the link will just work
-                    });
-                }
+                        // Update range displays
+                        if (element.type === 'range') {
+                            updateRangeValue(key);
+                        }
+                    }
+                });
+
+                showToast('⚙️ Settings loaded!', 'success');
+            }
+        }
+
+        // Export settings as JSON file
+        function exportSettings() {
+            const saved = localStorage.getItem('chatbotSettings');
+            if (saved) {
+                const blob = new Blob([saved], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'chatbot-settings.json';
+                a.click();
+                showToast('📤 Settings exported!', 'success');
+            } else {
+                showToast('⚠️ No settings to export. Save settings first.', 'error');
+            }
+        }
+
+        // Import settings from JSON file
+        function importSettings() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = event => {
+                    try {
+                        const settings = JSON.parse(event.target.result);
+                        localStorage.setItem('chatbotSettings', JSON.stringify(settings));
+                        loadSettings();
+                        showToast('📥 Settings imported successfully!', 'success');
+                    } catch (error) {
+                        showToast('❌ Invalid settings file!', 'error');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Reset to default settings
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                localStorage.removeItem('chatbotSettings');
+                location.reload();
+                showToast('🔄 Settings reset to default!', 'success');
+            }
+        }
+
+        // Test current configuration
+        function testSettings() {
+            showToast('🧪 Testing configuration...', 'success');
+            
+            setTimeout(() => {
+                const settings = {
+                    temperature: (document.getElementById('temperature').value / 100).toFixed(2),
+                    model: document.getElementById('model').value,
+                    personality: document.getElementById('personality').value
+                };
+                
+                console.log('Current Configuration:', settings);
+                showToast('✅ Configuration is valid!', 'success');
+            }, 1500);
+        }
+
+        // Get settings as object (for integration with chatbot)
+        function getSettings() {
+            const saved = localStorage.getItem('chatbotSettings');
+            return saved ? JSON.parse(saved) : null;
+        }
+
+        // Make getSettings available globally
+        window.getChatbotSettings = getSettings;
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            loadSettings();
+            // Initialize all range value displays
+            ['creativity', 'formality', 'responseSpeed', 'technicalDepth', 
+             'temperature', 'topP', 'frequencyPenalty', 'presencePenalty'].forEach(id => {
+                updateRangeValue(id);
             });
         });
+
+        // Auto-save on change (optional)
+        document.addEventListener('change', () => {
+            // Uncomment to enable auto-save
+            // saveSettings();
+        });
     </script>
-    
-    <!-- REMOVED the conflicting v9/v12 module script -->
 </body>
 </html>
-
-
-
-
-
-
