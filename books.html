@@ -22,6 +22,17 @@
         .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
         .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
         .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
+    
+        /* Added this to improve image loading */
+        img.book-cover-img {
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            background-color: var(--border-color); /* Placeholder bg */
+        }
+        /* NEW: Class to crop wide covers to the right side */
+        .book-cover-img.crop-right {
+            object-position: right;
+        }
     </style>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
@@ -681,7 +692,8 @@
             function getThumbnailUrl(driveLink) {
                 const fileId = getFileIdFromGoogleDriveLink(driveLink);
                 if (fileId) {
-                    return `https://drive.google.com/thumbnail?id=${fileId}`;
+                    // Request a 800px width thumbnail for much better quality
+                    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
                 }
                 // Fallback if the link is not a valid GDrive link
                 const textColor = (localStorage.getItem('theme') || 'light') === 'light' ? '1f2937' : 'ffffff';
@@ -698,12 +710,19 @@
                 const viewerUrl = `crystaldocs.html?url=${encodeURIComponent(book.driveLink)}&title=${encodeURIComponent(title)}`;
                 const thumbnailUrl = getThumbnailUrl(book.driveLink); // UPDATED
 
+                // NEW: Check for specific book titles to adjust cropping
+                let extraClass = '';
+                const lowerTitle = title.toLowerCase();
+                if (lowerTitle.includes('physics') || lowerTitle.includes('additional math')) {
+                    extraClass = ' crop-right';
+                }
+
                 // Use the real coverUrl, with a placeholder as a fallback
                 return `
                     <a href="${viewerUrl}" class="text-center group book-item w-full">
                         <img src="${thumbnailUrl}" 
                              alt="${title}" 
-                             class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" 
+                             class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)] book-cover-img${extraClass}" 
                              onerror="this.src='https://placehold.co/200x300/ffffff/1f2937?text=Error+Loading'">
                         <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${title}</h3>
                     </a>
@@ -731,7 +750,7 @@
 
                 return `
                     <a href="${viewerUrl}" class="text-center group book-item w-full">
-                        <img src="${thumbnailUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
+                        <img src="${thumbnailUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)] book-cover-img" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
                         <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${title}</h3>
                     </a>
                 `;
@@ -838,6 +857,18 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
