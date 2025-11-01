@@ -46,7 +46,11 @@
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber' }">
 
     <main class="min-h-screen flex items-center justify-center p-4">
-        <div class="maxw-md w-full">
+        <!-- 
+          FIX 1: Corrected typo 'maxw-md' to 'max-w-md' 
+          This ensures the card has a maximum width on desktop.
+        -->
+        <div class="max-w-md w-full">
             <div class="bg-[var(--card-bg-color)] p-8 rounded-lg shadow-md border border-[var(--border-color)]">
                 <div class="text-center mb-8">
                     <a href="index.html" class="inline-block text-5xl font-logo text-[var(--text-color)]">S</a>
@@ -60,14 +64,17 @@
                          data-callback="handleCredentialResponse"
                          data-auto_prompt="false">
                     </div>
+                    <!-- 
+                      FIX 2: Removed data-width="384"
+                      This allows the button to be responsive and fill its container.
+                    -->
                     <div class="g_id_signin"
                          data-type="standard"
                          data-shape="rectangular"
                          data-theme="outline"
                          data-text="continue_with"
                          data-size="large"
-                         data-logo_alignment="left"
-                         data-width="384">
+                         data-logo_alignment="left">
                     </div>
                 </div>
 
