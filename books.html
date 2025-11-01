@@ -168,17 +168,18 @@
                         </p>
                         <div class="space-y-4">
                             <!-- Primary One Folder -->
-                            <div class="book-section" data-section-name="primary one">
+                            <div class="book-section" data-section-name="primary one p1 cre english mathematics science social studies">
                                 <button id="p1-folder" @click="openPrimary = (openPrimary === 'p1' ? '' : 'p1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary One</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p1' }"></i>
                                 </button>
                                 <div x-show="openPrimary === 'p1' || openPrimary === 'all'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pt-6 px-4">
+                                    <!-- This div will be populated by JavaScript -->
                                     <div id="primary-one-books" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12"></div>
                                 </div>
                             </div>
                             <!-- Primary Two Folder -->
-                            <div class="book-section" data-section-name="primary two">
+                            <div class="book-section" data-section-name="primary two p2 cre english mathematics science social studies">
                                 <button id="p2-folder" @click="openPrimary = (openPrimary === 'p2' ? '' : 'p2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Two</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p2' }"></i>
@@ -188,7 +189,7 @@
                                 </div>
                             </div>
                             <!-- Primary Three Folder -->
-                            <div class="book-section" data-section-name="primary three">
+                            <div class="book-section" data-section-name="primary three p3 cre english mathematics science social studies">
                                 <button id="p3-folder" @click="openPrimary = (openPrimary === 'p3' ? '' : 'p3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Three</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p3' }"></i>
@@ -198,7 +199,7 @@
                                 </div>
                             </div>
                             <!-- Primary Four Folder -->
-                            <div class="book-section" data-section-name="primary four">
+                            <div class="book-section" data-section-name="primary four p4 cre english mathematics science social studies">
                                 <button id="p4-folder" @click="openPrimary = (openPrimary === 'p4' ? '' : 'p4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Four</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p4' }"></i>
@@ -208,7 +209,7 @@
                                 </div>
                             </div>
                             <!-- Primary Five Folder -->
-                            <div class="book-section" data-section-name="primary five">
+                            <div class="book-section" data-section-name="primary five p5 cre english mathematics science social studies">
                                 <button id="p5-folder" @click="openPrimary = (openPrimary === 'p5' ? '' : 'p5')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Five</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p5' }"></i>
@@ -218,7 +219,7 @@
                                 </div>
                             </div>
                             <!-- Primary Six Folder -->
-                            <div class="book-section" data-section-name="primary six">
+                            <div class="book-section" data-section-name="primary six p6 cre english mathematics science social studies">
                                 <button id="p6-folder" @click="openPrimary = (openPrimary === 'p6' ? '' : 'p6')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Six</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p6' }"></i>
@@ -228,7 +229,7 @@
                                 </div>
                             </div>
                             <!-- Primary Seven Folder -->
-                            <div class="book-section" data-section-name="primary seven">
+                            <div class="book-section" data-section-name="primary seven p7 cre english mathematics science social studies">
                                 <button id="p7-folder" @click="openPrimary = (openPrimary === 'p7' ? '' : 'p7')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Seven</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p7' }"></i>
@@ -238,7 +239,7 @@
                                 </div>
                             </div>
                             <!-- Primary Eight Folder -->
-                            <div class="book-section" data-section-name="primary eight">
+                            <div class="book-section" data-section-name="primary eight p8 cre english mathematics science social studies">
                                 <button id="p8-folder" @click="openPrimary = (openPrimary === 'p8' ? '' : 'p8')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2"><i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i><span class="text-xl font-semibold text-[var(--text-color)]">Primary Eight</span></div>
                                     <i data-lucide="chevron-down" class="w-5 h-5 text-[var(--text-muted-color)] transition-transform" :class="{ 'rotate-180': openPrimary === 'p8' }"></i>
@@ -273,7 +274,7 @@
                         <div class="space-y-4">
                             
                             <!-- Senior One Folder -->
-                            <div class="book-section" data-section-name="senior one s1">
+                            <div class="book-section" data-section-name="senior one s1 biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
                                 <!-- S1 Folder Button -->
                                 <button id="s1-folder" @click="openSenior = (openSenior === 's1' ? '' : 's1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
@@ -289,7 +290,7 @@
                             </div>
 
                             <!-- Senior Two Folder -->
-                            <div class="book-section" data-section-name="senior two s2">
+                            <div class="book-section" data-section-name="senior two s2 biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
                                 <button id="s2-folder" @click="openSenior = (openSenior === 's2' ? '' : 's2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -303,7 +304,7 @@
                             </div>
 
                             <!-- Senior Three Folder -->
-                            <div class="book-section" data-section-name="senior three s3">
+                            <div class="book-section" data-section-name="senior three s3 additional math biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
                                 <button id="s3-folder" @click="openSenior = (openSenior === 's3' ? '' : 's3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -317,7 +318,7 @@
                             </div>
 
                             <!-- Senior Four Folder -->
-                            <div class="book-section" data-section-name="senior four s4">
+                            <div class="book-section" data-section-name="senior four s4 additional math biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
                                 <button id="s4-folder" @click="openSenior = (openSenior === 's4' ? '' : 's4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -379,7 +380,7 @@
                 <a href="mailto:hc.wisely@gmail.com"
                    target="_blank"
                    @click="showModal = false"
-                   class="flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-semibold text-sm">
+.                  class="flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-semibold text-sm">
                     <!-- Simple Gmail-like icon -->
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     <span>Send Email via Gmail</span>
@@ -407,174 +408,317 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-            // --- Primary Book Links ---
-            const primaryOneLinks = [
-                "https://drive.google.com/file/d/10uYthpZTwLQAsCJ9tsZTlJ52goVqcFQR/view?usp=sharing",
-                "https://drive.google.com/file/d/16eQuWMghs9nAjeHXqi0Sck_eKTU8MnsG/view?usp=sharing",
-                "https://drive.google.com/file/d/1_cxeUXzNQ4hgJ3JZkm89cfCO2Vttg98X/view?usp=sharing",
-                "https://drive.google.com/file/d/11zn2tRYM7K5nZzjXps-WIdItVeyS0nMU/view?usp=sharing",
-                "https://drive.google.com/file/d/1EaQ0qRo60-YqCCOCyGnf9vvRP8iE4tPn/view?usp=sharing"
+            // --- NEW DATA STRUCTURE FOR PRIMARY ONE ---
+            const primaryOneData = [
+                {
+                    title: "Primary 1 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/10uYthpZTwLQAsCJ9tsZTlJ52goVqcFQR/view?usp=sharing"
+                },
+                {
+                    title: "Primary 1 English",
+                    driveLink: "https://drive.google.com/file/d/16eQuWMghs9nAjeHXqi0Sck_eKTU8MnsG/view?usp=sharing"
+                },
+                {
+                    title: "Primary 1 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1_cxeUXzNQ4hgJ3JZkm89cfCO2Vttg98X/view?usp=sharing"
+                },
+                {
+                    title: "Primary 1 Science",
+                    driveLink: "https://drive.google.com/file/d/11zn2tRYM7K5nZzjXps-WIdItVeyS0nMU/view?usp=sharing"
+                },
+                {
+                    title: "Primary 1 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1EaQ0qRo60-YqCCOCyGnf9vvRP8iE4tPn/view?usp=sharing"
+                }
             ];
-            const primaryTwoLinks = [
-                "https://drive.google.com/file/d/1Cg2FjPDe7X61obHvA0GLqBlM4GOg51Eg/view?usp=sharing",
-                "https://drive.google.com/file/d/1eLYRMT6lLuZSwTFedwXTLfob0VkYngsQ/view?usp=sharing",
-                "https://drive.google.com/file/d/1t3i1odpiUafgpe_sJwllmf4EYRdNdoeZ/view?usp=sharing",
-                "https://drive.google.com/file/d/1UYemb3ZQVnLJHcr1zg2JDpsLCE6AYNnF/view?usp=sharing",
-                "https://drive.google.com/file/d/16vGSZtQV7yY-JMLhTvIUT3wABDoaK1Tj/view?usp=sharing"
+
+            // --- Primary Book Data (P2-P8) ---
+            
+            // NEW: Data structure for Primary Two
+            const primaryTwoData = [
+                {
+                    title: "Primary 2 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1Cg2FjPDe7X61obHvA0GLqBlM4GOg51Eg/view?usp=sharing"
+                },
+                {
+                    title: "Primary 2 English",
+                    driveLink: "https://drive.google.com/file/d/1eLYRMT6lLuZSwTFedwXTLfob0VkYngsQ/view?usp=sharing"
+                },
+                {
+                    title: "Primary 2 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1t3i1odpiUafgpe_sJwllmf4EYRdNdoeZ/view?usp=sharing"
+                },
+                {
+                    title: "Primary 2 Science",
+                    driveLink: "https://drive.google.com/file/d/1UYemb3ZQVnLJHcr1zg2JDpsLCE6AYNnF/view?usp=sharing"
+                },
+                {
+                    title: "Primary 2 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/16vGSZtQV7yY-JMLhTvIUT3wABDoaK1Tj/view?usp=sharing"
+                }
             ];
-            const primaryThreeLinks = [
-                "https://drive.google.com/file/d/1e9YNAnP6fDqTI7WGte55LYVyqO7bB0fS/view?usp=sharing",
-                "https://drive.google.com/file/d/1ddO303Xrf5CaCadJbU6xhTtHHuu3pF9z/view?usp=sharing",
-                "https://drive.google.com/file/d/1aDU4LXGk9su4kTUWIXCimV9OKNo8adgJ/view?usp=sharing",
-                "https://drive.google.com/file/d/1rd7022MH8G-7J6GhrJVZB-1YZzRexKP4/view?usp=sharing",
-                "https://drive.google.com/file/d/1uRKll6Gog4E4975zrLhcTFbH6awsAoDX/view?usp=sharing"
+            
+            // NEW: Data structure for Primary Three
+            const primaryThreeData = [
+                {
+                    title: "Primary 3 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1e9YNAnP6fDqTI7WGte55LYVyqO7bB0fS/view?usp=sharing"
+                },
+                {
+                    title: "Primary 3 English",
+                    driveLink: "https://drive.google.com/file/d/1ddO303Xrf5CaCadJbU6xhTtHHuu3pF9z/view?usp=sharing"
+                },
+                {
+                    title: "Primary 3 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1aDU4LXGk9su4kTUWIXCimV9OKNo8adgJ/view?usp=sharing"
+                },
+                {
+                    title: "Primary 3 Science",
+                    driveLink: "https://drive.google.com/file/d/1rd7022MH8G-7J6GhrJVZB-1YZzRexKP4/view?usp=sharing"
+                },
+                {
+                    title: "Primary 3 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1uRKll6Gog4E4975zrLhcTFbH6awsAoDX/view?usp=sharing"
+                }
             ];
-            const primaryFourLinks = [
-                "https://drive.google.com/file/d/1i0jarxCJK9AK42l6Y7u8kVLvySpT0Nnb/view?usp=sharing",
-                "https://drive.google.com/file/d/1vhHNFgKCJHFGl243ZuoLgoRSD9leqDpU/view?usp=sharing",
-                "https://drive.google.com/file/d/1qGwTlLuD8Q_z1NSdB5V9kwWkG96VmqXW/view?usp=sharing",
-                "https://drive.google.com/file/d/1gDx35tPpmjT9EuONlLkjtcroNgEj-y_/view?usp=sharing",
-                "https://drive.google.com/file/d/1hyZWlL1X5fIfff2AlGjkB_eTY5AOn9ma/view?usp=sharing"
+
+            // NEW: Data structure for Primary Four
+            const primaryFourData = [
+                {
+                    title: "Primary 4 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1i0jarxCJK9AK42l6Y7u8kVLvySpT0Nnb/view?usp=sharing"
+                },
+                {
+                    title: "Primary 4 English",
+                    driveLink: "https://drive.google.com/file/d/1vhHNFgKCJHFGl243ZuoLgoRSD9leqDpU/view?usp=sharing"
+                },
+                {
+                    title: "Primary 4 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1qGwTlLuD8Q_z1NSdB5V9kwWkG96VmqXW/view?usp=sharing"
+                },
+                {
+                    title: "Primary 4 Science",
+                    driveLink: "https://drive.google.com/file/d/1gDx35tZPpmjT9EuONlLkjtcroNgEj-y_/view?usp=sharing"
+                },
+                {
+                    title: "Primary 4 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1hyZWlL1X5fIfff2AlGjkB_eTY5AOn9ma/view?usp=sharing"
+                }
             ];
-            const primaryFiveLinks = [
-                "https://drive.google.com/file/d/1dX1Ec-9Dd1D5mU9iNTlwXv_-PicU_qjq/view?usp=sharing",
-                "https://drive.google.com/file/d/1Z12pqTQnxpvezWbKweilj1vI4s-wA7Eq/view?usp=sharing",
-                "https://drive.google.com/file/d/1ZYWkutwL7_E-6V5isMd6BbBr-RCSJvst/view?usp=sharing",
-                "https://drive.google.com/file/d/15nJXuBRJA2II4NGX-cFXx6eO1puSmw-5/view?usp=sharing",
-                "https://drive.google.com/file/d/1x0HL8AP1cTinp5siJrYtdGzuiXYJ4AC_/view?usp=sharing"
+
+            // NEW: Data structure for Primary Five
+            const primaryFiveData = [
+                {
+                    title: "Primary 5 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1dX1Ec-9Dd1D5mU9iNTlwXv_-PicU_qjq/view?usp=sharing"
+                },
+                {
+                    title: "Primary 5 English",
+                    driveLink: "https://drive.google.com/file/d/1Z12pqTQnxpvezWbKweilj1vI4s-wA7Eq/view?usp=sharing"
+                },
+                {
+                    title: "Primary 5 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1ZYWkutwL7_E-6V5isMd6BbBr-RCSJvst/view?usp=sharing"
+                },
+                {
+                    title: "Primary 5 Science",
+                    driveLink: "https"
+                },
+                {
+                    title: "Primary 5 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1x0HL8AP1cTinp5siJrYtdGzuiXYJ4AC_/view?usp=sharing"
+                }
             ];
-            const primarySixLinks = [
-                "https://drive.google.com/file/d/1Jvh34rPUD3oY2oSZJKd2LheaWwcFatd9/view?usp=sharing",
-                "https://drive.google.com/file/d/1MkzQpKN_uKzFQJY2eUafQyG5Ph3b4y3F/view?usp=sharing",
-                "https://drive.google.com/file/d/10_Ssir4w9tOziBTqxzwPSzOed9kxRtzW/view?usp=sharing",
-                "https://drive.google.com/file/d/1nlBEOYNByQWDTtXt7rfs9U3SiAekC4Ub/view?usp=sharing",
-                "https://drive.google.com/file/d/10I4Qz8DVEGCyYihTFyCIhhjz8UHHMOGh/view?usp=sharing"
+
+            // NEW: Data structure for Primary Six
+            const primarySixData = [
+                {
+                    title: "Primary 6 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1Jvh34rPUD3oY2oSZJKd2LheaWwcFatd9/view?usp=sharing"
+                },
+                {
+                    title: "Primary 6 English",
+                    driveLink: "https://drive.google.com/file/d/1MkzQpKN_uKzFQJY2eUafQyG5Ph3b4y3F/view?usp=sharing"
+                },
+                {
+                    title: "Primary 6 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/10_Ssir4w9tOziBTqxzwPSzOed9kxRtzW/view?usp=sharing"
+                },
+                {
+                    title: "Primary 6 Science",
+                    driveLink: "https://drive.google.com/file/d/1nlBEOYNByQWDTtXt7rfs9U3SiAekC4Ub/view?usp=sharing"
+                },
+                {
+                    title: "Primary 6 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/10I4Qz8DVEGCyYihTFyCIhhjz8UHHMOGh/view?usp=sharing"
+                }
             ];
-            const primarySevenLinks = [
-                "https://drive.google.com/file/d/1_t0jslHzbNGzUqXLwA21GQZDVh4YurpN/view?usp=sharing",
-                "https://drive.google.com/file/d/1uoXH3AWuvvrg2wMG4ZXWe2mgcPk4bt07/view?usp=sharing",
-                "https://drive.google.com/file/d/1yiUKhd6qMNeV04MUarbr4dU1fbik52X9/view?usp=sharing",
-                "https://drive.google.com/file/d/18w-qieRIiTOEKFwlh9RfA-Ns6cQTxCXE/view?usp=sharing",
-                "https://drive.google.com/file/d/1ivaAz_M38ZQKjx4Jdqayb_AS-MNEW0mX/view?usp=sharing"
+
+            // NEW: Data structure for Primary Seven
+            const primarySevenData = [
+                {
+                    title: "Primary 7 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1_t0jslHzbNGzUqXLwA21GQZDVh4YurpN/view?usp=sharing"
+                },
+                {
+                    title: "Primary 7 English",
+                    driveLink: "https://drive.google.com/file/d/1uoXH3AWuvvrg2wMG4ZXWe2mgcPk4bt07/view?usp=sharing"
+                },
+                {
+                    title: "Primary 7 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1yiUKhd6qMNeV04MUarbr4dU1fbik52X9/view?usp=sharing"
+                },
+                {
+                    title: "Primary 7 Science",
+                    driveLink: "https://drive.google.com/file/d/18w-qieRIiTOEKFwlh9RfA-Ns6cQTxCXE/view?usp=sharing"
+                },
+                {
+                    title: "Primary 7 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1ivaAz_M38ZQKjx4Jdqayb_AS-MNEW0mX/view?usp=sharing"
+                }
             ];
-            const primaryEightLinks = [
-                "https://drive.google.com/file/d/1w8OSkwDdb2mNZ-_hFLXlgKycgcCmGXz2/view?usp=sharing",
-                "https://drive.google.com/file/d/1urlKC6KLLBcroRlH45gBWmDFV_qbHPOL/view?usp=sharing",
-                "https://drive.google.com/file/d/1HPKlXO9VBTtMVsLeVfbb9RB8Ov-RmBK3/view?usp=sharing",
-                "https://drive.google.com/file/d/1YrLbC8I7tmQ4oXYTWiOeck1zGiwXAcM4/view?usp=sharing",
-                "https://drive.google.com/file/d/1R3-bldE5WNbWFkAdvbCuDc7_FYp1e7U4/view?usp=sharing"
+
+            // NEW: Data structure for Primary Eight
+            const primaryEightData = [
+                {
+                    title: "Primary 8 C.R.E",
+                    driveLink: "https://drive.google.com/file/d/1w8OSkwDdb2mNZ-_hFLXlgKycgcCmGXz2/view?usp=sharing"
+                },
+                {
+                    title: "Primary 8 English",
+                    driveLink: "https://drive.google.com/file/d/1urlKC6KLLBcroRlH45gBWmDFV_qbHPOL/view?usp=sharing"
+                },
+                {
+                    title: "Primary 8 Mathematics",
+                    driveLink: "https://drive.google.com/file/d/1HPKlXO9VBTtMVsLeVfbb9RB8Ov-RmBK3/view?usp=sharing"
+                },
+                {
+                    title: "Primary 8 Science",
+                    driveLink: "https://drive.google.com/file/d/1YrLbC8I7tmQ4oXYTWiOeck1zGiwXAcM4/view?usp=sharing"
+                },
+                {
+                    title: "Primary 8 Social Studies",
+                    driveLink: "https://drive.google.com/file/d/1R3-bldE5WNbWFkAdvbCuDc7_FYp1e7U4/view?usp=sharing"
+                }
             ];
 
             // --- Secondary Book Links ---
-            const seniorOneLinks = [
-                "https://drive.google.com/file/d/1Z_dglxyUv6l8dEJzmoDg20fnii7-clSA/view?usp=sharing",
-                "https://drive.google.com/file/d/1WuC6Bl_BhTy4PE6Lpad-rriJkSIc99BN/view?usp=sharing",
-                "https://drive.google.com/file/d/1z0adQliHyKLdci1KmxsQUap4-okstJp3/view?usp=sharing",
-                "https://drive.google.com/file/d/1jovC3nY-XBuTSNsv5NvIQH0XkGn2UvJX/view?usp=sharing",
-                "https://drive.google.com/file/d/1EcoufB6rL76FyJyyio-8F_ma9AL8JOcv/view?usp=sharing",
-                "https://drive.google.com/file/d/1tghWgPkpnthKNncFuJ5E9u9qlYpPhNLb/view?usp=sharing",
-                "https://drive.google.com/file/d/11n8gcwV8d6rQDaFuviFDiTj88HKUhKOt/view?usp=sharing",
-                "https://drive.google.com/file/d/1vsokbxy4gAWa8Tv3s9C-su_a3_id4pHt/view?usp=sharing",
-                "https://drive.google.com/file/d/1o1hjsl2gGdiRJHJAt1x_6sDyn9I5iH3D/view?usp=sharing",
-                "https://drive.google.com/file/d/1tw1dH9exiT5PGe6f_tGnf70K9ky_ns3l/view?usp=sharing",
-                "https://drive.google.com/file/d/1B9xzv_xy38D3EBWDvn8wVx0-IHJBumGM/view?usp=sharing"
+            // NEW: Data structure for Senior One
+            const seniorOneData = [
+                { title: "Senior 1 Biology", driveLink: "https://drive.google.com/file/d/1Z_dglxyUv6l8dEJzmoDg20fnii7-clSA/view?usp=sharing" },
+                { title: "Senior 1 Chemistry", driveLink: "https://drive.google.com/file/d/1WuC6Bl_BhTy4PE6Lpad-rriJkSIc99BN/view?usp=sharing" },
+                { title: "Senior 1 Citizenship", driveLink: "https://drive.google.com/file/d/1z0adQliHyKLdci1KmxsQUap4-okstJp3/view?usp=sharing" },
+                { title: "Senior 1 C.R.E", driveLink: "https://drive.google.com/file/d/1jovC3nY-XBuTSNsv5NvIQH0XkGn2UvJX/view?usp=sharing" },
+                { title: "Senior 1 English", driveLink: "https://drive.google.com/file/d/1EcoufB6rL76FyJyyio-8F_ma9AL8JOcv/view?usp=sharing" },
+                { title: "Senior 1 Geography", driveLink: "https://drive.google.com/file/d/1tghWgPkpnthKNncFuJ5E9u9qlYpPhNLb/view?usp=sharing" },
+                { title: "Senior 1 History", driveLink: "https://drive.google.com/file/d/11n8gcwV8d6rQDaFuviFDiTj88HKUhKOt/view?usp=sharing" },
+                { title: "Senior 1 ICT", driveLink: "https://drive.google.com/file/d/1vsokbxy4gAWa8Tv3s9C-su_a3_id4pHt/view?usp=sharing" },
+                { title: "Senior 1 Kiswahili", driveLink: "https://drive.google.com/file/d/1o1hjsl2gGdiRJHJAt1x_6sDyn9I5iH3D/view?usp=sharing" },
+                { title: "Senior 1 Mathematics", driveLink: "https://drive.google.com/file/d/1tw1dH9exiT5PGe6f_tGnf70K9ky_ns3l/view?usp=sharing" },
+                { title: "Senior 1 Physics", driveLink: "https://drive.google.com/file/d/1B9xzv_xy38D3EBWDvn8wVx0-IHJBumGM/view?usp=sharing" }
             ];
 
-            const seniorTwoLinks = [
-                "https://drive.google.com/file/d/1BrUPadIyJAiwJ2ahxKJbeSEd-gAhkBJB/view?usp=sharing",
-                "https://drive.google.com/file/d/1S-767dPbYssRQHo5jl0kU0ySfCipEUdk/view?usp=sharing",
-                "https://drive.google.com/file/d/1zj5bXnRW4g8-KKW2B6RmRRlur5H_-KV-/view?usp=sharing",
-                "https://drive.google.com/file/d/1R7OZGGORmBePqvw0v2lgjTlIHkPMDfXC/view?usp=sharing",
-                "https://drive.google.com/file/d/1hE1a6pONYeLQEwucZkJR71c-CkOWs0ZD/view?usp=sharing",
-                "https://drive.google.com/file/d/1Pcw-zqDSrYg5ImoQyOIwf6fJ4Rp0zGz9/view?usp=sharing",
-                "https://drive.google.com/file/d/1yHK_OmRzOHdDLOBneR1Il5nbaG_I_DDp/view?usp=sharing",
-                "https://drive.google.com/file/d/1a5p5x6ZVwOgo0TE0_ewRNrKZIxdrIme4/view?usp=sharing",
-                "https://drive.google.com/file/d/1IgvMtFEIVXZt4OHernSTsxzoF_mJg0uM/view?usp=sharing",
-                "https://drive.google.com/file/d/1kzye2M3rz4tTTXHKqwvkBm2bJk2ofghM/view?usp=sharing",
-                "https://drive.google.com/file/d/1Cpze-MlpVU9OhhhrjhtyfaSutGiRvHnM/view?usp=sharing"
+            // NEW: Data structure for Senior Two
+            const seniorTwoData = [
+                { title: "Senior 2 Biology", driveLink: "https://drive.google.com/file/d/1BrUPadIyJAiwJ2ahxKJbeSEd-gAhkBJB/view?usp=sharing" },
+                { title: "Senior 2 Chemistry", driveLink: "https://drive.google.com/file/d/1S-767dPbYssRQHo5jl0kU0ySfCipEUdk/view?usp=sharing" },
+                { title: "Senior 2 Citizenship", driveLink: "https://drive.google.com/file/d/1zj5bXnRW4g8-KKW2B6RmRRlur5H_-KV-/view?usp=sharing" },
+                { title: "Senior 2 C.R.E", driveLink: "https://drive.google.com/file/d/1R7OZGGORmBePqvw0v2lgjTlIHkPMDfXC/view?usp=sharing" },
+                { title: "Senior 2 English", driveLink: "https://drive.google.com/file/d/1hE1a6pONYeLQEwucZkJR71c-CkOWs0ZD/view?usp=sharing" },
+                { title: "Senior 2 Geography", driveLink: "httpsA://drive.google.com/file/d/1Pcw-zqDSrYg5ImoQyOIwf6fJ4Rp0zGz9/view?usp=sharing" },
+                { title: "Senior 2 History", driveLink: "https://drive.google.com/file/d/1yHK_OmRzOHdDLOBneR1Il5nbaG_I_DDp/view?usp=sharing" },
+                { title: "Senior 2 ICT", driveLink: "https://drive.google.com/file/d/1a5p5x6ZVwOgo0TE0_ewRNrKZIxdrIme4/view?usp=sharing" },
+                { title: "Senior 2 Kiswahili", driveLink: "httpsS://drive.google.com/file/d/1IgvMtFEIVXZt4OHernSTsxzoF_mJg0uM/view?usp=sharing" },
+                { title: "Senior 2 Mathematics", driveLink: "https://drive.google.com/file/d/1kzye2M3rz4tTTXHKqwvkBm2bJk2ofghM/view?usp=sharing" },
+                { title: "Senior 2 Physics", driveLink: "https://drive.google.com/file/d/1Cpze-MlpVU9OhhhrjhtyfaSutGiRvHnM/view?usp=sharing" }
             ];
             
-            const seniorThreeLinks = [
-                "https://drive.google.com/file/d/1LomXbQ1F8l9qIHWzbAZMrbsa_5ZDP2tR/view?usp=sharing",
-                "https://drive.google.com/file/d/1gt18nnYJsgn99lCR0oh2Wz-YEovn_UI8/view?usp=sharing",
-                "https://drive.google.com/file/d/1XRvtokQt7JvOzGrmp-dywgGUKDDQ2boA/view?usp=sharing",
-                "https://drive.google.com/file/d/1wLWf7DhGrHMU0w0d6o3dE-KZFnYFOSIP/view?usp=sharing",
-                "https://drive.google.com/file/d/1KODkn0Hjvx8YnJoAXIfz_ApBUZTTBigo/view?usp=sharing",
-                "https://drive.google.com/file/d/1pT2lKKmNhWIYxpqq7VIyChmnDr8stV7I/view?usp=sharing",
-                "httpsD://drive.google.com/file/d/1eq3aVVTnOkD0RrecrCM7g_OPDcE_ISOR/view?usp=sharing",
-                "https://drive.google.com/file/d/1fx3bvQx1Htl2wsIDNGep1UMkSw3rZkTj/view?usp=sharing",
-                "https://drive.google.com/file/d/1mvTO89OynLOtsE2bSvj-2xcnCwmZHFbB/view?usp=sharing",
-                "https://drive.google.com/file/d/1xdrQY8in0FKozFwalQMrTUpYzh9gpewi/view?usp=sharing",
-                "https://drive.google.com/file/d/1aYOgE-krClsGL1vK9Ip5qEJ8XSUY0JZr/view?usp=sharing"
+            // NEW: Data structure for Senior Three
+            const seniorThreeData = [
+                { title: "Senior 3 Additional Math", driveLink: "https://drive.google.com/file/d/1LomXbQ1F8l9qIHWzbAZMrbsa_5ZDP2tR/view?usp=sharing" },
+                { title: "Senior 3 Biology", driveLink: "https://drive.google.com/file/d/1gt18nnYJsgn99lCR0oh2Wz-YEovn_UI8/view?usp=sharing" },
+                { title: "Senior 3 Chemistry", driveLink: "https://drive.google.com/file/d/1XRvtokQt7JvOzGrmp-dywgGUKDDQ2boA/view?usp=sharing" },
+                { title: "Senior 3 Citizenship", driveLink: "https://drive.google.com/file/d/1wLWf7DhGrHMU0w0d6o3dE-KZFnYFOSIP/view?usp=sharing" },
+                { title: "Senior 3 C.R.E", driveLink: "https://drive.google.com/file/d/1KODkn0Hjvx8YnJoAXIfz_ApBUZTTBigo/view?usp=sharing" },
+                { title: "Senior 3 English", driveLink: "https://drive.google.com/file/d/1pT2lKKmNhWIYxpqq7VIyChmnDr8stV7I/view?usp=sharing" },
+                { title: "Senior 3 Geography", driveLink: "httpsD://drive.google.com/file/d/1eq3aVVTnOkD0RrecrCM7g_OPDcE_ISOR/view?usp=sharing" },
+                { title: "Senior 3 History", driveLink: "https://drive.google.com/file/d/1fx3bvQx1Htl2wsIDNGep1UMkSw3rZkTj/view?usp=sharing" },
+                { title: "Senior 3 ICT", driveLink: "https://drive.google.com/file/d/1mvTO89OynLOtsE2bSvj-2xcnCwmZHFbB/view?usp=sharing" },
+                { title: "Senior 3 Kiswahili", driveLink: "https://drive.google.com/file/d/1xdrQY8in0FKozFwalQMrTUpYzh9gpewi/view?usp=drive_link" },
+                { title: "Senior 3 Mathematics", driveLink: "https://drive.google.com/file/d/1aYOgE-krClsGL1vK9Ip5qEJ8XSUY0JZr/view?usp=sharing" },
+                { title: "Senior 3 Physics", driveLink: "https://drive.google.com/file/d/1v0DujOg56GeRAnLU6fc8LDdGjR8fHQb8/view?usp=sharing" }
             ];
             
-            const seniorFourLinks = [
-                "https://drive.google.com/file/d/1dJTWykBTtdrsUni4TFRmQaucedfIDJxz/view?usp=sharing",
-                "https://drive.google.com/file/d/1Z8NsbGJsK0JlAXSWI-CcPF6mX41a2gu7/view?usp=sharing",
-                "https://drive.google.com/file/d/15gofSi0QXA7A04WDvgSrDfv34Gz8Tnrf/view?usp=sharing",
-                "https://drive.google.com/file/d/1EEGIgnVTpCBueU9qp9eYizhGvvBVe7uM/view?usp=sharing",
-                "https://drive.google.com/file/d/1aHKgeNPMKvCDrI6PbXQOkL_gXkzbPO-O/view?usp=sharing",
-                "https://drive.google.com/file/d/1NMoA_mhuJUxbbyXWpzw70K2xycZJcrHs/view?usp=sharing",
-                "https://drive.google.com/file/d/1nxVOZsMyxxvgJiMEocXzaMMUku1x3IOH/view?usp=sharing",
-                "https://drive.google.com/file/d/1sC0B7bCnYHU2yN9bPNDpI4a4AlDFoPXb/view?usp=sharing",
-                "https://drive.google.com/file/d/1H8RkGBdRfJe-m1upK2ULGnqzm6HAOnfc/view?usp=sharing",
-                "https://drive.google.com/file/d/1HWeQwXgiobrfSSy4gF00sUhYEbr4Mai7/view?usp=sharing",
-                "https://drive.google.com/file/d/1M6OXvB8FLc8ao2whjp0q0_7oi_jInAjS/view?usp=sharing",
-                "https://drive.google.com/file/d/1XKWrSzK4BaLbfcFa2eQnmVYR6QZvE_GM/view?usp=sharing"
+            // NEW: Data structure for Senior Four
+            const seniorFourData = [
+                { title: "Senior 4 Additional Math", driveLink: "https://drive.google.com/file/d/1dJTWykBTtdrsUni4TFRmQaucedfIDJxz/view?usp=sharing" },
+                { title: "Senior 4 Biology", driveLink: "https://drive.google.com/file/d/1Z8NsbGJsK0JlAXSWI-CcPF6mX41a2gu7/view?usp=sharing" },
+                { title: "Senior 4 Chemistry", driveLink: "https://drive.google.com/file/d/15gofSi0QXA7A04WDvgSrDfv34Gz8Tnrf/view?usp=sharing" },
+                { title: "Senior 4 Citizenship", driveLink: "https://drive.google.com/file/d/1EEGIgnVTpCBueU9qp9eYizhGvvBVe7uM/view?usp=sharing" },
+                { title: "Senior 4 C.R.E", driveLink: "https://drive.google.com/file/d/1aHKgeNPMKvCDrI6PbXQOkL_gXkzbPO-O/view?usp=sharing" },
+                { title: "Senior 4 English", driveLink: "https://drive.google.com/file/d/1NMoA_mhuJUxbbyXWpzw70K2xycZJcrHs/view?usp=sharing" },
+                { title: "Senior 4 Geography", driveLink: "https://drive.google.com/file/d/1nxVOZsMyxxvgJiMEocXzaMMUku1x3IOH/view?usp=sharing" },
+                { title: "Senior 4 History", driveLink: "httpss://drive.google.com/file/d/1sC0B7bCnYHU2yN9bPNDpI4a4AlDFoPXb/view?usp=sharing" },
+                { title: "Senior 4 ICT", driveLink: "https://drive.google.com/file/d/1H8RkGBdRfJe-m1upK2ULGnqzm6HAOnfc/view?usp=sharing" },
+                { title: "Senior 4 Kiswahili", driveLink: "https://drive.google.com/file/d/1HWeQwXgiobrfSSy4gF00sUhYEbr4Mai7/view?usp=sharing" },
+                { title: "Senior 4 Mathematics", driveLink: "https://drive.google.com/file/d/1M6OXvB8FLc8ao2whjp0q0_7oi_jInAjS/view?usp=sharing" },
+                { title: "Senior 4 Physics", driveLink: "https://drive.google.com/file/d/1XKWrSzK4BaLbfcFa2eQnmVYR6QZvE_GM/view?usp=sharing" }
             ];
 
             /**
-             * Creates book element for SECONDARY books
-             * Uses filename parsing to get title
+             * NEW: Helper function to get the Google Drive File ID from a URL
              */
-            /* This function is no longer used, replaced by createPrimaryBookElement
-            function createBookElement(link) {
-                const fileName = decodeURIComponent(link.split('/').pop());
-                const parts = fileName.replace('.pdf', '').replace(/%20/g, ' ').split(' ');
-                
-                let subject = "Unknown";
-                let year = "";
+            function getFileIdFromGoogleDriveLink(url) {
+                // Regex to find the File ID in various Google Drive URL formats
+                const regex = /drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]{28,})/;
+                const match = url.match(regex);
+                return match ? match[1] : null;
+            }
 
-                if (parts.includes("Additional") && parts.includes("Maths")) {
-                    subject = "Add. Maths";
-                } else if (parts.length > 2) {
-                     subject = parts[1];
-                     if(subject === "CRE") subject = "C.R.E"
+            /**
+             * NEW: Helper function to generate the thumbnail URL
+             */
+            function getThumbnailUrl(driveLink) {
+                const fileId = getFileIdFromGoogleDriveLink(driveLink);
+                if (fileId) {
+                    return `https://drive.google.com/thumbnail?id=${fileId}`;
                 }
-                
-                year = "S" + parts[2];
-                if(fileName.includes("OK_Add")) {
-                    subject = "Add. Maths";
-                    year = "S3";
-                }
-                
-                const title = `${subject} ${year}`; // Title for viewer
-
+                // Fallback if the link is not a valid GDrive link
                 const textColor = (localStorage.getItem('theme') || 'light') === 'light' ? '1f2937' : 'ffffff';
                 const bgColor = (localStorage.getItem('theme') || 'light') === 'light' ? 'ffffff' : '111827';
-                
-                const placeholderUrl = `https://placehold.co/200x300/${bgColor}/${textColor}?text=${subject.replace(' ', '+')}+${year}`;
-                
-                // MODIFIED: Link to crystaldocs.html viewer
-                const viewerUrl = `crystaldocs.html?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`;
+                return `https://placehold.co/200x300/${bgColor}/${textColor}?text=No+Preview`;
+            }
 
+
+            /**
+             * NEW: Creates a book element from a detailed book object (with title, cover, link)
+             */
+            function createBookElementFromData(book) {
+                const title = book.title;
+                const viewerUrl = `crystaldocs.html?url=${encodeURIComponent(book.driveLink)}&title=${encodeURIComponent(title)}`;
+                const thumbnailUrl = getThumbnailUrl(book.driveLink); // UPDATED
+
+                // Use the real coverUrl, with a placeholder as a fallback
                 return `
                     <a href="${viewerUrl}" class="text-center group book-item w-full">
-                        <img src="${placeholderUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
-                        <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${subject}</h3>
+                        <img src="${thumbnailUrl}" 
+                             alt="${title}" 
+                             class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" 
+                             onerror="this.src='https://placehold.co/200x300/ffffff/1f2937?text=Error+Loading'">
+                        <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${title}</h3>
                     </a>
                 `;
             }
-            */
 
             /**
-             * Creates book element for PRIMARY books
+             * RENAMED: Creates book element for books with only a link (generic placeholder)
              * Uses year and index for title as links are not descriptive
              */
-            function createPrimaryBookElement(link, primaryYear, index) {
+            function createGenericBookElement(link, primaryYear, index) {
                 // primaryYear is "Primary 1", "Primary 2", etc.
                 // index is 0, 1, 2...
                 const title = `${primaryYear} - Book ${index + 1}`;
+                const thumbnailUrl = getThumbnailUrl(link); // UPDATED
 
                 const textColor = (localStorage.getItem('theme') || 'light') === 'light' ? '1f2937' : 'ffffff';
                 const bgColor = (localStorage.getItem('theme') || 'light') === 'light' ? 'ffffff' : '111827';
@@ -587,27 +731,29 @@
 
                 return `
                     <a href="${viewerUrl}" class="text-center group book-item w-full">
-                        <img src="${placeholderUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
+                        <img src="${thumbnailUrl}" alt="${title}" class="rounded-md shadow-lg mb-2 w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105 border border-[var(--border-color)]" onerror="this.src='https://placehold.co/200x300/${bgColor}/${textColor}?text=Error'">
                         <h3 class="font-semibold text-[var(--text-color)] mt-2 group-hover:underline">${title}</h3>
                     </a>
                 `;
             }
 
             // --- Populate Primary Books ---
-            document.getElementById('primary-one-books').innerHTML = primaryOneLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 1', i)).join('');
-            document.getElementById('primary-two-books').innerHTML = primaryTwoLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 2', i)).join('');
-            document.getElementById('primary-three-books').innerHTML = primaryThreeLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 3', i)).join('');
-            document.getElementById('primary-four-books').innerHTML = primaryFourLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 4', i)).join('');
-            document.getElementById('primary-five-books').innerHTML = primaryFiveLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 5', i)).join('');
-            document.getElementById('primary-six-books').innerHTML = primarySixLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 6', i)).join('');
-            document.getElementById('primary-seven-books').innerHTML = primarySevenLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 7', i)).join('');
-            document.getElementById('primary-eight-books').innerHTML = primaryEightLinks.map((link, i) => createPrimaryBookElement(link, 'Primary 8', i)).join('');
+            // UPDATED: Use the new data and function for all Primary levels
+            document.getElementById('primary-one-books').innerHTML = primaryOneData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-two-books').innerHTML = primaryTwoData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-three-books').innerHTML = primaryThreeData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-four-books').innerHTML = primaryFourData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-five-books').innerHTML = primaryFiveData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-six-books').innerHTML = primarySixData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-seven-books').innerHTML = primarySevenData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('primary-eight-books').innerHTML = primaryEightData.map(book => createBookElementFromData(book)).join('');
 
             // --- Populate Secondary Books ---
-            document.getElementById('senior-one-books').innerHTML = seniorOneLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 1', i)).join('');
-            document.getElementById('senior-two-books').innerHTML = seniorTwoLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 2', i)).join('');
-            document.getElementById('senior-three-books').innerHTML = seniorThreeLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 3', i)).join('');
-            document.getElementById('senior-four-books').innerHTML = seniorFourLinks.map((link, i) => createPrimaryBookElement(link, 'Senior 4', i)).join('');
+            // UPDATED: Use the new data-driven function for all Senior levels
+            document.getElementById('senior-one-books').innerHTML = seniorOneData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('senior-two-books').innerHTML = seniorTwoData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('senior-three-books').innerHTML = seniorThreeData.map(book => createBookElementFromData(book)).join('');
+            document.getElementById('senior-four-books').innerHTML = seniorFourData.map(book => createBookElementFromData(book)).join('');
         });
 
         // Book viewer functions (openBookViewer, closeBookViewer) have been removed as they are no longer used.
@@ -692,6 +838,15 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 
 
