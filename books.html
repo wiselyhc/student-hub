@@ -159,6 +159,11 @@
                 <p>No books in the library match your search term.</p>
             </div>
             
+            <!-- NEW: Search Results Container -->
+            <div id="search-results-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 p-4" style="display: none;">
+                <!-- Search results will be populated here by JavaScript -->
+            </div>
+            
             <!-- Wrapper for book sections -->
             <div id="book-sections-wrapper" class="space-y-8">
                 
@@ -285,7 +290,7 @@
                         <div class="space-y-4">
                             
                             <!-- Senior One Folder -->
-                            <div class="book-section" data-section-name="senior one s1 biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
+                            <div class="book-section" data-section-name="senior one s1 biology chemistry citizenship cre english french geography history ict kiswahili mathematics physics">
                                 <!-- S1 Folder Button -->
                                 <button id="s1-folder" @click="openSenior = (openSenior === 's1' ? '' : 's1')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
@@ -301,7 +306,7 @@
                             </div>
 
                             <!-- Senior Two Folder -->
-                            <div class="book-section" data-section-name="senior two s2 biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
+                            <div class="book-section" data-section-name="senior two s2 biology chemistry citizenship cre english french geography history ict kiswahili mathematics physics">
                                 <button id="s2-folder" @click="openSenior = (openSenior === 's2' ? '' : 's2')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -315,7 +320,7 @@
                             </div>
 
                             <!-- Senior Three Folder -->
-                            <div class="book-section" data-section-name="senior three s3 additional math biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
+                            <div class="book-section" data-section-name="senior three s3 additional math biology chemistry citizenship cre english french geography history ict kiswahili mathematics physics">
                                 <button id="s3-folder" @click="openSenior = (openSenior === 's3' ? '' : 's3')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -329,7 +334,7 @@
                             </div>
 
                             <!-- Senior Four Folder -->
-                            <div class="book-section" data-section-name="senior four s4 additional math biology chemistry citizenship cre english geography history ict kiswahili mathematics physics">
+                            <div class="book-section" data-section-name="senior four s4 additional math biology chemistry citizenship cre english french geography history ict kiswahili mathematics physics">
                                 <button id="s4-folder" @click="openSenior = (openSenior === 's4' ? '' : 's4')" class="w-full flex items-center justify-between p-4 bg-[var(--bg-color)] rounded-lg transition-colors hover:bg-[var(--active-icon-bg-color)]">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="folder" class="w-5 h-5 text-[var(--text-muted-color)]"></i>
@@ -621,6 +626,7 @@
                 { title: "Senior 1 Citizenship", driveLink: "https://drive.google.com/file/d/1z0adQliHyKLdci1KmxsQUap4-okstJp3/view?usp=sharing" },
                 { title: "Senior 1 C.R.E", driveLink: "https://drive.google.com/file/d/1jovC3nY-XBuTSNsv5NvIQH0XkGn2UvJX/view?usp=sharing" },
                 { title: "Senior 1 English", driveLink: "https://drive.google.com/file/d/1EcoufB6rL76FyJyyio-8F_ma9AL8JOcv/view?usp=sharing" },
+                { title: "Senior 1 French", driveLink: "https://drive.google.com/file/d/18-rMkv4JwszwVoHCS9Rg-v81d8uOxphm/view?usp=drive_link" },
                 { title: "Senior 1 Geography", driveLink: "https://drive.google.com/file/d/1tghWgPkpnthKNncFuJ5E9u9qlYpPhNLb/view?usp=sharing" },
                 { title: "Senior 1 History", driveLink: "https://drive.google.com/file/d/11n8gcwV8d6rQDaFuviFDiTj88HKUhKOt/view?usp=sharing" },
                 { title: "Senior 1 ICT", driveLink: "https://drive.google.com/file/d/1vsokbxy4gAWa8Tv3s9C-su_a3_id4pHt/view?usp=sharing" },
@@ -636,6 +642,7 @@
                 { title: "Senior 2 Citizenship", driveLink: "https://drive.google.com/file/d/1zj5bXnRW4g8-KKW2B6RmRRlur5H_-KV-/view?usp=sharing" },
                 { title: "Senior 2 C.R.E", driveLink: "https://drive.google.com/file/d/1R7OZGGORmBePqvw0v2lgjTlIHkPMDfXC/view?usp=sharing" },
                 { title: "Senior 2 English", driveLink: "https://drive.google.com/file/d/1hE1a6pONYeLQEwucZkJR71c-CkOWs0ZD/view?usp=sharing" },
+                { title: "Senior 2 French", driveLink: "https://drive.google.com/file/d/1w7kj0Zh51GHRcKw3GDY8sQuLLQ4Q0xU0/view?usp=drive_link" },
                 { title: "Senior 2 Geography", driveLink: "httpsA://drive.google.com/file/d/1Pcw-zqDSrYg5ImoQyOIwf6fJ4Rp0zGz9/view?usp=sharing" },
                 { title: "Senior 2 History", driveLink: "https://drive.google.com/file/d/1yHK_OmRzOHdDLOBneR1Il5nbaG_I_DDp/view?usp=sharing" },
                 { title: "Senior 2 ICT", driveLink: "https://drive.google.com/file/d/1a5p5x6ZVwOgo0TE0_ewRNrKZIxdrIme4/view?usp=sharing" },
@@ -652,6 +659,7 @@
                 { title: "Senior 3 Citizenship", driveLink: "https://drive.google.com/file/d/1wLWf7DhGrHMU0w0d6o3dE-KZFnYFOSIP/view?usp=sharing" },
                 { title: "Senior 3 C.R.E", driveLink: "https://drive.google.com/file/d/1KODkn0Hjvx8YnJoAXIfz_ApBUZTTBigo/view?usp=sharing" },
                 { title: "Senior 3 English", driveLink: "https://drive.google.com/file/d/1pT2lKKmNhWIYxpqq7VIyChmnDr8stV7I/view?usp=sharing" },
+                { title: "Senior 3 French", driveLink: "https://drive.google.com/file/d/1aKH99E6HiDIBZt473vw_yTIazrbE2fUz/view?usp=drive_link" },
                 { title: "Senior 3 Geography", driveLink: "httpsD://drive.google.com/file/d/1eq3aVVTnOkD0RrecrCM7g_OPDcE_ISOR/view?usp=sharing" },
                 { title: "Senior 3 History", driveLink: "https://drive.google.com/file/d/1fx3bvQx1Htl2wsIDNGep1UMkSw3rZkTj/view?usp=sharing" },
                 { title: "Senior 3 ICT", driveLink: "https://drive.google.com/file/d/1mvTO89OynLOtsE2bSvj-2xcnCwmZHFbB/view?usp=sharing" },
@@ -665,9 +673,10 @@
                 { title: "Senior 4 Additional Math", driveLink: "https://drive.google.com/file/d/1dJTWykBTtdrsUni4TFRmQaucedfIDJxz/view?usp=sharing" },
                 { title: "Senior 4 Biology", driveLink: "https://drive.google.com/file/d/1Z8NsbGJsK0JlAXSWI-CcPF6mX41a2gu7/view?usp=sharing" },
                 { title: "Senior 4 Chemistry", driveLink: "https://drive.google.com/file/d/15gofSi0QXA7A04WDvgSrDfv34Gz8Tnrf/view?usp=sharing" },
-                { title: "Senior 4 Citizenship", driveLink: "https://drive.google.com/file/d/1EEGIgnVTpCBueU9qp9eYizhGvvBVe7uM/view?usp=sharing" },
+                { title: "Senior 4 Citizenship", driveLink: "httpss://drive.google.com/file/d/1EEGIgnVTpCBueU9qp9eYizhGvvBVe7uM/view?usp=sharing" },
                 { title: "Senior 4 C.R.E", driveLink: "https://drive.google.com/file/d/1aHKgeNPMKvCDrI6PbXQOkL_gXkzbPO-O/view?usp=sharing" },
                 { title: "Senior 4 English", driveLink: "https://drive.google.com/file/d/1NMoA_mhuJUxbbyXWpzw70K2xycZJcrHs/view?usp=sharing" },
+                { title: "Senior 4 French", driveLink: "https://drive.google.com/file/d/1hhiqlmIACHeBejKt4DwW99RXMvv5bxDZ/view?usp=drive_link" },
                 { title: "Senior 4 Geography", driveLink: "https://drive.google.com/file/d/1nxVOZsMyxxvgJiMEocXzaMMUku1x3IOH/view?usp=sharing" },
                 { title: "Senior 4 History", driveLink: "httpss://drive.google.com/file/d/1sC0B7bCnYHU2yN9bPNDpI4a4AlDFoPXb/view?usp=sharing" },
                 { title: "Senior 4 ICT", driveLink: "https://drive.google.com/file/d/1H8RkGBdRfJe-m1upK2ULGnqzm6HAOnfc/view?usp=sharing" },
@@ -713,7 +722,11 @@
                 // NEW: Check for specific book titles to adjust cropping
                 let extraClass = '';
                 const lowerTitle = title.toLowerCase();
-                if (lowerTitle.includes('physics') || lowerTitle.includes('additional math')) {
+                if (lowerTitle.includes('physics') || 
+                    lowerTitle.includes('additional math') ||
+                    lowerTitle === 'senior 1 french' ||
+                    lowerTitle === 'senior 2 french' ||
+                    lowerTitle === 'senior 4 french') {
                     extraClass = ' crop-right';
                 }
 
@@ -779,29 +792,32 @@
 
         /**
          * New local book filtering function
-         * Now searches both primary and secondary sections
+         * Now shows a flat list of search results.
          */
         function filterBooks() {
             const searchTerm = document.getElementById('local-search-input').value.toLowerCase();
-            const bookSections = document.querySelectorAll('.book-section'); // Targets both primary and senior
             const noResultsMessage = document.getElementById('no-results-message');
-            const primaryDesc = document.getElementById('library-description-primary');
-            const secondaryDesc = document.getElementById('library-description-secondary');
+            const bookSectionsWrapper = document.getElementById('book-sections-wrapper');
+            const searchResultsContainer = document.getElementById('search-results-container');
+            
+            // Get all books from the library one time.
+            // Note: This relies on the books being populated in the DOM first.
+            const allBooks = document.querySelectorAll('#book-sections-wrapper .book-item');
             
             const alpineData = document.body._x_dataStack[0];
             let totalResultsFound = 0;
 
             if (searchTerm === '') {
-                // Reset everything to default
-                bookSections.forEach(section => {
-                    section.style.display = 'block';
-                    section.querySelectorAll('.book-item').forEach(book => {
-                        book.style.display = 'block'; // Ensure parent anchor is visible
-                    });
-                });
-                if (primaryDesc) primaryDesc.style.display = 'block';
-                if (secondaryDesc) secondaryDesc.style.display = 'block';
+                // --- RESET VIEW ---
+                // Hide search results and no-results message
                 if (noResultsMessage) noResultsMessage.style.display = 'none';
+                if (searchResultsContainer) {
+                    searchResultsContainer.style.display = 'none';
+                    searchResultsContainer.innerHTML = ''; // Clear results
+                }
+                
+                // Show the main book sections
+                if (bookSectionsWrapper) bookSectionsWrapper.style.display = 'block';
                 
                 // Reset folder states
                 alpineData.mainPrimaryOpen = true; 
@@ -811,41 +827,32 @@
                 return;
             }
 
-            // --- We have a search term ---
-            if (primaryDesc) primaryDesc.style.display = 'none'; // Hide descriptions
-            if (secondaryDesc) secondaryDesc.style.display = 'none';
-            alpineData.mainPrimaryOpen = true; // Ensure main folders are open
-            alpineData.mainSecondaryOpen = true;
-            alpineData.openSenior = 'all'; // Custom value to force all senior folders open
-            alpineData.openPrimary = 'all'; // Custom value to force all primary folders open
+            // --- WE HAVE A SEARCH TERM ---
+            // Hide the main book sections
+            if (bookSectionsWrapper) bookSectionsWrapper.style.display = 'none';
+            
+            // Clear and show the search results container
+            if (searchResultsContainer) {
+                searchResultsContainer.innerHTML = ''; // Clear previous results
+                searchResultsContainer.style.display = 'grid'; // Show it
+            }
 
-            bookSections.forEach(section => {
-                let sectionResultsFound = 0;
-                const books = section.querySelectorAll('.book-item');
-                const sectionName = section.dataset.sectionName || '';
+            // Find and display matching books
+            allBooks.forEach(book => {
+                const titleElement = book.querySelector('h3');
+                let title = '';
+                if (titleElement) {
+                    title = titleElement.textContent.toLowerCase();
+                }
                 
-                books.forEach(book => {
-                    const titleElement = book.querySelector('h3');
-                    let title = '';
-                    if (titleElement) {
-                        title = titleElement.textContent.toLowerCase();
-                    }
-                    
-                    // Search book title OR section name (e.g., "primary 3")
-                    if (title.includes(searchTerm) || sectionName.includes(searchTerm)) {
-                        book.style.display = 'block'; // Ensure parent anchor is visible
-                        sectionResultsFound++;
-                    } else {
-                        book.style.display = 'none'; // Hide parent anchor
-                    }
-                });
-
-                // Show or hide the entire section (folder button + content)
-                if (sectionResultsFound > 0) {
-                    section.style.display = 'block'; 
-                    totalResultsFound += sectionResultsFound;
-                } else {
-                    section.style.display = 'none'; 
+                // Search book title
+                if (title.includes(searchTerm)) {
+                    // Clone the book element and add it to the search results
+                    const bookClone = book.cloneNode(true);
+                    // Ensure the clone is visible (in case it was hidden by a previous search)
+                    bookClone.style.display = 'block'; 
+                    searchResultsContainer.appendChild(bookClone);
+                    totalResultsFound++;
                 }
             });
 
