@@ -61,24 +61,11 @@
     }"
     :class="{ 'dark': theme === 'dark', 'cyber': theme === 'cyber', 'forest': theme === 'forest', 'ocean': theme === 'ocean', 'sunset': theme === 'sunset' }">
 
-    <!-- Floating Search + S Logo -->
+    <!-- Floating S Logo -->
     <!-- Centered on mobile, top-right on sm+ screens -->
-    <div class="fixed top-4 z-50 flex items-center space-x-2 p-2 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full shadow-lg left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:-translate-x-0">
-        <form action="books.html" method="GET" class="relative">
-            <input 
-                type="text" 
-                name="search" 
-                placeholder="Search..." 
-                class="w-48 sm:w-64 pl-5 pr-12 py-2 rounded-full text-base bg-[var(--input-bg-color)] text-[var(--text-color)] border border-[var(--input-border-color)] focus:ring-2 focus:ring-[var(--focus-ring-color)] focus:outline-none transition-all"
-            >
-            <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[var(--active-link-color)] text-[var(--bg-color)] hover:opacity-80 transition-opacity">
-                <i data-lucide="search" class="w-4 h-4"></i>
-            </button>
-        </form>
-        <a href="books.html" class="flex-shrink-0 w-10 h-10 bg-[var(--card-bg-color)] border border-[var(--border-color)] rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ease-in-out hover:scale-110" title="Go to Library">
-            <span class="font-logo text-xl text-[var(--active-link-color)]">S</span>
-        </a>
-    </div>
+    <a href="books.html" class="fixed top-4 z-50 flex-shrink-0 w-16 h-16 bg-[var(--card-bg-color)]/80 backdrop-blur-lg border border-[var(--border-color)] rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:-translate-x-0" title="Go to Library">
+        <span class="font-logo text-3xl text-[var(--active-link-color)]">S</span>
+    </a>
 
 
     <!-- Welcome Section (Hero) -->
@@ -93,7 +80,7 @@
         </div>
 
         <!-- Hero Content -->
-        <div class="relative z-10 flex flex-col items-center w-full px-4 mt-20 sm:mt-0"> <!-- Added mt-20 for spacing below floating header on mobile -->
+        <div class="relative z-10 flex flex-col items-center w-full px-4 mt-24 sm:mt-0"> <!-- Added mt-24 for spacing below floating header on mobile -->
             
             <!-- Creator's Message Card -->
             <div class="max-w-3xl w-full bg-[var(--card-bg-color)]/70 backdrop-blur-md border border-[var(--border-color)] rounded-2xl shadow-2xl p-6 md:p-10 text-left h-full">
@@ -151,7 +138,7 @@
                 <h2 class="text-3xl font-bold text-[var(--text-color)] mb-4">Our Mission</h2>
                 <p class="text-lg text-[var(--text-muted-color)] leading-relaxed mb-6">
                     We provide books and necessary learning material to Primary/Secondary students in South Sudan.
-                </p>
+                </T>
             </div>
         </div>
     </section>
@@ -180,7 +167,7 @@
     <section class="pb-20 px-4 bg-[var(--bg-color)]">
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-4xl font-extrabold text-[var(--text-color)] mb-12">What You Can Do Here</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:gric-cols-3 gap-8">
                 
                 <!-- Feature Card 1 -->
                 <div class="bg-[var(--card-bg-color)] border border-[var(--border-color)] rounded-2xl p-8 shadow-lg transform transition-transform duration-300 hover:-translate-y-2">

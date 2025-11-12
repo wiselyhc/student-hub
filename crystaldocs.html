@@ -19,11 +19,7 @@
 
         /* Copied Theme Variables from account-center.html */
         :root { --bg-color: #f3f4f6; --text-color: #1f2937; --text-muted-color: #6b7280; --card-bg-color: #ffffff; --border-color: #e5e7eb; --sidebar-bg-color: #ffffff; --sidebar-border-color: #e5e7eb; --active-icon-bg-color: #e5e7eb; --active-link-color: #1f2937; --active-tab-border-color: #111827; --input-bg-color: #ffffff; --input-border-color: #d1d5db; --focus-ring-color: #111827; }
-        .dark { --bg-color: #0f172a; --text-color: #cbd5e1; --text-muted-color: #94a3b8; --card-bg-color: #1e293b; --border-color: #334155; --sidebar-bg-color: #1e293b; --sidebar-border-color: #334155; --active-icon-bg-color: #334155; --active-link-color: #ffffff; --active-tab-border-color: #ffffff; --input-bg-color: #334155; --input-border-color: #475569; --focus-ring-color: #ffffff; }
-        .cyber { --bg-color: #0d0c22; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: rgba(30, 41, 59, 0.7); --border-color: #4f46e5; --sidebar-bg-color: #1e293b; --sidebar-border-color: #a855f7; --active-icon-bg-color: #4338ca; --active-link-color: #c7d2fe; --active-tab-border-color: #67e8f9; --input-bg-color: rgba(30, 41, 59, 0.7); --input-border-color: #4f46e5; --focus-ring-color: #67e8f9; }
-        .forest { --bg-color: #052e16; --text-color: #a7f3d0; --text-muted-color: #6ee7b7; --card-bg-color: #064e3b; --border-color: #047857; --sidebar-bg-color: #064e3b; --sidebar-border-color: #047857; --active-icon-bg-color: #047857; --active-link-color: #ffffff; --active-tab-border-color: #a7f3d0; --input-bg-color: #064e3b; --input-border-color: #047857; --focus-ring-color: #a7f3d0; }
-        .ocean { --bg-color: #0c2444; --text-color: #a5b4fc; --text-muted-color: #818cf8; --card-bg-color: #1e3a8a; --border-color: #1d4ed8; --sidebar-bg-color: #1e3a8a; --sidebar-border-color: #1d4ed8; --active-icon-bg-color: #1d4ed8; --active-link-color: #ffffff; --active-tab-border-color: #a5b4fc; --input-bg-color: #1e3a8a; --input-border-color: #1d4ed8; --focus-ring-color: #a5b4fc; }
-        .sunset { --bg-color: #450a0a; --text-color: #fca5a5; --text-muted-color: #f87171; --card-bg-color: #7f1d1d; --border-color: #b91c1c; --sidebar-bg-color: #7f1d1d; --sidebar-border-color: #b91c1c; --active-icon-bg-color: #b91c1c; --active-link-color: #ffffff; --active-tab-border-color: #fca5a5; --input-bg-color: #7f1d1d; --input-border-color: #b91c1c; --focus-ring-color: #fca5a5; }
+        /* Removed .dark, .cyber, .forest, .ocean, .sunset styles */
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
@@ -58,13 +54,11 @@
 </head>
 
 <body 
-    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300 flex flex-col" 
+    class="antialiased bg-[var(--bg-color)] text-[var(--text-color)] flex flex-col" 
     x-data="{ 
-        theme: localStorage.getItem('theme') || 'light',
         docTitle: 'Loading Document...' // State for the title
     }"
     x-init="
-        $watch('theme', val => localStorage.setItem('theme', val));
         lucide.createIcons();
         
         // --- Get URL parameters ---
@@ -142,30 +136,14 @@
              }
         }
     "
-    :class="{ 
-        'dark': theme === 'dark', 
-        'cyber': theme === 'cyber', 
-        'forest': theme === 'forest', 
-        'ocean': theme === 'ocean', 
-        'sunset': theme === 'sunset' 
-    }">
+    > <!-- Removed theme :class -->
 
     <!-- Top Bar -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[var(--header-bg, var(--card-bg-color))/80] backdrop-blur-lg border-b border-[var(--border-color)] px-6 py-3 flex items-center justify-between h-[80px]">
          <!-- Dynamic Title -->
         <h1 class="text-xl font-semibold text-[var(--text-color)] truncate" x-text="docTitle"></h1>
 
-        <!-- Theme Toggle -->
-         <button @click="
-                theme = (theme === 'light' ? 'dark' : 
-                        (theme === 'dark' ? 'cyber' : 
-                        (theme === 'cyber' ? 'forest' : 
-                        (theme === 'forest' ? 'ocean' : 
-                        (theme === 'ocean' ? 'sunset' : 'light')))));
-             " class="p-2 rounded-full text-[var(--text-muted-color)] hover:bg-[var(--active-icon-bg-color)] hover:text-[var(--active-link-color)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring-color)] focus:ring-offset-2 focus:ring-offset-[var(--bg-color)]" aria-label="Toggle Theme">
-            <i data-lucide="moon" class="w-5 h-5" x-show="theme === 'light'"></i>
-            <i data-lucide="sun" class="w-5 h-5" x-show="theme !== 'light'" x-cloak></i>
-        </button>
+        <!-- Theme Toggle Removed -->
     </header>
 
     <!-- Main Content Area (Viewer) -->
@@ -197,6 +175,22 @@
                 <i data-lucide="download" class="w-4 h-4"></i>
                 <span>Download Book</span>
             </a>
+        </div>
+
+        <!-- Ad Snippet 14 -->
+        <div class="my-8">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8973970104988973"
+                 crossorigin="anonymous"></script>
+            <!-- 14 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8973970104988973"
+                 data-ad-slot="6680353796"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </main>
 
@@ -255,7 +249,6 @@
 </script>
 </body>
 </html>
-
 
 
 
